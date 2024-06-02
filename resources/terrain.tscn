@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://dqv67owmquw0s"]
+
+[ext_resource type="TileSet" uid="uid://bgxku41wafjer" path="res://resources/terrain.tres" id="1_086ag"]
+
+[node name="Terrain" type="TileMap"]
+position = Vector2(29.9364, 6.95276)
+tile_set = ExtResource("1_086ag")
+format = 2
+layer_0/name = "floor"
+layer_1/name = "fences"
+layer_1/z_index = 1
+layer_1/tile_data = PackedInt32Array()
+layer_2/name = "lamp"
+layer_2/z_index = 2
+layer_2/tile_data = PackedInt32Array()
