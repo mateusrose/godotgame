@@ -5,25 +5,26 @@ class_name Sprite
 @onready var animation : AnimationPlayer = get_node(animation_path)
 @export var player_path: NodePath
 @onready var player: CharacterBody2D = get_node(player_path)
+@export var attack_collision_path : NodePath
+@onready var attack_collision : CollisionShape2D = get_node(attack_collision_path)
 var normal_attack:bool = false;
 var shield_off: bool = false
 var crouching_off:bool = false
 var suffix:String = "_right"
+signal game_over
 
 func _ready() -> void:
 # Check if the nodes are valid
 	if animation and player:
-		print("AnimationPlayer and CharacterBody2D nodes found.")
 		animation.animation_finished.connect(_on_animation_finished)
-		print("Connected animation_finished signal.")
 	else:
 		print("Error: Nodes not found. Check paths.")
 
 func animate(direction: Vector2) -> void:
 	verify_position(direction)
-	
-	if player.is_attacking or player.is_blocking or player.is_crouching:
-		print(player.is_blocking)
+	if player.on_hit or player.dead:
+		hit_behaviour()
+	elif player.is_attacking or player.is_blocking or player.is_crouching or player.next_to_wall():
 		action_behaviour()
 	elif  direction.y < 5.83333349225 || direction.y > 5.833334:
 		vertical_behaviour(direction)
@@ -38,13 +39,29 @@ func verify_position(direction: Vector2) -> void:
 	if direction.x > 0:
 		flip_h = false
 		suffix = "_right"
+		player.direction = -1
+		position = Vector2.ZERO
+		player.wall_ray.target_position=Vector2(11, 0)
 	elif direction.x < 0:
 		flip_h = true
 		suffix = "_left"
+		player.direction = 1
+		position = Vector2(-2,0)
+		player.wall_ray.target_position=Vector2(-13 , 0)
 		
+func hit_behaviour() -> void:
+	player.set_physics_process(false)
+	attack_collision.set_deferred("disabled", true)
+	if player.dead:
+		animation.play("dead")
+	elif player.on_hit:
+		animation.play("hit")
+
+
 func action_behaviour() -> void:
-	
-	if player.is_attacking == true and normal_attack:
+	if player.next_to_wall():
+		animation.play("wall_slide")
+	elif player.is_attacking == true and normal_attack:
 		print("bananas")
 		animation.play("attack" + suffix)
 	elif player.is_blocking and shield_off:
@@ -79,3 +96,12 @@ func _on_animation_finished(anim_name: String):
 		"attack_right":
 			player.is_attacking = false
 			normal_attack = false
+		"hit":
+			player.on_hit = false
+			player.set_physics_process(true)
+			if player.is_blocking:
+				animation.play("block")
+			if player.is_crouching:
+				animation.play("crouch")	
+		"dead":
+			emit_signal("game_over")

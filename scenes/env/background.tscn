@@ -47,3 +47,5 @@ offset_bottom = 40.0
 texture = ExtResource("3_s7mmo")
 
 [node name="CanvasModulate" parent="." instance=ExtResource("6_alwgi")]
+visible = false
+color = Color(0.0962047, 0.0962048, 0.0962047, 1)
