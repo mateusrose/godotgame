@@ -34,7 +34,7 @@ func animate(direction: Vector2) -> void:
 	else:
 		print(direction.y)
 		horizontal_behaviour(direction)
-	
+
 func verify_position(direction: Vector2) -> void:
 	if direction.x > 0:
 		flip_h = false

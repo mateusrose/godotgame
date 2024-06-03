@@ -6,7 +6,6 @@ class_name PlayerStats
 @onready var collision_area : Area2D = player.get_node("CollisionArea")
 @onready var inv_timer : Timer = $InvencibilityTimer
 
-
 var blocking: bool = false
 var base_health: int = 15
 var base_mana: int = 10
@@ -97,9 +96,9 @@ func update_mana(type:String, value:int) -> void :
 		"Decrease":
 			current_mana -= value
 			
-func _process(_delta) -> void:
-	if Input.is_action_just_pressed("ui_select"):
-		update_health("Decrease", 5)
+#func _process(_delta) -> void:
+	#if Input.is_action_just_pressed("ui_select"):
+		#update_health("Decrease", 5)
 		
 func _on_collision_area_entered(area):
 	if area.name == "EnemyAttackArea":

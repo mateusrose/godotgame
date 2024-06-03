@@ -25,6 +25,7 @@ var dead:bool = false
 
 
 func _physics_process(delta: float):
+	print("banana")
 	horizontal_movement_env()
 	vertical_movement_env()
 	actions_env()
