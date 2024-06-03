@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://brya136qofke2"]
+[gd_scene load_steps=8 format=3 uid="uid://brya136qofke2"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_k5ceq"]
 [ext_resource type="TileSet" uid="uid://bgxku41wafjer" path="res://resources/terrain.tres" id="1_q47jh"]
 [ext_resource type="PackedScene" uid="uid://cyn8gfe2qes4a" path="res://scenes/env/background.tscn" id="2_f2o1y"]
 [ext_resource type="PackedScene" uid="uid://dgtbcjdeqjpmi" path="res://scenes/player/player.tscn" id="2_j5u76"]
 [ext_resource type="PackedScene" uid="uid://oaw410be7jeu" path="res://scenes/env/mask.tscn" id="3_hmp0t"]
+[ext_resource type="PackedScene" uid="uid://dmuhqb8a2ular" path="res://scenes/enemy/whale.tscn" id="6_8fh2q"]
 
 [sub_resource type="Environment" id="Environment_ta5l0"]
 background_mode = 3
@@ -37,3 +38,8 @@ color = Color(0.12549, 0.12549, 0.12549, 1)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ta5l0")
+
+[node name="Enemy" type="Node2D" parent="."]
+
+[node name="Whale" parent="Enemy" instance=ExtResource("6_8fh2q")]
+position = Vector2(287, 117)
