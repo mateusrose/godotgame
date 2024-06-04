@@ -32,7 +32,6 @@ func animate(direction: Vector2) -> void:
 		player.set_physics_process(false)
 		animation.play("landing")
 	else:
-		print(direction.y)
 		horizontal_behaviour(direction)
 
 func verify_position(direction: Vector2) -> void:

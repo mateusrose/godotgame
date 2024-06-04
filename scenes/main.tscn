@@ -42,4 +42,4 @@ environment = SubResource("Environment_ta5l0")
 [node name="Enemy" type="Node2D" parent="."]
 
 [node name="Whale" parent="Enemy" instance=ExtResource("6_8fh2q")]
-position = Vector2(287, 117)
+position = Vector2(81, 71)
