@@ -21,23 +21,31 @@ var not_on_wall: bool = true
 @export var wall_impulse_speed: int
 var on_hit: bool = false
 var dead:bool = false
-
-
+const DASH_SPEED = 5
+var dashing = false
 
 func _physics_process(delta: float):
+	
 	horizontal_movement_env()
 	vertical_movement_env()
 	actions_env()
 	move_and_slide()
 	gravity(delta)
 	player_sprite.animate(velocity)
-		
+
 func horizontal_movement_env() -> void:
+	if Input.is_action_just_pressed("dash"):
+		dashing = true
+		$DashTimer.start()
 	var input_direction: float = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	if not can_track_input or is_attacking:
 		velocity.x = 0
 		return
 		
+	elif dashing:
+		velocity.x = input_direction * speed * DASH_SPEED
+		print(velocity.x)
+		return
 	velocity.x = input_direction * speed
 
 func vertical_movement_env():
@@ -82,7 +90,8 @@ func attack() -> void :
 	if Input.is_action_just_pressed("attack") and attack_condition and is_on_floor():
 		is_attacking = true
 		player_sprite.normal_attack = true
-		
+
+
 func crouch() -> void :
 	if Input.is_action_pressed("crouch") and is_on_floor() and not is_blocking:
 		is_crouching = true
@@ -105,3 +114,8 @@ func block() -> void :
 		can_track_input = true
 		player_sprite.shield_off = true
 	
+
+
+func _on_dash_timer_timeout():
+	dashing=false
+	#to add time between i just need to add a timer

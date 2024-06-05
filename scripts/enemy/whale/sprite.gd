@@ -2,7 +2,11 @@ extends EnemySprite
 class_name WhaleSprite
 
 func animate(velocity: Vector2) -> void:
-	move_behaviour(velocity)
+
+	if enemy.can_hit or enemy.can_die:
+		action_behaviour()
+	else:
+		move_behaviour(velocity)
 	
 func move_behaviour(velocity:Vector2) -> void:
 	if velocity.x != 0:
@@ -10,4 +14,22 @@ func move_behaviour(velocity:Vector2) -> void:
 	else:
 		animation.play("idle")
 
+func action_behaviour() -> void:
+	
+	if enemy.can_die:
+		animation.play("dead")
+		enemy.can_hit = false
+		enemy.can_attack = false
+	elif enemy.can_hit:
+		animation.play("hit")
+		enemy.can_attack = false
 
+func _on_animation_finished(anim_name: String):
+	match anim_name:
+		"hit":
+			enemy.can_hit = false
+			##off on animation
+			enemy.set_physics_process(true)
+		"dead":
+			pass
+			#enemy.kill_enemy()

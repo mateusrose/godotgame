@@ -1,13 +1,11 @@
-[gd_scene load_steps=25 format=3 uid="uid://dgtbcjdeqjpmi"]
+[gd_scene load_steps=26 format=3 uid="uid://dgtbcjdeqjpmi"]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_tv4is"]
-[ext_resource type="Texture2D" uid="uid://cyrj4mb8if4qv" path="res://assets/player/char_red.png" id="1_xx3il"]
+[ext_resource type="Texture2D" uid="uid://c1j0df8gtn3it" path="res://assets/player/char_idlewhite.png" id="2_2a5ci"]
 [ext_resource type="Script" path="res://scripts/player/player_texture.gd" id="3_4ftxm"]
 [ext_resource type="Texture2D" uid="uid://t2i4wvablxo1" path="res://assets/effect/light.png" id="4_x735s"]
+[ext_resource type="Script" path="res://scripts/player/attack_area.gd" id="4_y2ee5"]
 [ext_resource type="Script" path="res://scripts/player/player_stats.gd" id="5_q2swj"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4gpg3"]
-size = Vector2(12, 31)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_677ac"]
 size = Vector2(42, 17)
@@ -445,6 +443,9 @@ _data = {
 "light_animation": SubResource("Animation_juaop")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4gpg3"]
+size = Vector2(13, 31)
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 3
@@ -454,7 +455,7 @@ jump_speed = -175
 player_gravity = 350
 
 [node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("1_xx3il")
+texture = ExtResource("2_2a5ci")
 hframes = 8
 vframes = 11
 frame = 1
@@ -462,11 +463,6 @@ script = ExtResource("3_4ftxm")
 animation_path = NodePath("../Animation")
 player_path = NodePath("..")
 attack_collision_path = NodePath("../AttackArea/Collision")
-
-[node name="Hitbox" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(-1, 12.5)
-shape = SubResource("RectangleShape2D_4gpg3")
 
 [node name="Animation" type="AnimationPlayer" parent="."]
 libraries = {
@@ -478,9 +474,10 @@ limit_top = 0
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 
-[node name="AttackArea" type="Area2D" parent="."]
-collision_layer = 0
+[node name="AttackArea" type="Area2D" parent="." groups=["player_attack"]]
+collision_layer = 4
 collision_mask = 8
+script = ExtResource("4_y2ee5")
 
 [node name="Collision" type="CollisionShape2D" parent="AttackArea"]
 position = Vector2(-6.5, 5.5)
@@ -510,10 +507,20 @@ player_path = NodePath("..")
 [node name="InvencibilityTimer" type="Timer" parent="Stats"]
 one_shot = true
 
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 12)
+shape = SubResource("RectangleShape2D_4gpg3")
+
 [node name="CollisionArea" type="Area2D" parent="."]
+visible = false
 collision_layer = 4
 collision_mask = 0
 
 [node name="Collision" type="CollisionShape2D" parent="CollisionArea"]
-position = Vector2(-1, 12.5)
+position = Vector2(-1, 12)
 shape = SubResource("RectangleShape2D_4gpg3")
+
+[node name="DashTimer" type="Timer" parent="."]
+wait_time = 0.2
+
+[connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]

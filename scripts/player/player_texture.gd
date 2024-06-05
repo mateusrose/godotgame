@@ -61,7 +61,6 @@ func action_behaviour() -> void:
 	if player.next_to_wall():
 		animation.play("wall_slide")
 	elif player.is_attacking == true and normal_attack:
-		print("bananas")
 		animation.play("attack" + suffix)
 	elif player.is_blocking and shield_off:
 		animation.play("block")

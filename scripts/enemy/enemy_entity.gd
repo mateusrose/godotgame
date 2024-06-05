@@ -34,7 +34,6 @@ func gravity(delta: float) -> void:
 	
 func move_behaviour() -> void:
 	if player_ref != null:
-		print(player_ref)
 		var distance: Vector2 = player_ref.global_position - global_position
 		var direction: Vector2 = distance.normalized()
 		if abs(distance.x) <= proximity_threshold:
