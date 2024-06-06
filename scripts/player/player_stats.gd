@@ -39,11 +39,12 @@ var level_dict : Dictionary = {
 	"8" : 251,
 	"9" : 356
 }
-
+func _process(delta)->void:
+	print(current_health)
 func _ready() -> void:
 	current_mana = base_mana + bonus_mana
 	max_mana = current_mana
-	collision_area.area_entered.connect(_on_collision_area_entered)
+
 	inv_timer.timeout.connect(_on_invicibility_timer_timeout)
 	current_health = base_health + bonus_health
 	max_health = current_health
@@ -100,11 +101,14 @@ func update_mana(type:String, value:int) -> void :
 	#if Input.is_action_just_pressed("ui_select"):
 		#update_health("Decrease", 5)
 		
-func _on_collision_area_entered(area):
-	if area.name == "EnemyAttackArea":
-		update_health("Decrease", area.damage)
-		collision_area.set_deferred("monitoring", false)
-		inv_timer.start(area.inv_timer)
 		
 func _on_invicibility_timer_timeout()-> void:
 	collision_area.set_deferred("monitoring",true)
+
+func _on_collision_area_entered(area):
+	print(area.is_in_group("enemy_attack"))
+	if area.is_in_group("enemy_attack"):
+		print("he can attack me")
+		update_health("Decrease", area.damage)
+		collision_area.set_deferred("monitoring", false)
+		inv_timer.start(area.invicibility_time)

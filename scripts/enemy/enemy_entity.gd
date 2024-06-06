@@ -20,6 +20,7 @@ var player_ref: Player = null
 @export var gravity_speed: int
 @export var proximity_threshold: int
 @export var raycast_default_position : int
+var drop_list: Dictionary
 
 func _physics_process(delta: float) -> void:
 	gravity(delta)
@@ -38,16 +39,16 @@ func move_behaviour() -> void:
 		var direction: Vector2 = distance.normalized()
 		if abs(distance.x) <= proximity_threshold:
 			velocity.x = 0
-			#can_attack = true
+			can_attack = true
 		elif floor_collision() and not can_attack:
 			velocity.x = direction.x * speed
 		else:
 			velocity.x = 0
-			#can_attack = false
+			can_attack = false
 			
 		return
 		
-	#can_attack = false
+	can_attack = false
 	velocity.x = 0
 
 func floor_collision() -> bool:
@@ -65,3 +66,5 @@ func verify_position() -> void:
 			texture.flip_h = false
 			floor_ray.position.x = raycast_default_position
 		
+func kill_enemy()-> void:
+	animation.play("kill")

@@ -27,7 +27,6 @@ var dashing = false
 
 
 func _physics_process(delta: float):
-	
 	horizontal_movement_env()
 	vertical_movement_env()
 	actions_env()
@@ -37,9 +36,8 @@ func _physics_process(delta: float):
 
 func horizontal_movement_env() -> void:
 	if Input.is_action_just_pressed("dash") and stamina.current_stamina >= 30:
-		print(stamina.current_stamina)
 		dashing = true
-		stamina.decrease_stamina(30)
+		stamina.decrease_stamina(20)
 		$DashTimer.start()
 	var input_direction: float = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	if not can_track_input or is_attacking:
@@ -47,6 +45,9 @@ func horizontal_movement_env() -> void:
 		return
 	elif dashing:
 		velocity.x = input_direction * speed * DASH_SPEED
+		return
+	elif is_crouching:
+		velocity.x = input_direction * (speed/2)
 		return
 	velocity.x = input_direction * speed
 
@@ -89,7 +90,8 @@ func actions_env() -> void :
 	
 func attack() -> void :
 	var attack_condition: bool = not is_attacking and not is_crouching and not is_blocking
-	if Input.is_action_just_pressed("attack") and attack_condition and is_on_floor():
+	if Input.is_action_just_pressed("attack") and attack_condition and is_on_floor() and stamina.current_stamina > 30:
+		stamina.decrease_stamina(20)
 		is_attacking = true
 		player_sprite.normal_attack = true
 
@@ -98,7 +100,6 @@ func crouch() -> void :
 	if Input.is_action_pressed("crouch") and is_on_floor() and not is_blocking:
 		is_crouching = true
 		stats.blocking = false
-		can_track_input = false
 	elif not is_blocking:
 		is_crouching = false
 		can_track_input = true

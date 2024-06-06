@@ -11,6 +11,7 @@ var normal_attack:bool = false;
 var shield_off: bool = false
 var crouching_off:bool = false
 var suffix:String = "_right"
+var current_position: int
 signal game_over
 
 func _ready() -> void:
@@ -21,6 +22,9 @@ func _ready() -> void:
 		print("Error: Nodes not found. Check paths.")
 
 func animate(direction: Vector2) -> void:
+	if player.dashing:
+		animation.play("dash")
+		return
 	verify_position(direction)
 	if player.on_hit or player.dead:
 		hit_behaviour()
@@ -66,8 +70,13 @@ func action_behaviour() -> void:
 		animation.play("block")
 		shield_off = false
 	elif player.is_crouching and crouching_off:
-		animation.play("crouch")
-		crouching_off = false
+		if player.velocity.x == 0:
+			print("i am crouching")
+			animation.play("crouch")
+		else:
+			print("i am crouch walking")
+			animation.play("idle")
+		#crouching_off = false
 		
 
 func vertical_behaviour(direction: Vector2) -> void:
@@ -81,7 +90,10 @@ func horizontal_behaviour(direction: Vector2) -> void:
 	if direction.x != 0:
 		animation.play("run")
 	else:
-		animation.play("idle")
+		if player.is_crouching:
+			animation.play("crouch")
+		else:
+			animation.play("idle")
 
 func _on_animation_finished(anim_name: String):
 	match anim_name:
