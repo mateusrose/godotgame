@@ -3,6 +3,7 @@ class_name Player
 
 @onready var player_sprite: Sprite2D = $Sprite
 @onready var wall_ray: RayCast2D = $WallRay
+@onready var stamina: Node = $StaminaComponent
 @onready var stats: Node = $Stats
 @export var speed: int
 var jump_count: int = 0
@@ -24,6 +25,7 @@ var dead:bool = false
 const DASH_SPEED = 5
 var dashing = false
 
+
 func _physics_process(delta: float):
 	
 	horizontal_movement_env()
@@ -34,17 +36,17 @@ func _physics_process(delta: float):
 	player_sprite.animate(velocity)
 
 func horizontal_movement_env() -> void:
-	if Input.is_action_just_pressed("dash"):
+	if Input.is_action_just_pressed("dash") and stamina.current_stamina >= 30:
+		print(stamina.current_stamina)
 		dashing = true
+		stamina.decrease_stamina(30)
 		$DashTimer.start()
 	var input_direction: float = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	if not can_track_input or is_attacking:
 		velocity.x = 0
 		return
-		
 	elif dashing:
 		velocity.x = input_direction * speed * DASH_SPEED
-		print(velocity.x)
 		return
 	velocity.x = input_direction * speed
 
@@ -118,4 +120,3 @@ func block() -> void :
 
 func _on_dash_timer_timeout():
 	dashing=false
-	#to add time between i just need to add a timer

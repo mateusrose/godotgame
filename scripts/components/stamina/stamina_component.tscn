@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dsrsb2rni6vrc"]
+
+[ext_resource type="Script" path="res://scripts/components/stamina/stamina_component.gd" id="1_18vhu"]
+
+[node name="StaminaComponent" type="Node2D"]
+script = ExtResource("1_18vhu")
+
+[node name="StaminaRecover" type="Timer" parent="."]
+wait_time = 2.0
+
+[connection signal="timeout" from="StaminaRecover" to="." method="_on_stamina_recover_timeout"]

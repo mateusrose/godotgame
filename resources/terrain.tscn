@@ -1,10 +1,16 @@
 [gd_scene load_steps=2 format=3 uid="uid://dqv67owmquw0s"]
 
-[ext_resource type="TileSet" uid="uid://bgxku41wafjer" path="res://resources/terrain.tres" id="1_086ag"]
+[sub_resource type="TileSet" id="TileSet_gavcx"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 3
+physics_layer_0/collision_mask = 0
+terrain_set_0/mode = 0
+terrain_set_0/terrain_0/name = "tile_tilemap"
+terrain_set_0/terrain_0/color = Color(1, 1, 1, 1)
 
 [node name="Terrain" type="TileMap"]
 position = Vector2(29.9364, 6.95276)
-tile_set = ExtResource("1_086ag")
+tile_set = SubResource("TileSet_gavcx")
 format = 2
 layer_0/name = "floor"
 layer_1/name = "fences"
