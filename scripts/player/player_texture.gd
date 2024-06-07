@@ -12,6 +12,7 @@ var shield_off: bool = false
 var crouching_off:bool = false
 var suffix:String = "_right"
 var current_position: int
+var is_crouched: bool
 signal game_over
 
 func _ready() -> void:
@@ -20,6 +21,10 @@ func _ready() -> void:
 		animation.animation_finished.connect(_on_animation_finished)
 	else:
 		print("Error: Nodes not found. Check paths.")
+
+func _process(delta)-> void:
+	if Input.is_action_just_released("crouch"):
+		is_crouched = false
 
 func animate(direction: Vector2) -> void:
 	if player.dashing:
@@ -69,10 +74,13 @@ func action_behaviour() -> void:
 	elif player.is_blocking and shield_off:
 		animation.play("block")
 		shield_off = false
-	elif player.is_crouching and crouching_off:
-		if player.velocity.x == 0:
+	elif player.is_crouching:
+		if player.velocity.x == 0 and is_crouched:
+			animation.play("crouched")
+		elif player.velocity.x == 0 and not is_crouched:
 			print("i am crouching")
 			animation.play("crouch")
+			is_crouched = true
 		else:
 			print("i am crouch walking")
 			animation.play("idle")
@@ -115,3 +123,9 @@ func _on_animation_finished(anim_name: String):
 				animation.play("crouch")	
 		"dead":
 			emit_signal("game_over")
+		"idle":
+			if(player.velocity.x != 0):
+				is_crouched = false
+		"crouched":
+			if(player.velocity.x != 0):
+				is_crouched = false
