@@ -1,6 +1,8 @@
 extends EnemyTemplate
 class_name Whale
 
+
+
 func _ready():
 	randomize()
 	drop_list = {

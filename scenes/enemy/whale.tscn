@@ -10,16 +10,16 @@
 [ext_resource type="Texture2D" uid="uid://cx6myw7tjr05f" path="res://assets/enemy/whale/attack.png" id="7_es8j5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lx44c"]
-size = Vector2(62, 40)
+size = Vector2(19, 40)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ff7ns"]
-size = Vector2(450, 40)
+size = Vector2(160, 40)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o754x"]
 size = Vector2(60, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_11vtd"]
-size = Vector2(52, 40)
+size = Vector2(42, 60)
 
 [sub_resource type="Animation" id="Animation_opaea"]
 resource_name = "Idle"

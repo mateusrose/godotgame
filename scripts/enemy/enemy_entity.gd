@@ -9,6 +9,7 @@ class_name EnemyTemplate
 
 @export var animation_path:NodePath 
 @onready var animation:AnimationPlayer = get_node(animation_path)
+@onready var detection_area = $DetectionArea
 
 var can_die: bool = false
 var can_hit: bool = false
@@ -39,6 +40,7 @@ func move_behaviour() -> void:
 		var direction: Vector2 = distance.normalized()
 		if abs(distance.x) <= proximity_threshold:
 			velocity.x = 0
+			
 			can_attack = true
 		elif floor_collision() and not can_attack:
 			velocity.x = direction.x * speed
@@ -60,10 +62,12 @@ func verify_position() -> void:
 	if player_ref != null:
 		var direction:float = sign(player_ref.global_position.x - global_position.x)
 		if direction > 0:
-			texture.flip_h = true
+			texture.flip_h = false
+			detection_area.position.x = 75
 			floor_ray.position.x = abs(raycast_default_position)
 		elif direction < 0:
-			texture.flip_h = false
+			detection_area.position.x = -75
+			texture.flip_h = true
 			floor_ray.position.x = raycast_default_position
 		
 func kill_enemy()-> void:

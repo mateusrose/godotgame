@@ -1,0 +1,223 @@
+[gd_scene load_steps=17 format=3 uid="uid://o1jv4r0icgk2"]
+
+[ext_resource type="PackedScene" uid="uid://hbciu5u16rmg" path="res://scenes/enemy/enemy_entity.tscn" id="1_ewuss"]
+[ext_resource type="Script" path="res://scripts/enemy/whale/whale.gd" id="2_p2lbg"]
+[ext_resource type="Texture2D" uid="uid://ddex80f67tyxr" path="res://assets/enemy/nightborne/NightBorne.png" id="3_wj3ue"]
+[ext_resource type="Script" path="res://scripts/enemy/whale/sprite.gd" id="4_57b0l"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lx44c"]
+size = Vector2(19, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ff7ns"]
+size = Vector2(160, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o754x"]
+size = Vector2(60, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_11vtd"]
+size = Vector2(42, 60)
+
+[sub_resource type="Animation" id="Animation_t144r"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 0, 1, 2, 3, 4, 5, 6, 7, 8]
+}
+
+[sub_resource type="Animation" id="Animation_jn3xv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EnemyAttackArea/Collision:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_m2kla"]
+resource_name = "attack"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EnemyAttackArea/Collision:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.6, 0.9, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="Animation" id="Animation_gmwr5"]
+resource_name = "hit"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [69, 70, 71, 72, 73]
+}
+
+[sub_resource type="Animation" id="Animation_vfc7q"]
+resource_name = "run"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [23, 24, 25, 26, 27, 28]
+}
+
+[sub_resource type="Animation" id="Animation_4q4bg"]
+resource_name = "kill"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [113, 114]
+}
+
+[sub_resource type="Animation" id="Animation_nahxm"]
+resource_name = "death"
+length = 2.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2, 2.1, 2.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5uqmg"]
+_data = {
+"RESET": SubResource("Animation_jn3xv"),
+"attack": SubResource("Animation_m2kla"),
+"dead": SubResource("Animation_nahxm"),
+"hit": SubResource("Animation_gmwr5"),
+"idle": SubResource("Animation_t144r"),
+"kill": SubResource("Animation_4q4bg"),
+"run": SubResource("Animation_vfc7q")
+}
+
+[node name="Nighborntest" instance=ExtResource("1_ewuss")]
+position = Vector2(168, 78)
+script = ExtResource("2_p2lbg")
+speed = 80
+gravity_speed = 350
+proximity_threshold = 15
+raycast_default_position = -33
+
+[node name="Sprite" parent="." index="0"]
+position = Vector2(1, 1)
+texture = ExtResource("3_wj3ue")
+hframes = 23
+vframes = 5
+script = ExtResource("4_57b0l")
+
+[node name="Collision" parent="." index="1"]
+position = Vector2(2.5, 3)
+shape = SubResource("RectangleShape2D_lx44c")
+
+[node name="DetectionArea" parent="." index="2"]
+position = Vector2(75, 0)
+collision_layer = 4
+
+[node name="Collision" parent="DetectionArea" index="0"]
+shape = SubResource("RectangleShape2D_ff7ns")
+
+[node name="CollisionArea" parent="." index="3"]
+light_mask = 0
+visibility_layer = 0
+collision_layer = 4
+collision_mask = 4
+
+[node name="Collision" parent="CollisionArea" index="0"]
+light_mask = 1
+visibility_layer = 1
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_o754x")
+
+[node name="EnemyAttackArea" parent="." index="4" groups=["enemy_attack"]]
+collision_layer = 4
+damage = 3
+invicibility_time = 1
+
+[node name="Collision" parent="EnemyAttackArea" index="0"]
+position = Vector2(18, 1)
+shape = SubResource("RectangleShape2D_11vtd")
+disabled = true
+
+[node name="Animation" parent="." index="5"]
+libraries = {
+"": SubResource("AnimationLibrary_5uqmg")
+}
+autoplay = "idle"
+speed_scale = 2.0
+
+[node name="FloorRay" parent="." index="6"]
+position = Vector2(-33, 0)
+target_position = Vector2(0, 32)

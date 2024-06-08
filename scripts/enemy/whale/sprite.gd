@@ -1,6 +1,8 @@
 extends EnemySprite
 class_name WhaleSprite
 
+var is_dead = false
+
 func animate(velocity: Vector2) -> void:
 
 	if enemy.can_hit or enemy.can_die or enemy.can_attack:
@@ -15,7 +17,9 @@ func move_behaviour(velocity:Vector2) -> void:
 		animation.play("idle")
 
 func action_behaviour() -> void:
-	if enemy.can_die:
+	if is_dead:
+		animation.play("kill")
+	elif enemy.can_die and not is_dead:
 		animation.play("dead")
 		enemy.can_hit = false
 		enemy.can_attack = false
@@ -32,7 +36,7 @@ func _on_animation_finished(anim_name: String):
 			##off on animation
 			enemy.set_physics_process(true)
 		"dead":
-			enemy.kill_enemy()
+			is_dead = true
 		"kill":
 			enemy.queue_free()
 		"attack":

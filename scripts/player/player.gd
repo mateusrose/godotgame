@@ -25,7 +25,6 @@ var dead:bool = false
 const DASH_SPEED = 5
 var dashing = false
 
-
 func _physics_process(delta: float):
 	horizontal_movement_env()
 	vertical_movement_env()
@@ -37,10 +36,11 @@ func _physics_process(delta: float):
 func horizontal_movement_env() -> void:
 	if Input.is_action_just_pressed("dash") and stamina.current_stamina >= 30:
 		dashing = true
-		stamina.decrease_stamina(20)
+		stamina.decrease_stamina(10)
 		$DashTimer.start()
 	var input_direction: float = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	if not can_track_input or is_attacking:
+		#find another way
 		velocity.x = 0
 		return
 	elif dashing:
@@ -89,9 +89,9 @@ func actions_env() -> void :
 	block()
 	
 func attack() -> void :
-	var attack_condition: bool = not is_attacking and not is_crouching and not is_blocking
+	var attack_condition: bool = not is_attacking and not is_blocking
 	if Input.is_action_just_pressed("attack") and attack_condition and is_on_floor() and stamina.current_stamina > 30:
-		stamina.decrease_stamina(20)
+		stamina.decrease_stamina(10)
 		is_attacking = true
 		player_sprite.normal_attack = true
 

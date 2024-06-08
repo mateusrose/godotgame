@@ -23,8 +23,11 @@ func _ready() -> void:
 		print("Error: Nodes not found. Check paths.")
 
 func _process(delta)-> void:
-	if Input.is_action_just_released("crouch"):
+	#fixing crouch animation so it can also walk while crouched
+	if not Input.is_action_pressed("crouch"):
 		is_crouched = false
+	if not player.is_crouching:
+		animation.speed_scale = 1
 
 func animate(direction: Vector2) -> void:
 	if player.dashing:
@@ -70,6 +73,7 @@ func action_behaviour() -> void:
 	if player.next_to_wall():
 		animation.play("wall_slide")
 	elif player.is_attacking == true and normal_attack:
+		##ADD HERE CROUCHING TO CHECK IF ITS STEALTH ATTACK
 		animation.play("attack" + suffix)
 	elif player.is_blocking and shield_off:
 		animation.play("block")
@@ -83,7 +87,7 @@ func action_behaviour() -> void:
 			is_crouched = true
 		else:
 			print("i am crouch walking")
-			animation.play("idle")
+			animation.play("crouch_walk")
 		#crouching_off = false
 		
 
