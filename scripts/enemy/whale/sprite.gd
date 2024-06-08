@@ -19,6 +19,8 @@ func move_behaviour(velocity:Vector2) -> void:
 func action_behaviour() -> void:
 	if is_dead:
 		animation.play("kill")
+	elif enemy.is_waiting:
+		return
 	elif enemy.can_die and not is_dead:
 		animation.play("dead")
 		enemy.can_hit = false
@@ -27,6 +29,7 @@ func action_behaviour() -> void:
 		animation.play("hit")
 		enemy.can_attack = false
 	elif enemy.can_attack:
+		enemy.is_waiting = true
 		animation.play("attack")
 
 func _on_animation_finished(anim_name: String):
@@ -41,3 +44,4 @@ func _on_animation_finished(anim_name: String):
 			enemy.queue_free()
 		"attack":
 			enemy.can_attack = false
+			enemy.is_waiting = false

@@ -14,7 +14,7 @@ class_name EnemyTemplate
 var can_die: bool = false
 var can_hit: bool = false
 var can_attack: bool = false
-
+var is_waiting = false
 var player_ref: Player = null
 
 @export var speed: int
@@ -40,7 +40,6 @@ func move_behaviour() -> void:
 		var direction: Vector2 = distance.normalized()
 		if abs(distance.x) <= proximity_threshold:
 			velocity.x = 0
-			
 			can_attack = true
 		elif floor_collision() and not can_attack:
 			velocity.x = direction.x * speed

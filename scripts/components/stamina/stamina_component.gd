@@ -1,6 +1,8 @@
 extends Node
 class_name StaminaComponent
 
+@export var actor_path: NodePath
+@onready var actor : CharacterBody2D = get_node(actor_path)
 @export var base_stamina: int
 @export var bonus_stamina: int
 var current_stamina: int
@@ -14,6 +16,7 @@ func _ready() -> void:
 	current_stamina = base_stamina + bonus_stamina
 	max_stamina = current_stamina
 	increase_rate_stamina = max_stamina/2
+	
 	if stamina_recover_timer == null:
 		stamina_recover_timer = Timer.new()
 		stamina_recover_timer.name = "StaminaRecover"
@@ -24,6 +27,17 @@ func _ready() -> void:
 	stamina_recover_timer.stop()  # Ensure the timer is stopped initially
 	stamina_recover_timer.start()
 
+func change(arg:String, value:int)->void:
+	match arg:
+		"increase":
+			increase_stamina(value)
+		"decrease":
+			decrease_stamina(value)
+		"increase_bonus":
+			increase_bonus_stamina(value)
+		"decrease_bonus":
+			decrease_bonus_stamina(value)
+
 func increase_stamina(value:int)->void:
 	current_stamina += value
 	if current_stamina > max_stamina:
@@ -31,9 +45,7 @@ func increase_stamina(value:int)->void:
 
 func decrease_stamina(value:int)->void:
 	current_stamina -= value
-	print("menos stamina")
 	if current_stamina <= 0:
-		print("stamina = 0")
 		current_stamina = 0
 		emit_signal("stamina_depleted")
 	previous_stamina = current_stamina
@@ -52,5 +64,4 @@ func decrease_bonus_stamina(value:int)-> void:
 
 func _on_stamina_recover_timeout():
 	if previous_stamina <= current_stamina and current_stamina != max_stamina:
-		print("i am recovering")
 		increase_stamina(increase_rate_stamina)

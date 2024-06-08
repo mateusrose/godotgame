@@ -731,13 +731,11 @@ collision_mask = 8
 script = ExtResource("4_y2ee5")
 
 [node name="Collision" type="CollisionShape2D" parent="AttackArea"]
-visible = false
 position = Vector2(-6.5, 5.5)
 shape = SubResource("RectangleShape2D_677ac")
 disabled = true
 
 [node name="WallRay" type="RayCast2D" parent="."]
-visible = false
 target_position = Vector2(11, 0)
 collision_mask = 3
 

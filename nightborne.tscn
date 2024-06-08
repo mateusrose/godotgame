@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://cemf2cahafpnx"]
+
+[ext_resource type="PackedScene" uid="uid://dsrsb2rni6vrc" path="res://scripts/components/stamina/stamina_component.tscn" id="1_mmtwa"]
+[ext_resource type="PackedScene" uid="uid://cps2odid6cxyt" path="res://scripts/components/health_component.tscn" id="2_1jyxr"]
+[ext_resource type="Script" path="res://scripts/components/fsm.gd" id="3_o8vn8"]
+
+[node name="Nightborne" type="Node2D"]
+
+[node name="StaminaComponent" parent="." instance=ExtResource("1_mmtwa")]
+actor_path = NodePath("..")
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_1jyxr")]
+actor_path = NodePath("..")
+
+[node name="FSM" type="Node2D" parent="."]
+script = ExtResource("3_o8vn8")

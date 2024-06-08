@@ -1,7 +1,7 @@
 extends Node
 
 class_name DefenseComponent
-
+@export var actor: CharacterBody2D
 @export var base_defense: int = 1
 @export var bonus_defense: int = 0
 var current_defense: int
