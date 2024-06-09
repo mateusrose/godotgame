@@ -28,7 +28,6 @@ func process_physics(delta:float) -> State:
 	return null
 	
 func exit():
-	print(" I AM OUT BITCHESSSSSSSSSSSSSSSS")
 	landing = false
 
 func _on_animation_animation_finished(anim_name):
@@ -36,6 +35,6 @@ func _on_animation_animation_finished(anim_name):
 		"landing":
 			landing = false
 
-
+#the timer ensures we leave landing state
 func _on_land_timer_timeout():
 	landing = false

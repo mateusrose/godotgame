@@ -1,7 +1,8 @@
-[gd_scene load_steps=43 format=3 uid="uid://b6iusifmurmjl"]
+[gd_scene load_steps=49 format=3 uid="uid://b6iusifmurmjl"]
 
 [ext_resource type="Script" path="res://scenes/player/player_character.gd" id="1_m2148"]
 [ext_resource type="Texture2D" uid="uid://cxstjymf6tbxm" path="res://assets/player/char_blue (copy).png" id="1_vl5uh"]
+[ext_resource type="Texture2D" uid="uid://dnwehye7g0y41" path="res://assets/player/test_demon.png" id="2_c2ge5"]
 [ext_resource type="Texture2D" uid="uid://t2i4wvablxo1" path="res://assets/effect/light.png" id="4_uklng"]
 [ext_resource type="Script" path="res://scripts/player/player_stats.gd" id="5_e1vb6"]
 [ext_resource type="PackedScene" uid="uid://cps2odid6cxyt" path="res://scripts/components/health_component.tscn" id="6_3oswi"]
@@ -20,6 +21,69 @@
 [ext_resource type="Script" path="res://scenes/player/NoAction.gd" id="18_2fg1f"]
 [ext_resource type="Script" path="res://scenes/player/Dashnewfsm.gd" id="20_kvn5h"]
 [ext_resource type="Script" path="res://scenes/player/Attack.gd" id="20_mbwnp"]
+[ext_resource type="Script" path="res://scenes/player/DemonMode.gd" id="21_gjvwr"]
+
+[sub_resource type="Animation" id="Animation_erjj0"]
+resource_name = "demon_power"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DemonSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.1001, 0.2, 0.2001),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 2, 1, 1, 2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DemonSprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("2_c2ge5"), ExtResource("2_c2ge5")]
+}
+
+[sub_resource type="Animation" id="Animation_on188"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DemonSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DemonSprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lewq7"]
+_data = {
+"RESET": SubResource("Animation_on188"),
+"demon_power": SubResource("Animation_erjj0")
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_677ac"]
 size = Vector2(42, 17)
@@ -619,6 +683,34 @@ tracks/1/keys = {
 "values": [1.0]
 }
 
+[sub_resource type="Animation" id="Animation_4itry"]
+resource_name = "demon"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [61, 62, 63]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Animation:speed_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.5, 0.5, 1.0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tn1lb"]
 _data = {
 "RESET": SubResource("Animation_cxunu"),
@@ -630,6 +722,7 @@ _data = {
 "crouched": SubResource("Animation_ihqlr"),
 "dash": SubResource("Animation_xo5mq"),
 "dead": SubResource("Animation_6f3s2"),
+"demon": SubResource("Animation_4itry"),
 "fall": SubResource("Animation_63r0n"),
 "hit": SubResource("Animation_c5qpv"),
 "idle": SubResource("Animation_ki05w"),
@@ -708,6 +801,14 @@ _data = {
 collision_layer = 4
 script = ExtResource("1_m2148")
 
+[node name="DemonAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_lewq7")
+}
+
+[node name="DemonSprite" type="Sprite2D" parent="."]
+hframes = 3
+
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_vl5uh")
 hframes = 8
@@ -767,11 +868,8 @@ collision_mask = 12
 position = Vector2(-1, 12)
 shape = SubResource("RectangleShape2D_4gpg3")
 
-[node name="DashTimer" type="Timer" parent="."]
-wait_time = 0.2
-
-[node name="LightAnimation" type="AnimationPlayer" parent="DashTimer"]
-root_node = NodePath("../../PointLight2D")
+[node name="LightAnimation" type="AnimationPlayer" parent="."]
+root_node = NodePath("../PointLight2D")
 libraries = {
 "": SubResource("AnimationLibrary_vqx8p")
 }
@@ -804,12 +902,13 @@ animation = NodePath("../../Animation")
 animation_name = "idle"
 sprite = NodePath("../../Sprite")
 
-[node name="Jump" type="Node" parent="MovementState" node_paths=PackedStringArray("fall_state", "idle_state", "run_state", "jump_state", "character", "animation", "sprite")]
+[node name="Jump" type="Node" parent="MovementState" node_paths=PackedStringArray("fall_state", "idle_state", "run_state", "jump_state", "crouch_state", "character", "animation", "sprite")]
 script = ExtResource("10_j14sn")
 fall_state = NodePath("../Fall")
 idle_state = NodePath("../Idle")
 run_state = NodePath("../Run")
 jump_state = NodePath(".")
+crouch_state = NodePath("../Crouch")
 character = NodePath("../..")
 animation = NodePath("../../Animation")
 animation_name = "jump"
@@ -895,10 +994,11 @@ character = NodePath("..")
 animation = NodePath("../Animation")
 starting_state = NodePath("NoAction")
 
-[node name="NoAction" type="Node" parent="ActionState" node_paths=PackedStringArray("attack_state", "dash_state", "character", "animation", "sprite")]
+[node name="NoAction" type="Node" parent="ActionState" node_paths=PackedStringArray("attack_state", "dash_state", "demon_state", "character", "animation", "sprite")]
 script = ExtResource("18_2fg1f")
 attack_state = NodePath("../Attack")
 dash_state = NodePath("../Dash")
+demon_state = NodePath("../DemonMode")
 character = NodePath("../..")
 animation = NodePath("../../Animation")
 sprite = NodePath("../../Sprite")
@@ -926,7 +1026,27 @@ sprite = NodePath("../../Sprite")
 wait_time = 0.533
 one_shot = true
 
+[node name="DemonMode" type="Node" parent="ActionState" node_paths=PackedStringArray("no_action_state", "demon_animation", "crouch_state", "character", "animation", "sprite")]
+script = ExtResource("21_gjvwr")
+no_action_state = NodePath("../NoAction")
+demon_animation = NodePath("../../DemonAnimation")
+crouch_state = NodePath("../../MovementState/Crouch")
+character = NodePath("../..")
+animation = NodePath("../../Animation")
+animation_name = "demon"
+sprite = NodePath("../../Sprite")
+
+[node name="DemonTimer" type="Timer" parent="ActionState/DemonMode"]
+wait_time = 10.0
+one_shot = true
+
+[node name="AnimTime" type="Timer" parent="ActionState/DemonMode"]
+wait_time = 0.3
+one_shot = true
+
 [connection signal="animation_finished" from="Animation" to="MovementState/Land" method="_on_animation_animation_finished"]
 [connection signal="timeout" from="MovementState/Land/LandTimer" to="MovementState/Land" method="_on_land_timer_timeout"]
 [connection signal="timeout" from="ActionState/Dash/DashTimer" to="ActionState/Dash" method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="ActionState/Attack/AttackTimer" to="ActionState/Attack" method="_on_timer_timeout"]
+[connection signal="timeout" from="ActionState/DemonMode/DemonTimer" to="ActionState/DemonMode" method="_on_demon_timer_timeout"]
+[connection signal="timeout" from="ActionState/DemonMode/AnimTime" to="ActionState/DemonMode" method="_on_anim_time_timeout"]

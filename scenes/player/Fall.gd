@@ -13,7 +13,7 @@ func process_input(event: InputEvent) -> State:
 
 func process_physics(delta:float) -> State:
 	character.velocity.y += character.PLAYER_GRAVITY * delta * character.MULTIPLIER
-	var movement = Input.get_axis("move_left","move_right") * character.SPEED
+	var movement = Input.get_axis("move_left","move_right") * character.SPEED * character.MULTIPLIER
 	if movement != 0:
 		sprite.flip_h = (movement < 0)
 	character.velocity.x = movement

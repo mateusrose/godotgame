@@ -33,7 +33,7 @@ func verify_position(direction: Vector2) -> void:
 	if direction.x > 0:
 		sprite.flip_h = false
 		suffix = "_right"
-		sprite.position = Vector2.ZERO
+		sprite.position = Vector2(2,0)
 		wall_ray.target_position=Vector2(7, 0)
 	elif direction.x < 0:
 		sprite.flip_h = true

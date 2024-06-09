@@ -10,6 +10,7 @@ extends State
 func process_input(event: InputEvent) -> State:
 	if Input.is_action_pressed("crouch"):
 		if Input.is_action_just_pressed("jump") and character.is_on_floor():
+			character.JUMP_SPEED *= crouch_state.crouch_multiplier
 			return jump_state
 		return null
 	if character.velocity.x != 0:

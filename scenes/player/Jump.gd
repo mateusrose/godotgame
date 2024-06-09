@@ -4,6 +4,7 @@ extends State
 @export var idle_state: State
 @export var run_state: State
 @export var jump_state : State
+@export var crouch_state : State
 
 var max_jumps = 3
 var current_jumps = 0
@@ -15,6 +16,10 @@ func enter() -> void:
 		character.velocity.y = character.JUMP_SPEED
 		current_jumps += 1
 		print("im on", current_jumps)
+	if character.JUMP_SPEED < -400:
+		character.JUMP_SPEED = -350
+	if character.JUMP_SPEED > -300:
+		character.JUMP_SPEED = -175
 
 func process_input(event: InputEvent) -> State:
 	if Input.is_action_just_pressed("jump"):

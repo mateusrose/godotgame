@@ -5,6 +5,7 @@ extends State
 @export var run_state : State
 @export var idle_state: State
 @export var crouch_walk_state : State
+var crouch_multiplier = 1.5
 
 func enter()-> void:
 	super()
@@ -14,6 +15,7 @@ func enter()-> void:
 func process_input(event: InputEvent) -> State:
 	if Input.is_action_pressed("crouch"):
 		if Input.is_action_just_pressed("jump") and character.is_on_floor():
+			character.JUMP_SPEED *= crouch_multiplier
 			return jump_state
 		if Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right"):
 			return crouch_walk_state
