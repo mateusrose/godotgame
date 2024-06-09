@@ -6,7 +6,7 @@ class_name Sprite
 @export var player_path: NodePath
 @onready var player: CharacterBody2D = get_node(player_path)
 @export var attack_collision_path : NodePath
-@onready var attack_collision : CollisionShape2D = get_node(attack_collision_path)
+@onready var attack_collision : Area2D = get_node(attack_collision_path)
 var normal_attack:bool = false;
 var shield_off: bool = false
 var crouching_off:bool = false

@@ -1,13 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://q7uji5ys1g05"]
+[gd_scene load_steps=7 format=3 uid="uid://q7uji5ys1g05"]
 
 [ext_resource type="PackedScene" uid="uid://bhk4ek2du4d80" path="res://scenes/env/backgroundcyber.tscn" id="1_s0sos"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_yiwd4"]
 [ext_resource type="PackedScene" uid="uid://dqv67owmquw0s" path="res://resources/terrain.tscn" id="2_q8lrf"]
 [ext_resource type="TileSet" uid="uid://bgxku41wafjer" path="res://resources/terrain.tres" id="3_m6yhj"]
 [ext_resource type="PackedScene" uid="uid://oaw410be7jeu" path="res://scenes/env/mask.tscn" id="3_mdw2i"]
-[ext_resource type="PackedScene" uid="uid://dgtbcjdeqjpmi" path="res://scenes/player/player.tscn" id="4_b41or"]
-[ext_resource type="PackedScene" uid="uid://dmuhqb8a2ular" path="res://scenes/enemy/whale.tscn" id="7_ivjqd"]
-[ext_resource type="PackedScene" uid="uid://o1jv4r0icgk2" path="res://scenes/enemy/nighborntest.tscn" id="8_v34js"]
+[ext_resource type="PackedScene" uid="uid://b6iusifmurmjl" path="res://scenes/player/player_character.tscn" id="8_knw4e"]
 
 [node name="DemoLevel" type="Node2D"]
 script = ExtResource("1_yiwd4")
@@ -22,32 +20,5 @@ layer_0/tile_data = PackedInt32Array(1376249, 131074, 2, 1310713, 131074, 1, 124
 [node name="CanvasModulate" parent="." instance=ExtResource("3_mdw2i")]
 color = Color(0.165656, 0.165656, 0.165656, 1)
 
-[node name="Player" parent="." instance=ExtResource("4_b41or")]
-position = Vector2(160, 269)
-
-[node name="Whale2" parent="." instance=ExtResource("7_ivjqd")]
-position = Vector2(653, 604)
-
-[node name="Whale3" parent="." instance=ExtResource("7_ivjqd")]
-position = Vector2(1724, 611)
-
-[node name="Whale5" parent="." instance=ExtResource("7_ivjqd")]
-position = Vector2(2214, 606)
-
-[node name="Whale6" parent="." instance=ExtResource("7_ivjqd")]
-position = Vector2(2409, 600)
-
-[node name="Whale8" parent="." instance=ExtResource("7_ivjqd")]
-position = Vector2(2545, 543)
-
-[node name="Nighborntest" parent="." instance=ExtResource("8_v34js")]
-position = Vector2(1187, 240)
-
-[node name="Nighborntest2" parent="." instance=ExtResource("8_v34js")]
-position = Vector2(1331, 593)
-
-[node name="Nighborntest3" parent="." instance=ExtResource("8_v34js")]
-position = Vector2(1204, 589)
-
-[node name="Nighborntest4" parent="." instance=ExtResource("8_v34js")]
-position = Vector2(1567, 493)
+[node name="Player" parent="." instance=ExtResource("8_knw4e")]
+position = Vector2(139, 167)
