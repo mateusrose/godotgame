@@ -4,6 +4,7 @@ var on_wall = false
 @export var wall_gravity: int
 @export var fall_state: State
 @export var jump_state : State
+@export var hit_state: State
 
 
 func process_input(event: InputEvent) -> State:
@@ -12,6 +13,8 @@ func process_input(event: InputEvent) -> State:
 	return null
 
 func process_physics(delta:float) -> State:
+	if get_parent().is_hit:
+		return hit_state
 	if next_to_wall():
 		jump_state.reset_jumps()
 		character.velocity.y += wall_gravity * delta

@@ -15,7 +15,7 @@ var can_die: bool = false
 var can_hit: bool = false
 var can_attack: bool = false
 var is_waiting = false
-var player_ref: Player = null
+var player_ref: Player_Character = null
 
 @export var speed: int
 @export var gravity_speed: int
@@ -36,6 +36,7 @@ func gravity(delta: float) -> void:
 	
 func move_behaviour() -> void:
 	if player_ref != null:
+		print("SUPER BANANASSSSSSSSSSSSSSSSS")
 		var distance: Vector2 = player_ref.global_position - global_position
 		var direction: Vector2 = distance.normalized()
 		if abs(distance.x) <= proximity_threshold:

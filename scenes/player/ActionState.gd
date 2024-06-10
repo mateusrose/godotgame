@@ -2,6 +2,7 @@ extends Node
 @export var character : CharacterBody2D
 @export var animation : AnimationPlayer
 @export var starting_state: State
+
 var current_state : State
 
 func init():

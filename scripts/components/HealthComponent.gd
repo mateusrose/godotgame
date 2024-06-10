@@ -5,6 +5,7 @@ class_name HealthComponent
 @onready var actor : CharacterBody2D = get_node(actor_path)
 @export var base_health: int
 @export var bonus_health: int
+var can_take_damage = true
 var current_health: int
 var max_health: int
 signal health_depleted
@@ -20,7 +21,8 @@ func change(arg:String, value:int)->void:
 		"increase":
 			_increase_health(value)
 		"decrease":
-			_decrease_health(value)
+			if can_take_damage:
+				_decrease_health(value)
 		"increase_bonus":
 			_increase_bonus_health(value)
 		"decrease_bonus":
@@ -35,6 +37,7 @@ func _increase_health(value:int)->void:
 func _decrease_health(value:int)->void:
 	current_health -= value
 	emit_signal("health_hit")
+	print(current_health)
 	if current_health <= 0:
 		current_health = 0
 		emit_signal("health_depleted")

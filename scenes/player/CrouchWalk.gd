@@ -7,6 +7,7 @@ extends State
 @export var crouch_state: State
 @export var crouch_walk_state: State
 @export var sound_area : Area2D
+@export var hit_state: State
 
 
 func enter():
@@ -26,6 +27,8 @@ func process_input(event: InputEvent) -> State:
 	return idle_state
 
 func process_physics(delta:float)-> State:
+	if get_parent().is_hit:
+		return hit_state
 	
 	character.velocity.y += character.PLAYER_GRAVITY * delta * character.MULTIPLIER
 	var movement = Input.get_axis("move_left","move_right") * ((character.SPEED)/2) * character.MULTIPLIER

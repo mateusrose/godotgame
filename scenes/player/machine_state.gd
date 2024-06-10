@@ -3,6 +3,7 @@ extends Node
 @export var animation : AnimationPlayer
 @export var starting_state: State
 var current_state : State
+var is_hit = false
 
 func init():
 	change_state(starting_state)

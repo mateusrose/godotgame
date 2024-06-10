@@ -3,6 +3,7 @@ class_name Background
 
 @export var can_process: bool
 @export var layer_speed: Array[int]
+@onready var canvas_color =  $CanvasModulate
 
 func _ready():
 	if can_process == false:
@@ -13,3 +14,5 @@ func _physics_process(delta):
 		if get_child(index) is ParallaxLayer:
 			get_child(index).motion_offset.x -= delta*layer_speed[index]
 			
+func set_color(color:Color):
+	canvas_color.color = color

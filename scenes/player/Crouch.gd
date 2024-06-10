@@ -4,6 +4,7 @@ extends State
 @export var jump_state : State
 @export var run_state : State
 @export var idle_state: State
+@export var hit_state: State
 @export var crouch_walk_state : State
 var crouch_multiplier = 1.5
 @export var sound_area : Area2D
@@ -18,6 +19,8 @@ func enter()-> void:
 	
 	
 func process_input(event: InputEvent) -> State:
+	if get_parent().is_hit:
+		return hit_state
 	if Input.is_action_pressed("crouch"):
 		if Input.is_action_just_pressed("jump") and character.is_on_floor():
 			character.JUMP_SPEED *= crouch_multiplier

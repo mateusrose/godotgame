@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_tv4is"]
 [ext_resource type="Texture2D" uid="uid://cxstjymf6tbxm" path="res://assets/player/char_blue (copy).png" id="2_ebuqa"]
 [ext_resource type="Script" path="res://scripts/player/player_texture.gd" id="3_4ftxm"]
-[ext_resource type="Texture2D" uid="uid://t2i4wvablxo1" path="res://assets/effect/light.png" id="4_x735s"]
 [ext_resource type="Script" path="res://scripts/player/attack_area.gd" id="4_y2ee5"]
+[ext_resource type="Texture2D" uid="uid://bdwlocj50e3jm" path="res://assets/effect/lightBIG.png" id="5_npawk"]
 [ext_resource type="Script" path="res://scripts/player/player_stats.gd" id="5_q2swj"]
 [ext_resource type="PackedScene" uid="uid://dsrsb2rni6vrc" path="res://scripts/components/stamina/stamina_component.tscn" id="7_un5gn"]
 [ext_resource type="PackedScene" uid="uid://cps2odid6cxyt" path="res://scripts/components/health_component.tscn" id="8_2hl85"]
@@ -754,9 +754,12 @@ target_position = Vector2(11, 0)
 collision_mask = 3
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
+visible = false
 color = Color(1, 1, 2, 1)
 energy = 0.8
-texture = ExtResource("4_x735s")
+range_z_min = -2048
+range_z_max = 2048
+texture = ExtResource("5_npawk")
 texture_scale = 0.3
 
 [node name="LightAnimation" type="AnimationPlayer" parent="PointLight2D"]
@@ -795,6 +798,12 @@ bonus_stamina = 10
 [node name="HealthComponent" parent="." instance=ExtResource("8_2hl85")]
 actor_path = NodePath("..")
 base_health = 15
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+position = Vector2(-0.500004, 8.5)
+scale = Vector2(2.60742, 1.8457)
+texture = ExtResource("5_npawk")
+texture_scale = 0.1
 
 [connection signal="area_entered" from="CollisionArea" to="Stats" method="_on_collision_area_entered"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]

@@ -1,10 +1,11 @@
-[gd_scene load_steps=51 format=3 uid="uid://b6iusifmurmjl"]
+[gd_scene load_steps=50 format=3 uid="uid://b6iusifmurmjl"]
 
 [ext_resource type="Script" path="res://scenes/player/player_character.gd" id="1_m2148"]
 [ext_resource type="Texture2D" uid="uid://cxstjymf6tbxm" path="res://assets/player/char_blue (copy).png" id="1_vl5uh"]
 [ext_resource type="Texture2D" uid="uid://dnwehye7g0y41" path="res://assets/player/test_demon.png" id="2_c2ge5"]
 [ext_resource type="Texture2D" uid="uid://depc0fipi48i5" path="res://assets/player/test_attack_special.png" id="3_hphrb"]
 [ext_resource type="Texture2D" uid="uid://t2i4wvablxo1" path="res://assets/effect/light.png" id="4_uklng"]
+[ext_resource type="PackedScene" uid="uid://cews67sgg4lr1" path="res://scripts/components/damage/damage_component.tscn" id="6_0dbum"]
 [ext_resource type="PackedScene" uid="uid://cps2odid6cxyt" path="res://scripts/components/health_component.tscn" id="6_3oswi"]
 [ext_resource type="PackedScene" uid="uid://dsrsb2rni6vrc" path="res://scripts/components/stamina/stamina_component.tscn" id="7_vkpv6"]
 [ext_resource type="PackedScene" uid="uid://cr7bpuaedhykm" path="res://scripts/components/experience/experience_component.tscn" id="8_big0u"]
@@ -22,6 +23,7 @@
 [ext_resource type="Script" path="res://scenes/player/Dashnewfsm.gd" id="20_kvn5h"]
 [ext_resource type="Script" path="res://scenes/player/Attack.gd" id="20_mbwnp"]
 [ext_resource type="Script" path="res://scenes/player/DemonMode.gd" id="21_gjvwr"]
+[ext_resource type="Script" path="res://scenes/player/Hit.gd" id="24_kmxof"]
 
 [sub_resource type="Animation" id="Animation_on188"]
 length = 0.001
@@ -86,35 +88,6 @@ tracks/4/keys = {
 "values": [1.0]
 }
 
-[sub_resource type="Animation" id="Animation_erjj0"]
-resource_name = "demon_power"
-length = 0.3
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("DemonSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.1001, 0.2, 0.2001),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 2, 1, 1, 2]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("DemonSprite:texture")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [ExtResource("2_c2ge5"), ExtResource("2_c2ge5")]
-}
-
 [sub_resource type="Animation" id="Animation_4nxhb"]
 resource_name = "attack_dash"
 length = 0.8
@@ -153,6 +126,35 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [3.0, 3.0]
+}
+
+[sub_resource type="Animation" id="Animation_erjj0"]
+resource_name = "demon_power"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DemonSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.1001, 0.2, 0.2001),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 2, 1, 1, 2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DemonSprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("2_c2ge5"), ExtResource("2_c2ge5")]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lewq7"]
@@ -789,68 +791,6 @@ _data = {
 radius = 30.0
 height = 180.0
 
-[sub_resource type="Animation" id="Animation_snog7"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture_scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.3]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:energy")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.8]
-}
-
-[sub_resource type="Animation" id="Animation_juaop"]
-resource_name = "light_animation"
-length = 10.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture_scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.3, 0.25]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:energy")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.8, 0.6]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_vqx8p"]
-_data = {
-"RESET": SubResource("Animation_snog7"),
-"light_animation": SubResource("Animation_juaop")
-}
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4gpg3"]
 size = Vector2(13, 31)
 
@@ -864,6 +804,7 @@ libraries = {
 }
 
 [node name="AttackSprite" type="Sprite2D" parent="."]
+offset = Vector2(0, 1)
 hframes = 3
 
 [node name="DemonAnimation" type="AnimationPlayer" parent="."]
@@ -907,7 +848,7 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_hptis")
 
 [node name="AttackArea" type="Area2D" parent="." groups=["player_attack"]]
-collision_layer = 4
+collision_layer = 0
 collision_mask = 8
 
 [node name="Collision" type="CollisionShape2D" parent="AttackArea"]
@@ -920,41 +861,46 @@ target_position = Vector2(11, 0)
 collision_mask = 3
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-color = Color(1, 1, 2, 1)
-energy = 0.8
+position = Vector2(0, 8)
+scale = Vector2(0.605469, 0.554688)
+color = Color(0.510901, 0.51925, 0.99666, 1)
+energy = 1.04
+shadow_enabled = true
 texture = ExtResource("4_uklng")
-texture_scale = 0.3
 
-[node name="LightAnimation" type="AnimationPlayer" parent="."]
-root_node = NodePath("../PointLight2D")
-libraries = {
-"": SubResource("AnimationLibrary_vqx8p")
-}
-autoplay = "light_animation"
-
-[node name="Hitbox" type="CollisionShape2D" parent="."]
-visible = false
+[node name="Hitbox" type="CollisionShape2D" parent="." groups=["player_hitbox"]]
+light_mask = 13
+visibility_layer = 13
 position = Vector2(-0.5, 12)
 shape = SubResource("RectangleShape2D_4gpg3")
 
 [node name="CollisionArea" type="Area2D" parent="." groups=["player_hitbox"]]
-visible = false
+unique_name_in_owner = true
+light_mask = 12
+visibility_layer = 12
 collision_layer = 4
 collision_mask = 12
+monitoring = false
 
 [node name="Collision" type="CollisionShape2D" parent="CollisionArea"]
 position = Vector2(-1, 12)
 shape = SubResource("RectangleShape2D_4gpg3")
 
-[node name="HealthComponent" parent="." instance=ExtResource("6_3oswi")]
+[node name="Damage" parent="." node_paths=PackedStringArray("character") instance=ExtResource("6_0dbum")]
+unique_name_in_owner = true
+character = NodePath("..")
+base_damage = 3
+
+[node name="Health" parent="." instance=ExtResource("6_3oswi")]
+unique_name_in_owner = true
 actor_path = NodePath("..")
 base_health = 15
 
-[node name="StaminaComponent" parent="." instance=ExtResource("7_vkpv6")]
+[node name="Stamina" parent="." instance=ExtResource("7_vkpv6")]
 actor_path = NodePath("..")
 base_stamina = 30
 
-[node name="ExperienceComponent" parent="." instance=ExtResource("8_big0u")]
+[node name="Experience" parent="." instance=ExtResource("8_big0u")]
 
 [node name="MovementState" type="Node" parent="." node_paths=PackedStringArray("character", "animation", "starting_state")]
 script = ExtResource("8_x3ivr")
@@ -962,59 +908,64 @@ character = NodePath("..")
 animation = NodePath("../Animation")
 starting_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="MovementState" node_paths=PackedStringArray("fall_state", "jump_state", "run_state", "crouch_state", "character", "animation", "sprite")]
+[node name="Idle" type="Node" parent="MovementState" node_paths=PackedStringArray("fall_state", "jump_state", "run_state", "crouch_state", "hit_state", "character", "animation", "sprite")]
 script = ExtResource("8_cl04f")
 fall_state = NodePath("../Fall")
 jump_state = NodePath("../Jump")
 run_state = NodePath("../Run")
 crouch_state = NodePath("../Crouch")
+hit_state = NodePath("../Hit")
 character = NodePath("../..")
 animation = NodePath("../../Animation")
 animation_name = "idle"
 sprite = NodePath("../../Sprite")
 
-[node name="Jump" type="Node" parent="MovementState" node_paths=PackedStringArray("fall_state", "idle_state", "run_state", "jump_state", "crouch_state", "character", "animation", "sprite")]
+[node name="Jump" type="Node" parent="MovementState" node_paths=PackedStringArray("fall_state", "idle_state", "run_state", "jump_state", "crouch_state", "hit_state", "character", "animation", "sprite")]
 script = ExtResource("10_j14sn")
 fall_state = NodePath("../Fall")
 idle_state = NodePath("../Idle")
 run_state = NodePath("../Run")
 jump_state = NodePath(".")
 crouch_state = NodePath("../Crouch")
+hit_state = NodePath("../Hit")
 character = NodePath("../..")
 animation = NodePath("../../Animation")
 animation_name = "jump"
 sprite = NodePath("../../Sprite")
 
-[node name="Run" type="Node" parent="MovementState" node_paths=PackedStringArray("fall_state", "jump_state", "idle_state", "crouch_state", "character", "animation", "sprite")]
+[node name="Run" type="Node" parent="MovementState" node_paths=PackedStringArray("fall_state", "jump_state", "idle_state", "crouch_state", "hit_state", "character", "animation", "sprite")]
 script = ExtResource("11_yxnfh")
 fall_state = NodePath("../Fall")
 jump_state = NodePath("../Jump")
 idle_state = NodePath("../Idle")
 crouch_state = NodePath("../Crouch")
+hit_state = NodePath("../Hit")
 character = NodePath("../..")
 animation = NodePath("../../Animation")
 animation_name = "run"
 sprite = NodePath("../../Sprite")
 
-[node name="Fall" type="Node" parent="MovementState" node_paths=PackedStringArray("idle_state", "run_state", "jump_state", "land_state", "wall_slide_state", "character", "animation", "sprite")]
+[node name="Fall" type="Node" parent="MovementState" node_paths=PackedStringArray("idle_state", "run_state", "jump_state", "land_state", "wall_slide_state", "hit_state", "character", "animation", "sprite")]
 script = ExtResource("12_o5lwt")
 idle_state = NodePath("../Idle")
 run_state = NodePath("../Run")
 jump_state = NodePath("../Jump")
 land_state = NodePath("../Land")
 wall_slide_state = NodePath("../WallSlide")
+hit_state = NodePath("../Hit")
 character = NodePath("../..")
 animation = NodePath("../../Animation")
 animation_name = "fall"
 sprite = NodePath("../../Sprite")
 
-[node name="Land" type="Node" parent="MovementState" node_paths=PackedStringArray("jump_state", "idle_state", "run_state", "crouch_state", "crouch_walk_state", "character", "animation", "sprite")]
+[node name="Land" type="Node" parent="MovementState" node_paths=PackedStringArray("jump_state", "idle_state", "run_state", "crouch_state", "crouch_walk_state", "hit_state", "character", "animation", "sprite")]
 script = ExtResource("13_qxj25")
 jump_state = NodePath("../Jump")
 idle_state = NodePath("../Idle")
 run_state = NodePath("../Run")
 crouch_state = NodePath("../Crouch")
 crouch_walk_state = NodePath("../CrouchWalk")
+hit_state = NodePath("../Hit")
 character = NodePath("../..")
 animation = NodePath("../../Animation")
 animation_name = "landing"
@@ -1024,12 +975,13 @@ sprite = NodePath("../../Sprite")
 wait_time = 0.3
 one_shot = true
 
-[node name="Crouch" type="Node" parent="MovementState" node_paths=PackedStringArray("fall_state", "jump_state", "run_state", "idle_state", "crouch_walk_state", "sound_area", "character", "animation", "sprite")]
+[node name="Crouch" type="Node" parent="MovementState" node_paths=PackedStringArray("fall_state", "jump_state", "run_state", "idle_state", "hit_state", "crouch_walk_state", "sound_area", "character", "animation", "sprite")]
 script = ExtResource("14_0abj3")
 fall_state = NodePath("../Fall")
 jump_state = NodePath("../Jump")
 run_state = NodePath("../Run")
 idle_state = NodePath("../Idle")
+hit_state = NodePath("../Hit")
 crouch_walk_state = NodePath("../CrouchWalk")
 sound_area = NodePath("../../SoundArea")
 character = NodePath("../..")
@@ -1037,7 +989,7 @@ animation = NodePath("../../Animation")
 animation_name = "crouch"
 sprite = NodePath("../../Sprite")
 
-[node name="CrouchWalk" type="Node" parent="MovementState" node_paths=PackedStringArray("fall_state", "jump_state", "run_state", "idle_state", "crouch_state", "crouch_walk_state", "sound_area", "character", "animation", "sprite")]
+[node name="CrouchWalk" type="Node" parent="MovementState" node_paths=PackedStringArray("fall_state", "jump_state", "run_state", "idle_state", "crouch_state", "crouch_walk_state", "sound_area", "hit_state", "character", "animation", "sprite")]
 script = ExtResource("15_o8cvg")
 fall_state = NodePath("../Fall")
 jump_state = NodePath("../Jump")
@@ -1046,21 +998,44 @@ idle_state = NodePath("../Idle")
 crouch_state = NodePath("../Crouch")
 crouch_walk_state = NodePath(".")
 sound_area = NodePath("../../SoundArea")
+hit_state = NodePath("../Hit")
 character = NodePath("../..")
 animation = NodePath("../../Animation")
 animation_name = "crouch_walk"
 sprite = NodePath("../../Sprite")
 
-[node name="WallSlide" type="Node" parent="MovementState" node_paths=PackedStringArray("wall_ray", "fall_state", "jump_state", "character", "animation", "sprite")]
+[node name="WallSlide" type="Node" parent="MovementState" node_paths=PackedStringArray("wall_ray", "fall_state", "jump_state", "hit_state", "character", "animation", "sprite")]
 script = ExtResource("16_qrlj0")
 wall_ray = NodePath("../../WallRay")
 wall_gravity = 20
 fall_state = NodePath("../Fall")
 jump_state = NodePath("../Jump")
+hit_state = NodePath("../Hit")
 character = NodePath("../..")
 animation = NodePath("../../Animation")
 animation_name = "wall_slide"
 sprite = NodePath("../../Sprite")
+
+[node name="Hit" type="Node" parent="MovementState" node_paths=PackedStringArray("fall_state", "jump_state", "run_state", "crouch_state", "crouch_walk_state", "idle_state", "character", "animation", "sprite")]
+script = ExtResource("24_kmxof")
+fall_state = NodePath("../Fall")
+jump_state = NodePath("../Jump")
+run_state = NodePath("../Run")
+crouch_state = NodePath("../Crouch")
+crouch_walk_state = NodePath("../CrouchWalk")
+idle_state = NodePath("../Idle")
+character = NodePath("../..")
+animation = NodePath("../../Animation")
+animation_name = "hit"
+sprite = NodePath("../../Sprite")
+
+[node name="HitTimer" type="Timer" parent="MovementState/Hit"]
+wait_time = 0.7
+one_shot = true
+
+[node name="HitAnimTimer" type="Timer" parent="MovementState/Hit"]
+wait_time = 0.3
+one_shot = true
 
 [node name="ActionState" type="Node" parent="." node_paths=PackedStringArray("character", "animation", "starting_state")]
 script = ExtResource("17_g3v8u")
@@ -1128,7 +1103,12 @@ wait_time = 0.3
 one_shot = true
 
 [connection signal="animation_finished" from="Animation" to="MovementState/Land" method="_on_animation_animation_finished"]
+[connection signal="animation_finished" from="Animation" to="MovementState/Hit" method="_on_animation_animation_finished"]
+[connection signal="area_entered" from="AttackArea" to="ActionState/Attack" method="_on_attack_area_area_entered"]
+[connection signal="health_hit" from="Health" to="MovementState/Hit" method="_on_health_health_hit"]
 [connection signal="timeout" from="MovementState/Land/LandTimer" to="MovementState/Land" method="_on_land_timer_timeout"]
+[connection signal="timeout" from="MovementState/Hit/HitTimer" to="MovementState/Hit" method="_on_hit_timer_timeout"]
+[connection signal="timeout" from="MovementState/Hit/HitAnimTimer" to="MovementState/Hit" method="_on_hit_anim_timer_timeout"]
 [connection signal="timeout" from="ActionState/Dash/DashTimer" to="ActionState/Dash" method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="ActionState/Dash/JustDashedTimer" to="ActionState/Dash" method="_on_just_dashed_timer_timeout"]
 [connection signal="timeout" from="ActionState/Attack/AttackTimer" to="ActionState/Attack" method="_on_timer_timeout"]

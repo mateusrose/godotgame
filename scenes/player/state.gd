@@ -10,6 +10,7 @@ func enter():
 	animation.play(animation_name)
 func exit():
 	return null
+	
 func process_input(event:InputEvent) -> State:
 	return null
 	

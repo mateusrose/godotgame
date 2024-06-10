@@ -8,6 +8,7 @@ var anim_ended = false
 
 func enter()-> void:
 	super()
+	%Health.can_take_damage = false
 	dash_timer.start()
 	just_dashed_timer.start()
 	just_dashed = true
@@ -39,6 +40,7 @@ func exit():
 
 
 func _on_dash_timer_timeout():
+	%Health.can_take_damage = true
 	anim_ended = true
 
 func _on_just_dashed_timer_timeout():

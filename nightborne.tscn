@@ -1,16 +1,374 @@
-[gd_scene load_steps=4 format=3 uid="uid://cemf2cahafpnx"]
+[gd_scene load_steps=29 format=3 uid="uid://cemf2cahafpnx"]
 
+[ext_resource type="Script" path="res://scripts/enemy/nighborne/nightborne.gd" id="1_klouj"]
 [ext_resource type="PackedScene" uid="uid://dsrsb2rni6vrc" path="res://scripts/components/stamina/stamina_component.tscn" id="1_mmtwa"]
 [ext_resource type="PackedScene" uid="uid://cps2odid6cxyt" path="res://scripts/components/health_component.tscn" id="2_1jyxr"]
+[ext_resource type="PackedScene" uid="uid://cews67sgg4lr1" path="res://scripts/components/damage/damage_component.tscn" id="2_6lql0"]
 [ext_resource type="Script" path="res://scripts/components/fsm.gd" id="3_o8vn8"]
+[ext_resource type="Texture2D" uid="uid://ddex80f67tyxr" path="res://assets/enemy/nightborne/NightBorne.png" id="4_tp77y"]
+[ext_resource type="Script" path="res://scripts/enemy/nighborne/wander.gd" id="8_hp5yy"]
+[ext_resource type="Script" path="res://Return.gd" id="9_67j1w"]
+[ext_resource type="Script" path="res://Idle.gd" id="9_evn28"]
+[ext_resource type="Script" path="res://Stalk.gd" id="9_qpd20"]
+[ext_resource type="Script" path="res://Attack.gd" id="10_48sau"]
+[ext_resource type="Script" path="res://Hit.gd" id="12_6kigw"]
+[ext_resource type="Script" path="res://Kill.gd" id="13_6kf2r"]
+[ext_resource type="Script" path="res://WallClimb.gd" id="14_7phyo"]
 
-[node name="Nightborne" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xj55e"]
+size = Vector2(19, 40)
 
-[node name="StaminaComponent" parent="." instance=ExtResource("1_mmtwa")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b0b3y"]
+size = Vector2(19, 40)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ln5dc"]
+radius = 23.47
+height = 147.99
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u3j8r"]
+size = Vector2(135, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_civ3l"]
+size = Vector2(42, 60)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_amx3u"]
+size = Vector2(400, 150)
+
+[sub_resource type="Animation" id="Animation_jn3xv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EnemyAttackArea/Collision:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_m2kla"]
+resource_name = "attack"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EnemyAttackArea/Collision:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.6, 0.9, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="Animation" id="Animation_nahxm"]
+resource_name = "death"
+length = 2.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2, 2.1, 2.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114]
+}
+
+[sub_resource type="Animation" id="Animation_gmwr5"]
+resource_name = "hit"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [69, 70, 71, 72, 73]
+}
+
+[sub_resource type="Animation" id="Animation_t144r"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 0, 1, 2, 3, 4, 5, 6, 7, 8]
+}
+
+[sub_resource type="Animation" id="Animation_4q4bg"]
+resource_name = "kill"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [113, 114]
+}
+
+[sub_resource type="Animation" id="Animation_vfc7q"]
+resource_name = "run"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [23, 24, 25, 26, 27, 28]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5uqmg"]
+_data = {
+"RESET": SubResource("Animation_jn3xv"),
+"attack": SubResource("Animation_m2kla"),
+"dead": SubResource("Animation_nahxm"),
+"hit": SubResource("Animation_gmwr5"),
+"idle": SubResource("Animation_t144r"),
+"kill": SubResource("Animation_4q4bg"),
+"run": SubResource("Animation_vfc7q")
+}
+
+[node name="EnemyNightborne" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "movement_state_machine")]
+collision_layer = 8
+script = ExtResource("1_klouj")
+sprite = NodePath("Sprite")
+movement_state_machine = NodePath("FSM")
+
+[node name="Damage" parent="." node_paths=PackedStringArray("character") instance=ExtResource("2_6lql0")]
+unique_name_in_owner = true
+character = NodePath("..")
+base_damage = 2
+
+[node name="Stamina" parent="." instance=ExtResource("1_mmtwa")]
 actor_path = NodePath("..")
 
-[node name="HealthComponent" parent="." instance=ExtResource("2_1jyxr")]
+[node name="Health" parent="." instance=ExtResource("2_1jyxr")]
 actor_path = NodePath("..")
+base_health = 20
 
-[node name="FSM" type="Node2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(1, 1)
+texture = ExtResource("4_tp77y")
+hframes = 23
+vframes = 5
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(2.5, 3)
+shape = SubResource("RectangleShape2D_xj55e")
+
+[node name="HitboxCollision" type="Area2D" parent="." groups=["enemy_hitbox"]]
+visible = false
+position = Vector2(2.5, 3)
+collision_layer = 8
+collision_mask = 8
+
+[node name="Collision" type="CollisionShape2D" parent="HitboxCollision"]
+shape = SubResource("RectangleShape2D_b0b3y")
+
+[node name="SoundArea" type="Area2D" parent="."]
+visible = false
+position = Vector2(10, 0)
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SoundArea"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_ln5dc")
+
+[node name="VisionArea" type="Area2D" parent="."]
+visible = false
+position = Vector2(60, 0)
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VisionArea"]
+shape = SubResource("RectangleShape2D_u3j8r")
+
+[node name="EnemyAttackArea" type="Area2D" parent="." groups=["enemy_attack"]]
+visible = false
+position = Vector2(18, 1)
+collision_layer = 15
+collision_mask = 15
+
+[node name="Collision" type="CollisionShape2D" parent="EnemyAttackArea"]
+shape = SubResource("RectangleShape2D_civ3l")
+disabled = true
+
+[node name="FollowArea" type="Area2D" parent="."]
+visible = false
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FollowArea"]
+shape = SubResource("RectangleShape2D_amx3u")
+
+[node name="Animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_5uqmg")
+}
+autoplay = "idle"
+speed_scale = 2.0
+
+[node name="FloorRay" type="RayCast2D" parent="."]
+unique_name_in_owner = true
+target_position = Vector2(30, 30)
+
+[node name="FSM" type="Node2D" parent="." node_paths=PackedStringArray("character", "animation", "starting_state")]
 script = ExtResource("3_o8vn8")
+character = NodePath("..")
+animation = NodePath("../Animation")
+starting_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="FSM" node_paths=PackedStringArray("wander_state", "stalk_state", "hit_state", "character", "animation", "sprite")]
+script = ExtResource("9_evn28")
+wander_state = NodePath("../Wander")
+stalk_state = NodePath("../Stalk")
+hit_state = NodePath("../Hit")
+character = NodePath("../..")
+animation = NodePath("../../Animation")
+animation_name = "idle"
+sprite = NodePath("../../Sprite")
+
+[node name="IdleTimer" type="Timer" parent="FSM/Idle"]
+wait_time = 2.0
+one_shot = true
+
+[node name="Wander" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "stalk_state", "hit_state", "wall_climb_state", "character", "animation", "sprite")]
+script = ExtResource("8_hp5yy")
+idle_state = NodePath("../Idle")
+stalk_state = NodePath("../Stalk")
+hit_state = NodePath("../Hit")
+wall_climb_state = NodePath("../WallClimb")
+character = NodePath("../..")
+animation = NodePath("../../Animation")
+animation_name = "run"
+sprite = NodePath("../../Sprite")
+
+[node name="WanderTimer" type="Timer" parent="FSM/Wander"]
+one_shot = true
+
+[node name="Stalk" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "return_state", "attack_state", "hit_state", "character", "animation", "sprite")]
+script = ExtResource("9_qpd20")
+idle_state = NodePath("../Idle")
+return_state = NodePath("../Return")
+attack_state = NodePath("../Attack")
+hit_state = NodePath("../Hit")
+character = NodePath("../..")
+animation = NodePath("../../Animation")
+animation_name = "run"
+sprite = NodePath("../../Sprite")
+
+[node name="Return" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "stalk_state", "hit_state", "character", "animation", "sprite")]
+script = ExtResource("9_67j1w")
+idle_state = NodePath("../Idle")
+stalk_state = NodePath("../Stalk")
+hit_state = NodePath("../Hit")
+character = NodePath("../..")
+animation = NodePath("../../Animation")
+animation_name = "run"
+sprite = NodePath("../../Sprite")
+
+[node name="Attack" type="Node" parent="FSM" node_paths=PackedStringArray("return_state", "stalk_state", "hit_state", "character", "animation", "sprite")]
+script = ExtResource("10_48sau")
+return_state = NodePath("../Return")
+stalk_state = NodePath("../Stalk")
+hit_state = NodePath("../Hit")
+character = NodePath("../..")
+animation = NodePath("../../Animation")
+animation_name = "attack"
+sprite = NodePath("../../Sprite")
+
+[node name="Hit" type="Node" parent="FSM" node_paths=PackedStringArray("stalk_state", "kill_state", "character", "animation", "sprite")]
+script = ExtResource("12_6kigw")
+stalk_state = NodePath("../Stalk")
+kill_state = NodePath("../Kill")
+character = NodePath("../..")
+animation = NodePath("../../Animation")
+animation_name = "hit"
+sprite = NodePath("../../Sprite")
+
+[node name="Kill" type="Node" parent="FSM" node_paths=PackedStringArray("character", "animation", "sprite")]
+script = ExtResource("13_6kf2r")
+character = NodePath("../..")
+animation = NodePath("../../Animation")
+animation_name = "dead"
+sprite = NodePath("../../Sprite")
+
+[node name="WallClimb" type="Node" parent="FSM" node_paths=PackedStringArray("wander_state", "stalk_state", "hit_state", "character", "animation", "sprite")]
+script = ExtResource("14_7phyo")
+wander_state = NodePath("../Wander")
+stalk_state = NodePath("../Stalk")
+hit_state = NodePath("../Hit")
+character = NodePath("../..")
+animation = NodePath("../../Animation")
+animation_name = "run"
+sprite = NodePath("../../Sprite")
+
+[node name="WallRayCast" type="RayCast2D" parent="."]
+unique_name_in_owner = true
+target_position = Vector2(15, 0)
+
+[connection signal="health_depleted" from="Health" to="FSM/Hit" method="_on_health_health_depleted"]
+[connection signal="health_hit" from="Health" to="FSM/Hit" method="_on_health_health_hit"]
+[connection signal="body_entered" from="VisionArea" to="FSM/Stalk" method="_on_vision_area_body_entered"]
+[connection signal="body_exited" from="VisionArea" to="FSM/Stalk" method="_on_vision_area_body_exited"]
+[connection signal="area_entered" from="EnemyAttackArea" to="FSM/Attack" method="_on_enemy_attack_area_area_entered"]
+[connection signal="body_entered" from="FollowArea" to="FSM/Stalk" method="_on_follow_area_body_entered"]
+[connection signal="body_exited" from="FollowArea" to="FSM/Stalk" method="_on_follow_area_body_exited"]
+[connection signal="animation_finished" from="Animation" to="FSM/Attack" method="_on_animation_animation_finished"]
+[connection signal="animation_finished" from="Animation" to="FSM/Hit" method="_on_animation_finished"]
+[connection signal="animation_finished" from="Animation" to="FSM/Kill" method="_on_animation_animation_finished"]
+[connection signal="timeout" from="FSM/Idle/IdleTimer" to="FSM/Idle" method="_on_idle_timer_timeout"]
+[connection signal="timeout" from="FSM/Wander/WanderTimer" to="FSM/Wander" method="_on_wander_timer_timeout"]

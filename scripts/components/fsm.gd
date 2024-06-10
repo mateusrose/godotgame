@@ -1,34 +1,29 @@
-extends Node2D
-
+extends Node
+@export var character : CharacterBody2D
+@export var animation : AnimationPlayer
+@export var starting_state: State
 var current_state : State
-var states : Dictionary = {
-}
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	for child in get_children():
-		if child is State:
-			states[child.name] = child
-			child.transation.connect(on_child_transition)
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	if current_state:
-		current_state.update(delta)
-
-func _physics_process(delta):
-	if current_state:
-		current_state.physhics_update(delta)
-
-func on_child_transition(state, new_state_name):
-	if state != current_state:
-		return
-	var new_state = states.get(new_state_name.to_lower())
-	if !new_state:
-		return
-		
+func init():
+	change_state(starting_state)
+	
+func change_state(new_state:State):
 	if current_state:
 		current_state.exit()
-		
-	new_state.enter()
+	current_state = new_state
+	current_state.enter()
+	
+func process_physics(delta:float):
+	var new_state = current_state.process_physics(delta)
+	if new_state:
+		change_state(new_state)
+
+func process_input(event:InputEvent):
+	var new_state = current_state.process_input(event)
+	if new_state:
+		change_state(new_state)
+
+func process_frame(delta:float):
+	var new_state = current_state.process_frame(delta)
+	if new_state:
+		change_state(new_state)

@@ -51,3 +51,8 @@ func _on_timer_timeout():
 	anim_ended = true
 	
 	
+func _on_attack_area_area_entered(area):
+	print("lololololol")
+	if area.is_in_group("enemy_hitbox"):
+		print("enemy")
+		area.get_parent().get_node("Health").change("decrease", %Damage.get_damage())

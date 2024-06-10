@@ -5,6 +5,7 @@ extends State
 @export var jump_state : State
 @export var land_state : State
 @export var wall_slide_state : State
+@export var hit_state: State
 
 func process_input(event: InputEvent) -> State:
 	if Input.is_action_just_pressed("jump"):
@@ -12,6 +13,8 @@ func process_input(event: InputEvent) -> State:
 	return null
 
 func process_physics(delta:float) -> State:
+	if get_parent().is_hit:
+		return hit_state
 	character.velocity.y += character.PLAYER_GRAVITY * delta * character.MULTIPLIER
 	var movement = Input.get_axis("move_left","move_right") * character.SPEED * character.MULTIPLIER
 	if movement != 0:

@@ -5,6 +5,7 @@ extends State
 @export var run_state : State
 @export var crouch_state : State
 @export var crouch_walk_state : State
+@export var hit_state: State
 var landing = false
 @onready var land_timer: Timer = $LandTimer
 
@@ -16,6 +17,8 @@ func enter():
 
 	
 func process_physics(delta:float) -> State:
+	if get_parent().is_hit:
+		return hit_state
 	character.velocity.x = 0
 	if !landing:
 		if Input.is_action_pressed("crouch"):

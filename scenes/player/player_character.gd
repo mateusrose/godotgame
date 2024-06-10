@@ -20,16 +20,21 @@ var is_crouched = false
 func _ready():
 	movement_state_machine.init()
 	action_state_machine.init()
+	
 func _unhandled_input(event:InputEvent):
 	movement_state_machine.process_input(event)
 	action_state_machine.process_input(event)
+	
 func _physics_process(delta:float):
 	verify_position(velocity)
 	movement_state_machine.process_physics(delta)
 	action_state_machine.process_physics(delta)
+	
 func _process(delta:float):
 	movement_state_machine.process_frame(delta)
 	action_state_machine.process_frame(delta)
+
+
 
 #fixing vector position according to direction
 func verify_position(direction: Vector2) -> void:
