@@ -5,7 +5,15 @@ extends State
 @export var run_state : State
 @export var idle_state: State
 @export var crouch_state: State
+@export var crouch_walk_state: State
+@export var sound_area : Area2D
 
+
+func enter():
+	super()
+	character.is_crouched = true
+	sound_area.monitoring = false
+	sound_area.get_node("SoundArea").set_deferred("disabled", true)
 	
 func process_input(event: InputEvent) -> State:
 	if Input.is_action_pressed("crouch"):
@@ -18,6 +26,7 @@ func process_input(event: InputEvent) -> State:
 	return idle_state
 
 func process_physics(delta:float)-> State:
+	
 	character.velocity.y += character.PLAYER_GRAVITY * delta * character.MULTIPLIER
 	var movement = Input.get_axis("move_left","move_right") * ((character.SPEED)/2) * character.MULTIPLIER
 	if movement == 0:
@@ -28,3 +37,8 @@ func process_physics(delta:float)-> State:
 	if !character.is_on_floor():
 		return fall_state
 	return null
+	
+func exit():
+	character.is_crouched = false
+	sound_area.monitoring = true
+	sound_area.get_node("SoundArea").set_deferred("disabled", false)

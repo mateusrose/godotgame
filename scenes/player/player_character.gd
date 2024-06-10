@@ -9,10 +9,13 @@ var PLAYER_GRAVITY = 350
 var CAN_TRACK_INPUT = true
 var MULTIPLIER = 1
 var suffix = "_right"
+var is_crouched = false
 @onready var movement_state_machine = $MovementState
 @onready var action_state_machine = $ActionState
 @onready var sprite = $Sprite
 @onready var wall_ray = $WallRay
+@onready var sprite_attack = $AttackSprite
+@onready var sprite_demon = $DemonSprite
 
 func _ready():
 	movement_state_machine.init()
@@ -31,11 +34,15 @@ func _process(delta:float):
 #fixing vector position according to direction
 func verify_position(direction: Vector2) -> void:
 	if direction.x > 0:
+		sprite_attack.flip_h = false
+		sprite_demon.flip_h = false
 		sprite.flip_h = false
 		suffix = "_right"
 		sprite.position = Vector2(2,0)
 		wall_ray.target_position=Vector2(7, 0)
 	elif direction.x < 0:
+		sprite_attack.flip_h = true
+		sprite_demon.flip_h = true
 		sprite.flip_h = true
 		suffix = "_left"
 		sprite.position = Vector2(-2,0)

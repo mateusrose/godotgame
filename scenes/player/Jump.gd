@@ -16,6 +16,8 @@ func enter() -> void:
 		character.velocity.y = character.JUMP_SPEED
 		current_jumps += 1
 		print("im on", current_jumps)
+		
+		#fixing crouch jump, kinda hardcoded
 	if character.JUMP_SPEED < -400:
 		character.JUMP_SPEED = -350
 	if character.JUMP_SPEED > -300:
