@@ -848,6 +848,7 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_hptis")
 
 [node name="AttackArea" type="Area2D" parent="." groups=["player_attack"]]
+visible = false
 collision_layer = 0
 collision_mask = 8
 
@@ -870,6 +871,7 @@ shadow_enabled = true
 texture = ExtResource("4_uklng")
 
 [node name="Hitbox" type="CollisionShape2D" parent="." groups=["player_hitbox"]]
+visible = false
 light_mask = 13
 visibility_layer = 13
 position = Vector2(-0.5, 12)
@@ -877,6 +879,7 @@ shape = SubResource("RectangleShape2D_4gpg3")
 
 [node name="CollisionArea" type="Area2D" parent="." groups=["player_hitbox"]]
 unique_name_in_owner = true
+visible = false
 light_mask = 12
 visibility_layer = 12
 collision_layer = 4
@@ -1056,6 +1059,7 @@ animation = NodePath("../../Animation")
 sprite = NodePath("../../Sprite")
 
 [node name="Dash" type="Node" parent="ActionState" node_paths=PackedStringArray("no_action_state", "wall_slide_state", "character", "animation", "sprite")]
+unique_name_in_owner = true
 script = ExtResource("20_kvn5h")
 no_action_state = NodePath("../NoAction")
 wall_slide_state = NodePath("../../MovementState/WallSlide")
@@ -1069,7 +1073,7 @@ wait_time = 0.2
 one_shot = true
 
 [node name="JustDashedTimer" type="Timer" parent="ActionState/Dash"]
-wait_time = 0.7
+wait_time = 1.5
 one_shot = true
 
 [node name="Attack" type="Node" parent="ActionState" node_paths=PackedStringArray("no_action_state", "dash_state", "demon_state", "attack_special_animation", "attack_area", "character", "animation", "sprite")]

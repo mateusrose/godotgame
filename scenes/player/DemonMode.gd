@@ -42,4 +42,6 @@ func _on_demon_timer_timeout():
 
 func _on_anim_time_timeout():
 	anim_ended = true
+	if character.velocity.x != 0:
+		animation.play("run")
 	animation.play("idle")

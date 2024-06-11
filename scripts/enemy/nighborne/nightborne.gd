@@ -23,8 +23,8 @@ func _unhandled_input(event:InputEvent):
 	movement_state_machine.process_input(event)
 	
 func _physics_process(delta:float):
-	verify_position(velocity)
 	movement_state_machine.process_physics(delta)
+	verify_position(velocity)
 
 func _process(delta:float):
 	movement_state_machine.process_frame(delta)

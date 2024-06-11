@@ -49,6 +49,7 @@ func exit():
 	
 
 func _on_timer_timeout():
+	%Dash.just_dashed = false
 	anim_ended = true
 	
 	

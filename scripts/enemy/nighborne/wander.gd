@@ -16,11 +16,15 @@ func enter()-> void:
 	else:
 		super()
 	if !%FloorRay.is_colliding():
+		print("not colliding")
 		if %FloorRay.target_position.x > 0:
+			%FloorRay.target_position.x = -30
 			direction = -1
 		else:
+			%FloorRay.target_position.x = 30
 			direction = 1
 	else:
+		print("no random direction")
 		set_direction()
 	timer.start()
 	
@@ -30,12 +34,9 @@ func process_input(event: InputEvent) -> State:
 func process_physics(delta:float)-> State:
 	if character.is_hit:
 		return hit_state
-	
-		
 	if %WallRayCast.is_colliding():
 		return wall_climb_state
-	if !%FloorRay.is_colliding():
-		return idle_state
+	
 	character.velocity.y += character.PLAYER_GRAVITY * delta
 	character.velocity.x = character.SPEED * direction
 	
@@ -43,6 +44,9 @@ func process_physics(delta:float)-> State:
 		character.velocity.x = 3*direction
 		
 	character.move_and_slide()
+		#this here is fucking the code
+	if !%FloorRay.is_colliding():
+		return idle_state
 	if character.following_player:
 		return stalk_state
 	if wander_done:

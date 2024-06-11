@@ -15,16 +15,22 @@ func process_physics(delta:float)-> State:
 	if climb_ended:
 		return wander_state
 	if %WallRayCast.is_colliding():
-		character.velocity.y = -character.SPEED 
-	elif %FloorRay.is_colliding() and not climb_ended:
-		character.velocity.y = -character.SPEED - 20
+		character.velocity.y = -130
+	
 	else:
+		print("else")
 		climb_ended = true
-		character.velocity.y = 0
+		if character.following_player:
+			print("stalk")
+			return stalk_state
+		character.velocity.y += character.PLAYER_GRAVITY * delta
 		if %FloorRay.target_position.x > 0:
+			print("x > 0")
 			character.velocity.x = character.SPEED
 		else:
+			print("x < 0")
 			character.velocity.x = -character.SPEED
+		
 	character.move_and_slide()
 	return null
 

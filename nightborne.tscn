@@ -26,13 +26,13 @@ radius = 23.47
 height = 147.99
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u3j8r"]
-size = Vector2(135, 40)
+size = Vector2(120, 40)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_civ3l"]
 size = Vector2(42, 60)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_amx3u"]
-size = Vector2(400, 150)
+size = Vector2(600, 250)
 
 [sub_resource type="Animation" id="Animation_jn3xv"]
 length = 0.001
@@ -304,12 +304,13 @@ sprite = NodePath("../../Sprite")
 [node name="WanderTimer" type="Timer" parent="FSM/Wander"]
 one_shot = true
 
-[node name="Stalk" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "return_state", "attack_state", "hit_state", "character", "animation", "sprite")]
+[node name="Stalk" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "return_state", "attack_state", "hit_state", "wall_climb_state", "character", "animation", "sprite")]
 script = ExtResource("9_qpd20")
 idle_state = NodePath("../Idle")
 return_state = NodePath("../Return")
 attack_state = NodePath("../Attack")
 hit_state = NodePath("../Hit")
+wall_climb_state = NodePath("../WallClimb")
 character = NodePath("../..")
 animation = NodePath("../../Animation")
 animation_name = "run"

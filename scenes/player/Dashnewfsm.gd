@@ -30,6 +30,7 @@ func process_physics(delta:float)-> State:
 					animation.play("idle")
 			else:
 				if character.is_crouched:
+					
 					animation.play("crouch_walk")
 				else:
 					animation.play("run")

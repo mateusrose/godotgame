@@ -22,6 +22,7 @@ func process_physics(delta: float) -> State:
 
 
 func _on_animation_animation_finished(anim_name):
+	character.following_player = true
 	attack_ended = true
 
 
