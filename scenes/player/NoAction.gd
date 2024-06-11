@@ -9,6 +9,9 @@ func enter()-> void:
 	return
 	
 func process_physics(delta:float)-> State:
+	print(%Health.is_dead())
+	if %Health.is_dead():
+		return null
 	attack_area.get_node("Collision").set_deferred("disabled", true)
 	if Input.is_action_just_pressed("dash") and %Stamina.get_stamina() >= 10:
 			return dash_state

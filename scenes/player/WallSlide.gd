@@ -6,6 +6,10 @@ var on_wall = false
 @export var jump_state : State
 @export var hit_state: State
 
+func enter():
+	super()
+	%SoundArea.set_deferred("disabled", true)
+	
 
 func process_input(event: InputEvent) -> State:
 	if Input.is_action_just_pressed("jump"):
@@ -28,7 +32,8 @@ func process_physics(delta:float) -> State:
 	character.move_and_slide()
 	return null
 	
-
+func exit():
+	%SoundArea.set_deferred("disabled", false)
 func next_to_wall()-> bool:
 	if wall_ray.is_colliding() and not character.is_on_floor():
 		if not on_wall:

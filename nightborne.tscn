@@ -223,7 +223,6 @@ collision_mask = 8
 shape = SubResource("RectangleShape2D_b0b3y")
 
 [node name="SoundArea" type="Area2D" parent="."]
-visible = false
 position = Vector2(10, 0)
 collision_layer = 4
 collision_mask = 4
@@ -364,6 +363,8 @@ sprite = NodePath("../../Sprite")
 
 [connection signal="health_depleted" from="Health" to="FSM/Hit" method="_on_health_health_depleted"]
 [connection signal="health_hit" from="Health" to="FSM/Hit" method="_on_health_health_hit"]
+[connection signal="area_entered" from="SoundArea" to="FSM/Stalk" method="_on_sound_area_area_entered"]
+[connection signal="area_exited" from="SoundArea" to="FSM/Stalk" method="_on_sound_area_area_exited"]
 [connection signal="body_entered" from="VisionArea" to="FSM/Stalk" method="_on_vision_area_body_entered"]
 [connection signal="body_exited" from="VisionArea" to="FSM/Stalk" method="_on_vision_area_body_exited"]
 [connection signal="area_entered" from="EnemyAttackArea" to="FSM/Attack" method="_on_enemy_attack_area_area_entered"]

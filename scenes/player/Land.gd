@@ -32,6 +32,7 @@ func process_physics(delta:float) -> State:
 	
 func exit():
 	landing = false
+	%Crouch.crouch_multiplier = 1.5
 
 func _on_animation_animation_finished(anim_name):
 	match anim_name:

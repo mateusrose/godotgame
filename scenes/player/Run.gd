@@ -17,7 +17,7 @@ func process_input(event: InputEvent) -> State:
 func process_physics(delta:float)-> State:
 	if get_parent().is_hit:
 		return hit_state
-	character.velocity.y += character.PLAYER_GRAVITY * delta * character.MULTIPLIER
+	character.velocity.y += character.PLAYER_GRAVITY * character.MULTIPLIER
 	var movement = Input.get_axis("move_left","move_right") * character.SPEED * character.MULTIPLIER
 	if movement == 0:
 		return idle_state
@@ -29,3 +29,6 @@ func process_physics(delta:float)-> State:
 	if !character.is_on_floor():
 		return fall_state
 	return null
+
+func exit():
+	%Crouch.crouch_multiplier = 1.5

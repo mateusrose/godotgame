@@ -7,6 +7,11 @@ extends State
 @export var wall_slide_state : State
 @export var hit_state: State
 
+func enter():
+	super()
+	%SoundArea.set_deferred("disabled", true)
+	
+
 func process_input(event: InputEvent) -> State:
 	if Input.is_action_just_pressed("jump"):
 		return jump_state
@@ -26,3 +31,6 @@ func process_physics(delta:float) -> State:
 	if wall_slide_state.next_to_wall():
 		return wall_slide_state
 	return null
+
+func exit():
+	%SoundArea.set_deferred("disabled", false)

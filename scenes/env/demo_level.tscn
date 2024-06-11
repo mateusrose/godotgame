@@ -32,3 +32,4 @@ position = Vector2(507, 270)
 
 [node name="EnemyNightborne" parent="." instance=ExtResource("7_o6w8i")]
 position = Vector2(657, 343)
+SPEED = 90

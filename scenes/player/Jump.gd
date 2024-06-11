@@ -12,12 +12,12 @@ var current_jumps = 0
 
 
 func enter() -> void:
+	%Crouch.crouch_multiplier = 1
 	if current_jumps < max_jumps:
+		%SoundArea.set_deferred("disabled", true)
 		super()
 		character.velocity.y = character.JUMP_SPEED
 		current_jumps += 1
-		print("im on", current_jumps)
-		
 		#fixing crouch jump, kinda hardcoded
 	if character.JUMP_SPEED < -400:
 		character.JUMP_SPEED = -350
@@ -46,6 +46,10 @@ func process_physics(delta:float) -> State:
 			return run_state
 		return idle_state
 	return null
+	
+func exit():
+	%SoundArea.set_deferred("disabled", false)
+	%Crouch.crouch_multiplier = 1
 	
 func reset_jumps():
 	current_jumps = 0

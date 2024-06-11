@@ -12,6 +12,7 @@ var is_next_state_crouch = false
 
 func enter()-> void:
 	super()
+	$CrouchMultiplier.start()
 	character.is_crouched = true
 	sound_area.monitoring = false
 	sound_area.get_node("SoundArea").set_deferred("disabled", true)
@@ -34,9 +35,6 @@ func process_input(event: InputEvent) -> State:
 	return idle_state
 	
 func exit():
-	if is_next_state_crouch:
-		is_next_state_crouch = false
-		return
 	sound_area.monitoring = true
 	sound_area.get_node("SoundArea").set_deferred("disabled", false)
 	is_next_state_crouch = false
@@ -49,3 +47,6 @@ func process_physics(delta:float)-> State:
 	if !character.is_on_floor():
 		return fall_state
 	return null
+
+func _on_crouch_multiplier_timeout():
+	crouch_multiplier = 1

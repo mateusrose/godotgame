@@ -7,6 +7,7 @@ var hit_ended = false
 @export var crouch_state: State
 @export var crouch_walk_state: State
 @export var idle_state: State
+@export var death_state: State
 
 
 func enter():
@@ -18,6 +19,8 @@ func enter():
 
 func process_physics(delta: float) -> State:
 	if hit_ended:
+		if %Health.is_dead():
+			return death_state
 		if character.is_on_floor():
 			if character.velocity.x == 0 :
 				if character.is_crouched:

@@ -54,3 +54,8 @@ func _decrease_bonus_health(value:int)-> void:
 	max_health-=value
 	if current_health > max_health:
 		current_health = max_health
+
+func is_dead()->bool:
+	if current_health <= 0:
+		return true
+	return false

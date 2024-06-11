@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 var PLAYER_GRAVITY = 350
-var SPEED = 90
+@export var SPEED : int
 var following_player = false
 var is_hit = false
 var is_dead = false

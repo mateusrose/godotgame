@@ -8,7 +8,6 @@ var anim_ended = false
 @export var attack_special_animation : AnimationPlayer
 @export var attack_area : Area2D
 
-
 func enter()-> void:
 	%Stamina.change("decrease", 5)
 	animation.play("attack"+character.suffix)
@@ -40,7 +39,6 @@ func process_physics(delta:float):
 		return no_action_state
 	return null
 
-
 func exit():
 	character.SPEED *= 3
 	animation.speed_scale = 1
@@ -52,9 +50,6 @@ func _on_timer_timeout():
 	%Dash.just_dashed = false
 	anim_ended = true
 	
-	
 func _on_attack_area_area_entered(area):
-	print("lololololol")
 	if area.is_in_group("enemy_hitbox"):
-		print("enemy")
 		area.get_parent().get_node("Health").change("decrease", %Damage.get_damage())

@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://b6iusifmurmjl"]
+[gd_scene load_steps=51 format=3 uid="uid://b6iusifmurmjl"]
 
 [ext_resource type="Script" path="res://scenes/player/player_character.gd" id="1_m2148"]
 [ext_resource type="Texture2D" uid="uid://cxstjymf6tbxm" path="res://assets/player/char_blue (copy).png" id="1_vl5uh"]
@@ -22,6 +22,7 @@
 [ext_resource type="Script" path="res://scenes/player/NoAction.gd" id="18_2fg1f"]
 [ext_resource type="Script" path="res://scenes/player/Dashnewfsm.gd" id="20_kvn5h"]
 [ext_resource type="Script" path="res://scenes/player/Attack.gd" id="20_mbwnp"]
+[ext_resource type="Script" path="res://scenes/player/Death.gd" id="20_mqrwi"]
 [ext_resource type="Script" path="res://scenes/player/DemonMode.gd" id="21_gjvwr"]
 [ext_resource type="Script" path="res://scenes/player/Hit.gd" id="24_kmxof"]
 
@@ -837,12 +838,12 @@ drag_right_margin = 0.1
 drag_bottom_margin = 0.1
 
 [node name="SoundArea" type="Area2D" parent="." groups=["player_sound_area"]]
-visible = false
 collision_layer = 4
 collision_mask = 0
 monitoring = false
 
 [node name="SoundArea" type="CollisionShape2D" parent="SoundArea"]
+unique_name_in_owner = true
 position = Vector2(0, 10)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_hptis")
@@ -981,6 +982,7 @@ wait_time = 0.3
 one_shot = true
 
 [node name="Crouch" type="Node" parent="MovementState" node_paths=PackedStringArray("fall_state", "jump_state", "run_state", "idle_state", "hit_state", "crouch_walk_state", "sound_area", "character", "animation", "sprite")]
+unique_name_in_owner = true
 script = ExtResource("14_0abj3")
 fall_state = NodePath("../Fall")
 jump_state = NodePath("../Jump")
@@ -993,6 +995,10 @@ character = NodePath("../..")
 animation = NodePath("../../Animation")
 animation_name = "crouch"
 sprite = NodePath("../../Sprite")
+
+[node name="CrouchMultiplier" type="Timer" parent="MovementState/Crouch"]
+wait_time = 0.4
+one_shot = true
 
 [node name="CrouchWalk" type="Node" parent="MovementState" node_paths=PackedStringArray("fall_state", "jump_state", "run_state", "idle_state", "crouch_state", "crouch_walk_state", "sound_area", "hit_state", "character", "animation", "sprite")]
 script = ExtResource("15_o8cvg")
@@ -1021,7 +1027,7 @@ animation = NodePath("../../Animation")
 animation_name = "wall_slide"
 sprite = NodePath("../../Sprite")
 
-[node name="Hit" type="Node" parent="MovementState" node_paths=PackedStringArray("fall_state", "jump_state", "run_state", "crouch_state", "crouch_walk_state", "idle_state", "character", "animation", "sprite")]
+[node name="Hit" type="Node" parent="MovementState" node_paths=PackedStringArray("fall_state", "jump_state", "run_state", "crouch_state", "crouch_walk_state", "idle_state", "death_state", "character", "animation", "sprite")]
 script = ExtResource("24_kmxof")
 fall_state = NodePath("../Fall")
 jump_state = NodePath("../Jump")
@@ -1029,6 +1035,7 @@ run_state = NodePath("../Run")
 crouch_state = NodePath("../Crouch")
 crouch_walk_state = NodePath("../CrouchWalk")
 idle_state = NodePath("../Idle")
+death_state = NodePath("../Death")
 character = NodePath("../..")
 animation = NodePath("../../Animation")
 animation_name = "hit"
@@ -1041,6 +1048,13 @@ one_shot = true
 [node name="HitAnimTimer" type="Timer" parent="MovementState/Hit"]
 wait_time = 0.3
 one_shot = true
+
+[node name="Death" type="Node" parent="MovementState" node_paths=PackedStringArray("character", "animation", "sprite")]
+script = ExtResource("20_mqrwi")
+character = NodePath("../..")
+animation = NodePath("../../Animation")
+animation_name = "dead"
+sprite = NodePath("../../Sprite")
 
 [node name="ActionState" type="Node" parent="." node_paths=PackedStringArray("character", "animation", "starting_state")]
 script = ExtResource("17_g3v8u")
@@ -1114,6 +1128,7 @@ one_shot = true
 [connection signal="area_entered" from="AttackArea" to="ActionState/Attack" method="_on_attack_area_area_entered"]
 [connection signal="health_hit" from="Health" to="MovementState/Hit" method="_on_health_health_hit"]
 [connection signal="timeout" from="MovementState/Land/LandTimer" to="MovementState/Land" method="_on_land_timer_timeout"]
+[connection signal="timeout" from="MovementState/Crouch/CrouchMultiplier" to="MovementState/Crouch" method="_on_crouch_multiplier_timeout"]
 [connection signal="timeout" from="MovementState/Hit/HitTimer" to="MovementState/Hit" method="_on_hit_timer_timeout"]
 [connection signal="timeout" from="MovementState/Hit/HitAnimTimer" to="MovementState/Hit" method="_on_hit_anim_timer_timeout"]
 [connection signal="timeout" from="ActionState/Dash/DashTimer" to="ActionState/Dash" method="_on_dash_timer_timeout"]

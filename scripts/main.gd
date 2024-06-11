@@ -13,8 +13,6 @@ const TIME_SCALE = 0.01
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
-	
-	#var _game_over: bool = player.get_node("Sprite").game_over.connect(_on_game_over)
 func _process(delta:float):
 	self.time += delta * TIME_SCALE
 	background.set_color(DAY_COLOR.lerp(NIGHT_COLOR, abs(sin(time))))

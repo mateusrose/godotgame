@@ -58,3 +58,14 @@ func _on_vision_area_body_exited(body):
 func _on_follow_area_body_exited(body):
 	character.following_player = false
 	character.player = null
+
+
+func _on_sound_area_area_entered(area):
+	if area.is_in_group("player_sound_area"):
+		character.player = area.get_parent()
+		character.following_player = true
+
+
+func _on_sound_area_area_exited(area):
+	if !character.following_player:
+		character.player = null

@@ -7,6 +7,7 @@ extends State
 @export var hit_state: State
 
 func enter()-> void:
+	%SoundArea.set_deferred("disabled", true)
 	super()
 	character.velocity.x = 0
 	
@@ -28,3 +29,7 @@ func process_physics(delta:float)-> State:
 	if !character.is_on_floor():
 		return fall_state
 	return null
+
+func exit():
+	%SoundArea.set_deferred("disabled", false)
+	%Crouch.crouch_multiplier = 1.5
