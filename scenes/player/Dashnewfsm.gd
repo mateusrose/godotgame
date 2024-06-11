@@ -3,15 +3,18 @@ extends State
 var just_dashed = false
 var anim_ended = false
 @export var no_action_state : State
+@export var wall_slide_state : State
 @onready var dash_timer : Timer = $DashTimer
 @onready var just_dashed_timer : Timer = $JustDashedTimer
 
 func enter()-> void:
+	%Stamina.change("decrease", 10)
 	super()
 	%Health.can_take_damage = false
 	dash_timer.start()
 	just_dashed_timer.start()
 	just_dashed = true
+	
 
 func process_physics(delta:float)-> State:
 	var movement = Input.get_axis("move_left","move_right") * character.SPEED * character.MULTIPLIER * character.DASH_SPEED
@@ -31,6 +34,8 @@ func process_physics(delta:float)-> State:
 				else:
 					animation.play("run")
 		else:
+			if character.next_to_wall():
+				animation.play("wall_slide")
 			animation.play("falling")
 		return no_action_state
 	return null

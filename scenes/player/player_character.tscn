@@ -857,6 +857,7 @@ shape = SubResource("RectangleShape2D_677ac")
 disabled = true
 
 [node name="WallRay" type="RayCast2D" parent="."]
+unique_name_in_owner = true
 target_position = Vector2(11, 0)
 collision_mask = 3
 
@@ -897,8 +898,9 @@ actor_path = NodePath("..")
 base_health = 15
 
 [node name="Stamina" parent="." instance=ExtResource("7_vkpv6")]
+unique_name_in_owner = true
 actor_path = NodePath("..")
-base_stamina = 30
+base_stamina = 60
 
 [node name="Experience" parent="." instance=ExtResource("8_big0u")]
 
@@ -1053,9 +1055,10 @@ character = NodePath("../..")
 animation = NodePath("../../Animation")
 sprite = NodePath("../../Sprite")
 
-[node name="Dash" type="Node" parent="ActionState" node_paths=PackedStringArray("no_action_state", "character", "animation", "sprite")]
+[node name="Dash" type="Node" parent="ActionState" node_paths=PackedStringArray("no_action_state", "wall_slide_state", "character", "animation", "sprite")]
 script = ExtResource("20_kvn5h")
 no_action_state = NodePath("../NoAction")
+wall_slide_state = NodePath("../../MovementState/WallSlide")
 character = NodePath("../..")
 animation = NodePath("../../Animation")
 animation_name = "dash"

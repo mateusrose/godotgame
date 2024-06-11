@@ -52,3 +52,8 @@ func verify_position(direction: Vector2) -> void:
 		suffix = "_left"
 		sprite.position = Vector2(-2,0)
 		wall_ray.target_position=Vector2(-9 , 0)
+
+func next_to_wall()-> bool:
+	if %WallRay.is_colliding() and not is_on_floor():
+		return true
+	return false

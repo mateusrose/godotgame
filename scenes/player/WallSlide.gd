@@ -10,6 +10,8 @@ var on_wall = false
 func process_input(event: InputEvent) -> State:
 	if Input.is_action_just_pressed("jump"):
 		return jump_state
+	if Input.is_action_just_pressed("move_left") or Input.is_action_just_pressed("move_right"):
+		return fall_state
 	return null
 
 func process_physics(delta:float) -> State:

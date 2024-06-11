@@ -11,8 +11,11 @@ var is_dead = false
 @onready var attack_area = $EnemyAttackArea
 var player : Player_Character = null
 @onready var initial_position = get_position()
-
+@export var can_move : bool
 @export var movement_state_machine : Node
+var has_lost_player = false
+var is_returning = false
+
 func _ready():
 	movement_state_machine.init()
 	

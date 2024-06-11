@@ -15,7 +15,7 @@ signal stamina_depleted
 func _ready() -> void:
 	current_stamina = base_stamina + bonus_stamina
 	max_stamina = current_stamina
-	increase_rate_stamina = max_stamina/2
+	increase_rate_stamina = max_stamina/4
 	
 	if stamina_recover_timer == null:
 		stamina_recover_timer = Timer.new()
@@ -24,7 +24,8 @@ func _ready() -> void:
 		stamina_recover_timer.one_shot = false
 		stamina_recover_timer.connect("timeout",_on_stamina_recover_timeout)
 		add_child(stamina_recover_timer)
-	stamina_recover_timer.stop()  # Ensure the timer is stopped initially
+	
+	stamina_recover_timer.stop() 
 	stamina_recover_timer.start()
 
 func change(arg:String, value:int)->void:
@@ -33,6 +34,7 @@ func change(arg:String, value:int)->void:
 			increase_stamina(value)
 		"decrease":
 			decrease_stamina(value)
+			print("i have ", current_stamina, " stamina")
 		"increase_bonus":
 			increase_bonus_stamina(value)
 		"decrease_bonus":
@@ -65,3 +67,6 @@ func decrease_bonus_stamina(value:int)-> void:
 func _on_stamina_recover_timeout():
 	if previous_stamina <= current_stamina and current_stamina != max_stamina:
 		increase_stamina(increase_rate_stamina)
+
+func get_stamina()->int:
+	return current_stamina

@@ -184,6 +184,7 @@ _data = {
 collision_layer = 8
 script = ExtResource("1_klouj")
 sprite = NodePath("Sprite")
+can_move = true
 movement_state_machine = NodePath("FSM")
 
 [node name="Damage" parent="." node_paths=PackedStringArray("character") instance=ExtResource("2_6lql0")]
@@ -207,6 +208,10 @@ vframes = 5
 [node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2(2.5, 3)
 shape = SubResource("RectangleShape2D_xj55e")
+
+[node name="WallRayCast" type="RayCast2D" parent="."]
+unique_name_in_owner = true
+target_position = Vector2(15, 0)
 
 [node name="HitboxCollision" type="Area2D" parent="." groups=["enemy_hitbox"]]
 visible = false
@@ -355,10 +360,6 @@ character = NodePath("../..")
 animation = NodePath("../../Animation")
 animation_name = "run"
 sprite = NodePath("../../Sprite")
-
-[node name="WallRayCast" type="RayCast2D" parent="."]
-unique_name_in_owner = true
-target_position = Vector2(15, 0)
 
 [connection signal="health_depleted" from="Health" to="FSM/Hit" method="_on_health_health_depleted"]
 [connection signal="health_hit" from="Health" to="FSM/Hit" method="_on_health_health_hit"]

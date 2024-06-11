@@ -10,6 +10,7 @@ var anim_ended = false
 
 
 func enter()-> void:
+	%Stamina.change("decrease", 5)
 	animation.play("attack"+character.suffix)
 	if dash_state.just_dashed or demon_state.demon_mode:
 		attack_special_animation.play("attack_dash")
