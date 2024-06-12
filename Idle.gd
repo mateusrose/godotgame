@@ -26,7 +26,6 @@ func process_physics(delta:float)-> State:
 	return null
 
 func exit():
-	print("i am done idling")
 	done_idle = false
 
 func _on_idle_timer_timeout():

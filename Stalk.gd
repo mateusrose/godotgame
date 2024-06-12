@@ -30,9 +30,10 @@ func process_physics(delta:float)-> State:
 	if abs(character.player.global_position.x - character.global_position.x) < 10:
 		return attack_state
 	var direction: Vector2 = distance.normalized()
+	
 	character.velocity.y += character.PLAYER_GRAVITY * delta
-	if !%FloorRay.is_colliding():
-		return null
+	
+	
 	character.velocity.x = character.SPEED * direction.x
 	character.move_and_slide()
 	return null

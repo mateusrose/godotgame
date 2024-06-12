@@ -16,7 +16,7 @@ func enter()-> void:
 	else:
 		super()
 	if !%FloorRay.is_colliding():
-		print("not colliding")
+	
 		if %FloorRay.target_position.x > 0:
 			%FloorRay.target_position.x = -30
 			direction = -1
@@ -24,7 +24,7 @@ func enter()-> void:
 			%FloorRay.target_position.x = 30
 			direction = 1
 	else:
-		print("no random direction")
+	
 		set_direction()
 	timer.start()
 	

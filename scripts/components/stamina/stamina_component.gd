@@ -10,6 +10,7 @@ var previous_stamina: int
 var max_stamina: int
 var increase_rate_stamina: int
 signal stamina_depleted
+signal stamina_changed
 @onready var stamina_recover_timer: Timer = get_node_or_null("StaminaRecover")
 
 func _ready() -> void:
@@ -28,6 +29,9 @@ func _ready() -> void:
 	stamina_recover_timer.stop() 
 	stamina_recover_timer.start()
 
+func _process(delta):
+	stamina_changed.emit()
+	
 func change(arg:String, value:int)->void:
 	match arg:
 		"increase":
@@ -39,6 +43,7 @@ func change(arg:String, value:int)->void:
 			increase_bonus_stamina(value)
 		"decrease_bonus":
 			decrease_bonus_stamina(value)
+	stamina_changed.emit()
 
 func increase_stamina(value:int)->void:
 	current_stamina += value

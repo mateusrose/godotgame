@@ -16,6 +16,7 @@ var is_crouched = false
 @onready var wall_ray = $WallRay
 @onready var sprite_attack = $AttackSprite
 @onready var sprite_demon = $DemonSprite
+@export var stage : Node
 
 func _ready():
 	movement_state_machine.init()

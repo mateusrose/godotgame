@@ -10,6 +10,7 @@ var landing = false
 @onready var land_timer: Timer = $LandTimer
 
 func enter():
+	%SoundArea.set_deferred("disabled", true)
 	landing = true
 	super()
 	jump_state.reset_jumps()
@@ -31,8 +32,9 @@ func process_physics(delta:float) -> State:
 	return null
 	
 func exit():
+	%SoundArea.set_deferred("disabled", false)
 	landing = false
-	%Crouch.crouch_multiplier = 1.5
+	%Crouch.crouch_multiplier = 1
 
 func _on_animation_animation_finished(anim_name):
 	match anim_name:

@@ -13,8 +13,6 @@ func enter()-> void:
 	
 	
 func process_input(event: InputEvent) -> State:
-	if get_parent().is_hit:
-		return hit_state
 	if Input.is_action_just_pressed("jump") and character.is_on_floor():
 		return jump_state
 	if Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right"):
@@ -24,6 +22,8 @@ func process_input(event: InputEvent) -> State:
 	return null
 
 func process_physics(delta:float)-> State:
+	if get_parent().is_hit:
+		return hit_state
 	character.velocity.y += character.PLAYER_GRAVITY * delta * character.MULTIPLIER
 	character.move_and_slide()
 	if !character.is_on_floor():

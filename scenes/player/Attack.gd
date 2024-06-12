@@ -52,4 +52,8 @@ func _on_timer_timeout():
 	
 func _on_attack_area_area_entered(area):
 	if area.is_in_group("enemy_hitbox"):
-		area.get_parent().get_node("Health").change("decrease", %Damage.get_damage())
+		var health = area.get_parent().get_node("Health")
+		if !area.get_parent().following_player:
+			health.change("decrease", health.max_health)
+			return
+		health.change("decrease", %Damage.get_damage())

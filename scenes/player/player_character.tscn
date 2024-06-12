@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://b6iusifmurmjl"]
+[gd_scene load_steps=52 format=3 uid="uid://b6iusifmurmjl"]
 
 [ext_resource type="Script" path="res://scenes/player/player_character.gd" id="1_m2148"]
 [ext_resource type="Texture2D" uid="uid://cxstjymf6tbxm" path="res://assets/player/char_blue (copy).png" id="1_vl5uh"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://t2i4wvablxo1" path="res://assets/effect/light.png" id="4_uklng"]
 [ext_resource type="PackedScene" uid="uid://cews67sgg4lr1" path="res://scripts/components/damage/damage_component.tscn" id="6_0dbum"]
 [ext_resource type="PackedScene" uid="uid://cps2odid6cxyt" path="res://scripts/components/health_component.tscn" id="6_3oswi"]
+[ext_resource type="Script" path="res://scenes/player/PointLight2D.gd" id="6_ahp5o"]
 [ext_resource type="PackedScene" uid="uid://dsrsb2rni6vrc" path="res://scripts/components/stamina/stamina_component.tscn" id="7_vkpv6"]
 [ext_resource type="PackedScene" uid="uid://cr7bpuaedhykm" path="res://scripts/components/experience/experience_component.tscn" id="8_big0u"]
 [ext_resource type="Script" path="res://scenes/player/IdleState.gd" id="8_cl04f"]
@@ -254,18 +255,6 @@ tracks/6/keys = {
 "update": 0,
 "values": [1.0]
 }
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("Hitbox:shape:size")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(13, 31)]
-}
 
 [sub_resource type="Animation" id="Animation_xi6rh"]
 resource_name = "attack_left"
@@ -454,18 +443,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0.5, 1.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Hitbox:shape:size")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(13, 32), Vector2(13, 32)]
 }
 
 [sub_resource type="Animation" id="Animation_ihqlr"]
@@ -793,7 +770,7 @@ radius = 30.0
 height = 180.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4gpg3"]
-size = Vector2(13, 31)
+size = Vector2(12, 30)
 
 [node name="PlayerCharacter" type="CharacterBody2D"]
 collision_layer = 4
@@ -838,6 +815,7 @@ drag_right_margin = 0.1
 drag_bottom_margin = 0.1
 
 [node name="SoundArea" type="Area2D" parent="." groups=["player_sound_area"]]
+visible = false
 collision_layer = 4
 collision_mask = 0
 monitoring = false
@@ -870,12 +848,10 @@ color = Color(0.510901, 0.51925, 0.99666, 1)
 energy = 1.04
 shadow_enabled = true
 texture = ExtResource("4_uklng")
+script = ExtResource("6_ahp5o")
 
 [node name="Hitbox" type="CollisionShape2D" parent="." groups=["player_hitbox"]]
-visible = false
-light_mask = 13
-visibility_layer = 13
-position = Vector2(-0.5, 12)
+position = Vector2(0, 12)
 shape = SubResource("RectangleShape2D_4gpg3")
 
 [node name="CollisionArea" type="Area2D" parent="." groups=["player_hitbox"]]
@@ -888,7 +864,7 @@ collision_mask = 12
 monitoring = false
 
 [node name="Collision" type="CollisionShape2D" parent="CollisionArea"]
-position = Vector2(-1, 12)
+position = Vector2(0, 12)
 shape = SubResource("RectangleShape2D_4gpg3")
 
 [node name="Damage" parent="." node_paths=PackedStringArray("character") instance=ExtResource("6_0dbum")]

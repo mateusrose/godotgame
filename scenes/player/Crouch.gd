@@ -20,8 +20,7 @@ func enter()-> void:
 	
 	
 func process_input(event: InputEvent) -> State:
-	if get_parent().is_hit:
-		return hit_state
+	
 	if Input.is_action_pressed("crouch"):
 		if Input.is_action_just_pressed("jump") and character.is_on_floor():
 			character.JUMP_SPEED *= crouch_multiplier
@@ -33,7 +32,16 @@ func process_input(event: InputEvent) -> State:
 	if character.velocity.x != 0:
 		return run_state
 	return idle_state
-	
+
+func process_physics(delta:float)-> State:
+	if get_parent().is_hit:
+		return hit_state
+	character.velocity.y += character.PLAYER_GRAVITY * delta * character.MULTIPLIER
+	character.move_and_slide()
+	if !character.is_on_floor():
+		return fall_state
+	return null
+
 func exit():
 	sound_area.monitoring = true
 	sound_area.get_node("SoundArea").set_deferred("disabled", false)
@@ -41,12 +49,6 @@ func exit():
 	character.is_crouched = false
 	
 
-func process_physics(delta:float)-> State:
-	character.velocity.y += character.PLAYER_GRAVITY * delta * character.MULTIPLIER
-	character.move_and_slide()
-	if !character.is_on_floor():
-		return fall_state
-	return null
 
 func _on_crouch_multiplier_timeout():
 	crouch_multiplier = 1

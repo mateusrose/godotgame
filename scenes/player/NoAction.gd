@@ -9,7 +9,6 @@ func enter()-> void:
 	return
 	
 func process_physics(delta:float)-> State:
-	print(%Health.is_dead())
 	if %Health.is_dead():
 		return null
 	attack_area.get_node("Collision").set_deferred("disabled", true)

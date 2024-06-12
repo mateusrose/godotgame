@@ -42,6 +42,10 @@ func _on_demon_timer_timeout():
 
 func _on_anim_time_timeout():
 	anim_ended = true
+	if !character.is_on_floor():
+		animation.play("fall")
+		return
 	if character.velocity.x != 0:
 		animation.play("run")
+		return
 	animation.play("idle")

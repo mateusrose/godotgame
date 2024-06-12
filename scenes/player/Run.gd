@@ -11,13 +11,12 @@ func process_input(event: InputEvent) -> State:
 		return jump_state
 	if Input.is_action_pressed("crouch"):
 		return crouch_state
-	
 	return null
 
 func process_physics(delta:float)-> State:
 	if get_parent().is_hit:
 		return hit_state
-	character.velocity.y += character.PLAYER_GRAVITY * character.MULTIPLIER
+	character.velocity.y += character.PLAYER_GRAVITY * character.MULTIPLIER * delta
 	var movement = Input.get_axis("move_left","move_right") * character.SPEED * character.MULTIPLIER
 	if movement == 0:
 		return idle_state

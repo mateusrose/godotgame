@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://cemf2cahafpnx"]
+[gd_scene load_steps=33 format=3 uid="uid://cemf2cahafpnx"]
 
 [ext_resource type="Script" path="res://scripts/enemy/nighborne/nightborne.gd" id="1_klouj"]
 [ext_resource type="PackedScene" uid="uid://dsrsb2rni6vrc" path="res://scripts/components/stamina/stamina_component.tscn" id="1_mmtwa"]
@@ -14,6 +14,10 @@
 [ext_resource type="Script" path="res://Hit.gd" id="12_6kigw"]
 [ext_resource type="Script" path="res://Kill.gd" id="13_6kf2r"]
 [ext_resource type="Script" path="res://WallClimb.gd" id="14_7phyo"]
+[ext_resource type="Texture2D" uid="uid://bki5mlmivg40w" path="res://spritestest/enemy_life_bar_empty.png" id="15_42q0r"]
+[ext_resource type="Texture2D" uid="uid://dewid4bju3362" path="res://spritestest/enemy_life_bar_full.png" id="16_f0nkp"]
+[ext_resource type="Script" path="res://TextureProgressBar_enemy.gd" id="17_jbdi0"]
+[ext_resource type="Texture2D" uid="uid://wmqloldmone4" path="res://spritestest/enemy_life_bar_full_white.png" id="18_481eo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xj55e"]
 size = Vector2(19, 40)
@@ -190,12 +194,13 @@ movement_state_machine = NodePath("FSM")
 [node name="Damage" parent="." node_paths=PackedStringArray("character") instance=ExtResource("2_6lql0")]
 unique_name_in_owner = true
 character = NodePath("..")
-base_damage = 2
+base_damage = 10
 
 [node name="Stamina" parent="." instance=ExtResource("1_mmtwa")]
 actor_path = NodePath("..")
 
 [node name="Health" parent="." instance=ExtResource("2_1jyxr")]
+unique_name_in_owner = true
 actor_path = NodePath("..")
 base_health = 20
 
@@ -211,6 +216,7 @@ shape = SubResource("RectangleShape2D_xj55e")
 
 [node name="WallRayCast" type="RayCast2D" parent="."]
 unique_name_in_owner = true
+position = Vector2(0, 11)
 target_position = Vector2(15, 0)
 
 [node name="HitboxCollision" type="Area2D" parent="." groups=["enemy_hitbox"]]
@@ -223,6 +229,7 @@ collision_mask = 8
 shape = SubResource("RectangleShape2D_b0b3y")
 
 [node name="SoundArea" type="Area2D" parent="."]
+visible = false
 position = Vector2(10, 0)
 collision_layer = 4
 collision_mask = 4
@@ -286,7 +293,7 @@ animation_name = "idle"
 sprite = NodePath("../../Sprite")
 
 [node name="IdleTimer" type="Timer" parent="FSM/Idle"]
-wait_time = 2.0
+wait_time = 4.0
 one_shot = true
 
 [node name="Wander" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "stalk_state", "hit_state", "wall_climb_state", "character", "animation", "sprite")]
@@ -315,11 +322,12 @@ animation = NodePath("../../Animation")
 animation_name = "run"
 sprite = NodePath("../../Sprite")
 
-[node name="Return" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "stalk_state", "hit_state", "character", "animation", "sprite")]
+[node name="Return" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "stalk_state", "hit_state", "wall_climb_state", "character", "animation", "sprite")]
 script = ExtResource("9_67j1w")
 idle_state = NodePath("../Idle")
 stalk_state = NodePath("../Stalk")
 hit_state = NodePath("../Hit")
+wall_climb_state = NodePath("../WallClimb")
 character = NodePath("../..")
 animation = NodePath("../../Animation")
 animation_name = "run"
@@ -361,6 +369,30 @@ animation = NodePath("../../Animation")
 animation_name = "run"
 sprite = NodePath("../../Sprite")
 
+[node name="HealthProgressWhite" type="TextureProgressBar" parent="."]
+unique_name_in_owner = true
+offset_left = -13.0
+offset_top = -12.0
+offset_right = 95.0
+offset_bottom = 16.0
+texture_progress = ExtResource("18_481eo")
+texture_progress_offset = Vector2(2, 0)
+
+[node name="HealthWhiteTimer" type="Timer" parent="HealthProgressWhite"]
+unique_name_in_owner = true
+wait_time = 3.0
+one_shot = true
+
+[node name="HealthProgressBar" type="TextureProgressBar" parent="."]
+offset_left = -13.0
+offset_top = -12.0
+offset_right = 95.0
+offset_bottom = 16.0
+texture_under = ExtResource("15_42q0r")
+texture_progress = ExtResource("16_f0nkp")
+texture_progress_offset = Vector2(2, 0)
+script = ExtResource("17_jbdi0")
+
 [connection signal="health_depleted" from="Health" to="FSM/Hit" method="_on_health_health_depleted"]
 [connection signal="health_hit" from="Health" to="FSM/Hit" method="_on_health_health_hit"]
 [connection signal="area_entered" from="SoundArea" to="FSM/Stalk" method="_on_sound_area_area_entered"]
@@ -375,3 +407,4 @@ sprite = NodePath("../../Sprite")
 [connection signal="animation_finished" from="Animation" to="FSM/Kill" method="_on_animation_animation_finished"]
 [connection signal="timeout" from="FSM/Idle/IdleTimer" to="FSM/Idle" method="_on_idle_timer_timeout"]
 [connection signal="timeout" from="FSM/Wander/WanderTimer" to="FSM/Wander" method="_on_wander_timer_timeout"]
+[connection signal="timeout" from="HealthProgressWhite/HealthWhiteTimer" to="HealthProgressBar" method="_on_timer_timeout"]

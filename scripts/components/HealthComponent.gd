@@ -11,6 +11,7 @@ var max_health: int
 signal health_depleted
 signal health_hit
 signal health_increase
+signal health_change
 
 func _ready() -> void:
 	current_health = base_health + bonus_health
@@ -27,6 +28,8 @@ func change(arg:String, value:int)->void:
 			_increase_bonus_health(value)
 		"decrease_bonus":
 			_decrease_bonus_health(value)
+	health_change.emit()
+	
 
 func _increase_health(value:int)->void:
 	current_health += value
@@ -37,9 +40,9 @@ func _increase_health(value:int)->void:
 func _decrease_health(value:int)->void:
 	current_health -= value
 	emit_signal("health_hit")
-	print(current_health)
 	if current_health <= 0:
 		current_health = 0
+		
 		emit_signal("health_depleted")
 	
 func _increase_bonus_health(value:int)->void:
