@@ -15,8 +15,7 @@ func enter()-> void:
 		animation.play("idle")
 	else:
 		super()
-	if !%FloorRay.is_colliding():
-	
+	if !%FloorRay.is_colliding() and !%JumpingDownRay.is_colliding():
 		if %FloorRay.target_position.x > 0:
 			%FloorRay.target_position.x = -30
 			direction = -1
@@ -24,7 +23,6 @@ func enter()-> void:
 			%FloorRay.target_position.x = 30
 			direction = 1
 	else:
-	
 		set_direction()
 	timer.start()
 	
@@ -45,7 +43,7 @@ func process_physics(delta:float)-> State:
 		
 	character.move_and_slide()
 		#this here is fucking the code
-	if !%FloorRay.is_colliding():
+	if !%FloorRay.is_colliding() and !%JumpingDownRay.is_colliding():
 		return idle_state
 	if character.following_player:
 		return stalk_state

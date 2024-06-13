@@ -19,7 +19,7 @@ func process_input(event: InputEvent) -> State:
 func process_physics(delta:float)-> State:
 	if character.is_hit:
 		return hit_state
-	if character.player == null:
+	if character.player == null or !%JumpingDownRay.is_colliding():
 		return return_state
 	if character.following_player:
 		following_player_middleware = true
@@ -30,7 +30,6 @@ func process_physics(delta:float)-> State:
 	if abs(character.player.global_position.x - character.global_position.x) < 10:
 		return attack_state
 	var direction: Vector2 = distance.normalized()
-	
 	character.velocity.y += character.PLAYER_GRAVITY * delta
 	
 	

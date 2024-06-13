@@ -15,6 +15,11 @@ func enter()-> void:
 	just_dashed_timer.start()
 	just_dashed = true
 	
+	if %WallTeleporterClose.is_colliding() and !%WallTeleporterCheck.is_colliding() and !%WallTeleporterBack.is_colliding():
+		if %WallTeleporterClose2.is_colliding() and !%WallTeleporterCheck2.is_colliding() and !%WallTeleporterBack2.is_colliding():
+			if %WallTeleporterThin.is_colliding():
+				character.global_position.x = %WallTeleporterCheck.global_position.x
+		
 
 func process_physics(delta:float)-> State:
 	var movement = Input.get_axis("move_left","move_right") * character.SPEED * character.MULTIPLIER * character.DASH_SPEED

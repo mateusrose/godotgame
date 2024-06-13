@@ -359,11 +359,12 @@ animation = NodePath("../../Animation")
 animation_name = "dead"
 sprite = NodePath("../../Sprite")
 
-[node name="WallClimb" type="Node" parent="FSM" node_paths=PackedStringArray("wander_state", "stalk_state", "hit_state", "character", "animation", "sprite")]
+[node name="WallClimb" type="Node" parent="FSM" node_paths=PackedStringArray("wander_state", "stalk_state", "hit_state", "return_state", "character", "animation", "sprite")]
 script = ExtResource("14_7phyo")
 wander_state = NodePath("../Wander")
 stalk_state = NodePath("../Stalk")
 hit_state = NodePath("../Hit")
+return_state = NodePath("../Return")
 character = NodePath("../..")
 animation = NodePath("../../Animation")
 animation_name = "run"
@@ -392,6 +393,14 @@ texture_under = ExtResource("15_42q0r")
 texture_progress = ExtResource("16_f0nkp")
 texture_progress_offset = Vector2(2, 0)
 script = ExtResource("17_jbdi0")
+
+[node name="CeilingRay" type="RayCast2D" parent="."]
+unique_name_in_owner = true
+target_position = Vector2(0, -40)
+
+[node name="JumpingDownRay" type="RayCast2D" parent="."]
+unique_name_in_owner = true
+target_position = Vector2(55, 75)
 
 [connection signal="health_depleted" from="Health" to="FSM/Hit" method="_on_health_health_depleted"]
 [connection signal="health_hit" from="Health" to="FSM/Hit" method="_on_health_health_hit"]

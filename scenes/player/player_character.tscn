@@ -1067,6 +1067,7 @@ wait_time = 1.5
 one_shot = true
 
 [node name="Attack" type="Node" parent="ActionState" node_paths=PackedStringArray("no_action_state", "dash_state", "demon_state", "attack_special_animation", "attack_area", "character", "animation", "sprite")]
+unique_name_in_owner = true
 script = ExtResource("20_mbwnp")
 no_action_state = NodePath("../NoAction")
 dash_state = NodePath("../Dash")
@@ -1099,6 +1100,40 @@ one_shot = true
 wait_time = 0.3
 one_shot = true
 
+[node name="WallTeleporterClose" type="RayCast2D" parent="."]
+unique_name_in_owner = true
+target_position = Vector2(92, 0)
+
+[node name="WallTeleporterThin" type="RayCast2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(30, 0)
+target_position = Vector2(-30, 0)
+
+[node name="WallTeleporterCheck" type="RayCast2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(92, 0)
+target_position = Vector2(20, 0)
+
+[node name="WallTeleporterBack" type="RayCast2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(112, 0)
+target_position = Vector2(-20, 0)
+
+[node name="WallTeleporterClose2" type="RayCast2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, 15)
+target_position = Vector2(92, 0)
+
+[node name="WallTeleporterCheck2" type="RayCast2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(92, 15)
+target_position = Vector2(20, 0)
+
+[node name="WallTeleporterBack2" type="RayCast2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(112, 15)
+target_position = Vector2(-20, 0)
+
 [connection signal="animation_finished" from="Animation" to="MovementState/Land" method="_on_animation_animation_finished"]
 [connection signal="animation_finished" from="Animation" to="MovementState/Hit" method="_on_animation_animation_finished"]
 [connection signal="area_entered" from="AttackArea" to="ActionState/Attack" method="_on_attack_area_area_entered"]
@@ -1109,6 +1144,7 @@ one_shot = true
 [connection signal="timeout" from="MovementState/Hit/HitAnimTimer" to="MovementState/Hit" method="_on_hit_anim_timer_timeout"]
 [connection signal="timeout" from="ActionState/Dash/DashTimer" to="ActionState/Dash" method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="ActionState/Dash/JustDashedTimer" to="ActionState/Dash" method="_on_just_dashed_timer_timeout"]
+[connection signal="cant_fall" from="ActionState/Attack" to="MovementState/Fall" method="_on_attack_cant_fall"]
 [connection signal="timeout" from="ActionState/Attack/AttackTimer" to="ActionState/Attack" method="_on_timer_timeout"]
 [connection signal="timeout" from="ActionState/DemonMode/DemonTimer" to="ActionState/DemonMode" method="_on_demon_timer_timeout"]
 [connection signal="timeout" from="ActionState/DemonMode/AnimTime" to="ActionState/DemonMode" method="_on_anim_time_timeout"]

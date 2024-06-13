@@ -7,8 +7,10 @@ var anim_ended = false
 @onready var attack_timer : Timer = $AttackTimer
 @export var attack_special_animation : AnimationPlayer
 @export var attack_area : Area2D
+signal cant_fall
 
 func enter()-> void:
+	cant_fall.emit()
 	%Stamina.change("decrease", 5)
 	animation.play("attack"+character.suffix)
 	if dash_state.just_dashed or demon_state.demon_mode:

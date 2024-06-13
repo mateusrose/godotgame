@@ -6,9 +6,11 @@ extends State
 @export var land_state : State
 @export var wall_slide_state : State
 @export var hit_state: State
+var anim_can_play = true
 
 func enter():
-	super()
+	if anim_can_play:
+		super()
 	%SoundArea.set_deferred("disabled", true)
 	
 
@@ -33,4 +35,9 @@ func process_physics(delta:float) -> State:
 	return null
 
 func exit():
+	anim_can_play = true
 	%SoundArea.set_deferred("disabled", false)
+
+
+func _on_attack_cant_fall():
+	anim_can_play = false

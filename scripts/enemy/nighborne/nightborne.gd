@@ -36,13 +36,16 @@ func verify_position(direction: Vector2) -> void:
 		attack_area.position.x=18
 		%FloorRay.target_position.x = 30
 		$WallRayCast.target_position.x = 15
+		%JumpingDownRay.target_position = Vector2(55,75)
 		sprite.flip_h = false
 	elif direction.x < 0:
 		sound_area.position.x = -10
 		vision_area.position.x = -60
+		attack_area.position.x=-18
 		$WallRayCast.target_position.x = -15
 		%FloorRay.target_position.x = -30
-		attack_area.position.x=-18
+		%JumpingDownRay.target_position = Vector2(-55,75)
+		
 		sprite.flip_h = true
 
 

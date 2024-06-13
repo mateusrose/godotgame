@@ -46,6 +46,18 @@ func verify_position(direction: Vector2) -> void:
 		suffix = "_right"
 		sprite.position = Vector2(2,0)
 		wall_ray.target_position=Vector2(7, 0)
+		%WallTeleporterClose.target_position = Vector2(95,0)
+		%WallTeleporterCheck.target_position = Vector2(20,0)
+		%WallTeleporterCheck.position.x = 95
+		%WallTeleporterBack.target_position = Vector2(-20,0)
+		%WallTeleporterBack.position.x = 115
+		%WallTeleporterClose2.target_position = Vector2(95,0)
+		%WallTeleporterCheck2.target_position = Vector2(20,0)
+		%WallTeleporterCheck2.position.x = 95
+		%WallTeleporterBack2.target_position = Vector2(-20,0)
+		%WallTeleporterBack2.position.x = 115
+		%WallTeleporterThin.target_position = Vector2(-25,0)
+		%WallTeleporterThin.position.x = 25
 	elif direction.x < 0:
 		sprite_attack.flip_h = true
 		sprite_demon.flip_h = true
@@ -53,6 +65,18 @@ func verify_position(direction: Vector2) -> void:
 		suffix = "_left"
 		sprite.position = Vector2(-2,0)
 		wall_ray.target_position=Vector2(-9 , 0)
+		%WallTeleporterClose.target_position = Vector2(-95,0)
+		%WallTeleporterCheck.target_position = Vector2(-20,0)
+		%WallTeleporterCheck.position.x = -95
+		%WallTeleporterBack.target_position = Vector2(20,0)
+		%WallTeleporterBack.position.x = -115
+		%WallTeleporterClose2.target_position = Vector2(-95,0)
+		%WallTeleporterCheck2.target_position = Vector2(-20,0)
+		%WallTeleporterCheck2.position.x = -95
+		%WallTeleporterBack2.target_position = Vector2(20,0)
+		%WallTeleporterBack2.position.x = -115
+		%WallTeleporterThin.target_position = Vector2(25,0)
+		%WallTeleporterThin.position.x = -25
 
 func next_to_wall()-> bool:
 	if %WallRay.is_colliding() and not is_on_floor():

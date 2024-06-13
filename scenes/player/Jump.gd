@@ -7,7 +7,7 @@ extends State
 @export var crouch_state : State
 @export var hit_state: State
 
-var max_jumps = 3
+var max_jumps = 2
 var current_jumps = 0
 
 

@@ -15,8 +15,6 @@ func _ready():
 	pass
 
 func _process(delta:float):
-	print(time)
-	print(is_day)
 	self.time += delta * TIME_SCALE
 	background.set_color(DAY_COLOR.lerp(NIGHT_COLOR, abs(sin(time))))
 	%Light.color = DAY_COLOR_STUFF.lerp(NIGHT_COLOR_STUFF, abs(sin(time)))
