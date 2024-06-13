@@ -52,17 +52,15 @@ color = Color(0.718689, 0.540685, 0.949843, 1)
 
 [node name="Background" parent="." instance=ExtResource("1_s0sos")]
 
-[node name="EnemyNightborne" parent="." instance=ExtResource("7_o6w8i")]
+[node name="EnemyNightborne" parent="." node_paths=PackedStringArray("stage") instance=ExtResource("7_o6w8i")]
 position = Vector2(948, 388)
 SPEED = 90
+stage = NodePath("..")
 
-[node name="EnemyNightborne2" parent="." instance=ExtResource("7_o6w8i")]
+[node name="EnemyNightborne2" parent="." node_paths=PackedStringArray("stage") instance=ExtResource("7_o6w8i")]
 position = Vector2(845, 168)
 SPEED = 120
-
-[node name="EnemyNightborne3" parent="." instance=ExtResource("7_o6w8i")]
-position = Vector2(878, 393)
-SPEED = 80
+stage = NodePath("..")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -99,37 +97,5 @@ script = ExtResource("11_6a4e0")
 [node name="Timer" type="Timer" parent="CanvasLayer/HealthBar"]
 wait_time = 3.0
 one_shot = true
-
-[node name="EnemyNightborne4" parent="." instance=ExtResource("7_o6w8i")]
-position = Vector2(797, 1859)
-SPEED = 200
-
-[node name="EnemyNightborne5" parent="." instance=ExtResource("7_o6w8i")]
-position = Vector2(1022, 1860)
-SPEED = 200
-
-[node name="EnemyNightborne6" parent="." instance=ExtResource("7_o6w8i")]
-position = Vector2(499, 1846)
-SPEED = 200
-
-[node name="EnemyNightborne7" parent="." instance=ExtResource("7_o6w8i")]
-position = Vector2(1827, 1827)
-SPEED = 200
-
-[node name="EnemyNightborne8" parent="." instance=ExtResource("7_o6w8i")]
-position = Vector2(1560, 1827)
-SPEED = 200
-
-[node name="EnemyNightborne9" parent="." instance=ExtResource("7_o6w8i")]
-position = Vector2(1365, 1836)
-SPEED = 200
-
-[node name="EnemyNightborne10" parent="." instance=ExtResource("7_o6w8i")]
-position = Vector2(1199, 1846)
-SPEED = 200
-
-[node name="EnemyNightborne11" parent="." instance=ExtResource("7_o6w8i")]
-position = Vector2(653, 1828)
-SPEED = 200
 
 [connection signal="timeout" from="CanvasLayer/HealthBar/Timer" to="CanvasLayer/HealthBar" method="_on_timer_timeout"]

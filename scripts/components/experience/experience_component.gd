@@ -28,3 +28,4 @@ func add_experience(value: int) -> void:
 		emit_signal("level_up")
 	elif level == 9:
 		current_exp = level_dict[str(level)]
+	print(current_exp, " gained exp")

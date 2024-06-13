@@ -15,6 +15,8 @@ var player : Player_Character = null
 @export var movement_state_machine : Node
 var has_lost_player = false
 var is_returning = false
+@export var stage : Node
+@export var items_dropable : Array[String]
 
 func _ready():
 	movement_state_machine.init()

@@ -190,6 +190,7 @@ script = ExtResource("1_klouj")
 sprite = NodePath("Sprite")
 can_move = true
 movement_state_machine = NodePath("FSM")
+items_dropable = Array[String](["heart", "experience"])
 
 [node name="Damage" parent="." node_paths=PackedStringArray("character") instance=ExtResource("2_6lql0")]
 unique_name_in_owner = true

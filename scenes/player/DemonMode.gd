@@ -13,6 +13,7 @@ func enter()-> void:
 	change_stats(true)
 	demon_timer.start()
 	anim_timer.start()
+	Engine.time_scale = 0.3
 	
 
 func process_frame(delta:float):
@@ -39,6 +40,7 @@ func change_stats(status:bool):
 
 func _on_demon_timer_timeout():
 	change_stats(false)
+	Engine.time_scale = 1
 
 func _on_anim_time_timeout():
 	anim_ended = true

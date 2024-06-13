@@ -7,6 +7,7 @@ extends State
 @export var crouch_walk_state : State
 @export var hit_state: State
 var landing = false
+
 @onready var land_timer: Timer = $LandTimer
 
 func enter():

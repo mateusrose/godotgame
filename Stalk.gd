@@ -47,6 +47,8 @@ func _on_follow_area_body_entered(body:Player_Character):
 
 func _on_vision_area_body_entered(body):
 	var area = body.get_node("Hitbox")
+	if area == null:
+		return
 	if area.is_in_group("player_hitbox"):
 		character.player = body
 		character.following_player = true

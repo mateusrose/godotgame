@@ -882,7 +882,7 @@ unique_name_in_owner = true
 actor_path = NodePath("..")
 base_stamina = 60
 
-[node name="Experience" parent="." instance=ExtResource("8_big0u")]
+[node name="Level" parent="." instance=ExtResource("8_big0u")]
 
 [node name="MovementState" type="Node" parent="." node_paths=PackedStringArray("character", "animation", "starting_state")]
 script = ExtResource("8_x3ivr")
@@ -1144,7 +1144,9 @@ target_position = Vector2(-20, 0)
 [connection signal="timeout" from="MovementState/Hit/HitAnimTimer" to="MovementState/Hit" method="_on_hit_anim_timer_timeout"]
 [connection signal="timeout" from="ActionState/Dash/DashTimer" to="ActionState/Dash" method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="ActionState/Dash/JustDashedTimer" to="ActionState/Dash" method="_on_just_dashed_timer_timeout"]
+[connection signal="cant_fall" from="ActionState/Attack" to="MovementState/Run" method="_on_attack_cant_fall"]
 [connection signal="cant_fall" from="ActionState/Attack" to="MovementState/Fall" method="_on_attack_cant_fall"]
+[connection signal="cant_fall" from="ActionState/Attack" to="MovementState/CrouchWalk" method="_on_attack_cant_fall"]
 [connection signal="timeout" from="ActionState/Attack/AttackTimer" to="ActionState/Attack" method="_on_timer_timeout"]
 [connection signal="timeout" from="ActionState/DemonMode/DemonTimer" to="ActionState/DemonMode" method="_on_demon_timer_timeout"]
 [connection signal="timeout" from="ActionState/DemonMode/AnimTime" to="ActionState/DemonMode" method="_on_anim_time_timeout"]
