@@ -28,3 +28,10 @@ func process_frame(delta:float):
 	var new_state = current_state.process_frame(delta)
 	if new_state:
 		change_state(new_state)
+
+
+#fixing anims because of attack
+func _on_land_reset_anim():
+	%Idle.anim_can_play = true
+	%Run.anim_can_play = true
+	%Fall.anim_can_play = true

@@ -42,3 +42,4 @@ func exit():
 
 func _on_attack_cant_fall():
 	anim_can_play = false
+	animation.play("run")

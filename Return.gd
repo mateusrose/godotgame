@@ -22,7 +22,7 @@ func process_physics(delta: float) -> State:
 		return idle_state
 	if character.following_player:
 		return stalk_state
-	if %WallRayCast.is_colliding():
+	if %WallRayCast.is_colliding() and !%CeilingRay.is_colliding():
 		return wall_climb_state
 	character.velocity.y += character.PLAYER_GRAVITY * delta
 	character.velocity.x = character.SPEED * direction.x

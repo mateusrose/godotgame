@@ -42,7 +42,7 @@ func process_physics(delta:float)-> State:
 		else:
 			if character.next_to_wall():
 				animation.play("wall_slide")
-			animation.play("falling")
+			animation.play("fall")
 		return no_action_state
 	return null
 

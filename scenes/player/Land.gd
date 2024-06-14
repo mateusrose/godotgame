@@ -7,6 +7,7 @@ extends State
 @export var crouch_walk_state : State
 @export var hit_state: State
 var landing = false
+signal reset_anim
 
 @onready var land_timer: Timer = $LandTimer
 
@@ -33,6 +34,7 @@ func process_physics(delta:float) -> State:
 	return null
 	
 func exit():
+	reset_anim.emit()
 	%SoundArea.set_deferred("disabled", false)
 	landing = false
 	%Crouch.crouch_multiplier = 1

@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 var PLAYER_GRAVITY = 350
 @export var SPEED : int
+var SPEED_DAY : int
 var following_player = false
 var is_hit = false
 var is_dead = false
@@ -17,14 +18,26 @@ var has_lost_player = false
 var is_returning = false
 @export var stage : Node
 @export var items_dropable : Array[String]
+var demon_mode = false
 
 func _ready():
+	SPEED_DAY = SPEED
 	movement_state_machine.init()
 	
 func _unhandled_input(event:InputEvent):
 	movement_state_machine.process_input(event)
 	
 func _physics_process(delta:float):
+	if stage.is_day:
+		SPEED = SPEED_DAY
+		demon_mode = false
+	elif demon_mode:
+		pass
+	elif !stage.is_day:
+		SPEED_DAY = SPEED
+		SPEED *= 2
+		demon_mode = true
+		
 	movement_state_machine.process_physics(delta)
 	verify_position(velocity)
 

@@ -8,12 +8,11 @@ extends State
 @export var crouch_walk_state: State
 @export var sound_area : Area2D
 @export var hit_state: State
-var anim_can_play = true
+
 
 
 func enter():
-	if anim_can_play:
-		super()
+	super()
 	character.is_crouched = true
 	sound_area.monitoring = false
 	sound_area.get_node("SoundArea").set_deferred("disabled", true)
@@ -44,11 +43,6 @@ func process_physics(delta:float)-> State:
 	return null
 	
 func exit():
-	anim_can_play = true
 	character.is_crouched = false
 	sound_area.monitoring = true
 	sound_area.get_node("SoundArea").set_deferred("disabled", false)
-
-
-func _on_attack_cant_fall():
-	anim_can_play = false

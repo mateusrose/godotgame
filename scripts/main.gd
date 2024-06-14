@@ -9,20 +9,20 @@ const NIGHT_COLOR_STUFF = Color("#ffffff")
 const DAY_COLOR_STUFF = Color("#000000")
 var is_day = true
 var time = 0
-const TIME_SCALE = 0.005
+const TIME_SCALE = 0.01
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	pass 
 
 func _process(delta:float):
-	self.time += delta * TIME_SCALE
-	background.set_color(DAY_COLOR.lerp(NIGHT_COLOR, abs(sin(time))))
-	%Light.color = DAY_COLOR_STUFF.lerp(NIGHT_COLOR_STUFF, abs(sin(time)))
+	self.time += delta * TIME_SCALE;
+	background.set_color(DAY_COLOR.lerp(NIGHT_COLOR, abs(sin(time))));
+	%Light.color = DAY_COLOR_STUFF.lerp(NIGHT_COLOR_STUFF, abs(sin(time)));
 	if abs(sin(time)) <= 0.4:
-		is_day = true
+		is_day = true;
 		return
-	is_day=false
+	is_day = false;
 	#canvas.color = DAY_COLOR_STUFF.lerp(NIGHT_COLOR_STUFF, abs(sin(time)))
 
 func _on_game_over() -> void:
-	var _reload: bool = get_tree().reload_current_scene()
+	var _reload: bool = get_tree().reload_current_scene();

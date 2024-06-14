@@ -38,7 +38,6 @@ func change(arg:String, value:int)->void:
 			increase_stamina(value)
 		"decrease":
 			decrease_stamina(value)
-			print("i have ", current_stamina, " stamina")
 		"increase_bonus":
 			increase_bonus_stamina(value)
 		"decrease_bonus":

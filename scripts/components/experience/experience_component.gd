@@ -25,6 +25,7 @@ func add_experience(value: int) -> void:
 		var leftover: int = current_exp - level_dict[str(level)]
 		current_exp = leftover
 		level += 1
+		print("level up, currently on level ", level)
 		emit_signal("level_up")
 	elif level == 9:
 		current_exp = level_dict[str(level)]

@@ -10,7 +10,9 @@ var crouch_multiplier = 1.5
 @export var sound_area : Area2D
 var is_next_state_crouch = false
 
+
 func enter()-> void:
+
 	super()
 	$CrouchMultiplier.start()
 	character.is_crouched = true
@@ -43,6 +45,7 @@ func process_physics(delta:float)-> State:
 	return null
 
 func exit():
+	
 	sound_area.monitoring = true
 	sound_area.get_node("SoundArea").set_deferred("disabled", false)
 	is_next_state_crouch = false
@@ -52,3 +55,4 @@ func exit():
 
 func _on_crouch_multiplier_timeout():
 	crouch_multiplier = 1
+

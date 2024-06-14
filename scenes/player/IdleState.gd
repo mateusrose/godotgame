@@ -5,10 +5,12 @@ extends State
 @export var run_state : State
 @export var crouch_state: State
 @export var hit_state: State
+var anim_can_play = true
 
 func enter()-> void:
 	%SoundArea.set_deferred("disabled", true)
-	super()
+	if anim_can_play:
+		super()
 	character.velocity.x = 0
 	
 	
@@ -31,5 +33,10 @@ func process_physics(delta:float)-> State:
 	return null
 
 func exit():
+	anim_can_play = true
 	%SoundArea.set_deferred("disabled", false)
 	%Crouch.crouch_multiplier = 1.5
+
+func _on_attack_cant_fall():
+	anim_can_play = false
+	animation.play("idle")

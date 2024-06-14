@@ -13,7 +13,11 @@ func enter()-> void:
 	cant_fall.emit()
 	%Stamina.change("decrease", 5)
 	animation.play("attack"+character.suffix)
-	if dash_state.just_dashed or demon_state.demon_mode:
+	if demon_state.demon_mode:
+		attack_special_animation.play("attack_dash")
+		animation.speed_scale = 6
+		attack_timer.wait_time = 0.133
+	elif dash_state.just_dashed:
 		attack_special_animation.play("attack_dash")
 		animation.speed_scale = 3
 		attack_timer.wait_time = 0.277
@@ -37,7 +41,7 @@ func process_physics(delta:float):
 				else:
 					animation.play("run")
 		else:
-			animation.play("falling")
+			animation.play("fall")
 		return no_action_state
 	return null
 
@@ -46,6 +50,7 @@ func exit():
 	animation.speed_scale = 1
 	anim_ended = false
 	attack_special_animation.play("RESET")
+	%MovementState._on_land_reset_anim()
 	
 
 func _on_timer_timeout():
