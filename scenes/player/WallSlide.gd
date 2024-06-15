@@ -11,7 +11,7 @@ func enter():
 	%SoundArea.set_deferred("disabled", true)
 	
 
-func process_input(event: InputEvent) -> State:
+func process_input(_event: InputEvent) -> State:
 	if Input.is_action_just_pressed("jump"):
 		return jump_state
 	if Input.is_action_just_pressed("move_left") or Input.is_action_just_pressed("move_right"):

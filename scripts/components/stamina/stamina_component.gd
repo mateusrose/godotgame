@@ -29,7 +29,7 @@ func _ready() -> void:
 	stamina_recover_timer.stop() 
 	stamina_recover_timer.start()
 
-func _process(delta):
+func _process(_delta):
 	stamina_changed.emit()
 	
 func change(arg:String, value:int)->void:

@@ -8,7 +8,7 @@ extends State
 func enter()-> void:
 	return
 	
-func process_physics(delta:float)-> State:
+func process_physics(_delta:float)-> State:
 	if %Health.is_dead():
 		return null
 	attack_area.get_node("Collision").set_deferred("disabled", true)

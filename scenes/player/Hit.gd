@@ -17,7 +17,7 @@ func enter():
 	$HitTimer.start()
 	$HitAnimTimer.start()
 
-func process_physics(delta: float) -> State:
+func process_physics(_delta: float) -> State:
 	if hit_ended:
 		if %Health.is_dead():
 			return death_state
@@ -44,11 +44,11 @@ func _on_animation_animation_finished(anim_name):
 			
 func _on_health_health_hit():
 	get_parent().is_hit = true
-	%CollisionArea.monitorable = false
+	%CollisionArea.set_deferred("monitorable", false)
 	#hit_ended = true
 
 func _on_hit_timer_timeout():
-	%CollisionArea.monitorable = true
+	%CollisionArea.set_deferred("monitorable", true)
 	
 func _on_hit_anim_timer_timeout():
 	get_parent().is_hit = false

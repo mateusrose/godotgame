@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bpkfbbqf0c34c"]
 
-[ext_resource type="Script" path="res://scripts/item_drop/ItemDrop.gd" id="1_s53k3"]
+[ext_resource type="Script" path="res://scripts/item_drop/ItemDrop.gd" id="1_6roi5"]
 [ext_resource type="Texture2D" uid="uid://c2nk05i2u57kd" path="res://assets/drops/heart.png" id="2_8cklh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qy3yt"]
@@ -9,7 +9,7 @@
 
 [node name="ItemDrop" type="RigidBody2D"]
 collision_layer = 32
-script = ExtResource("1_s53k3")
+script = ExtResource("1_6roi5")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_8cklh")
@@ -18,7 +18,7 @@ texture = ExtResource("2_8cklh")
 shape = SubResource("CircleShape2D_qy3yt")
 
 [node name="DropTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 0.5
 one_shot = true
 autostart = true
 
@@ -31,3 +31,4 @@ shape = SubResource("CircleShape2D_70ii4")
 
 [connection signal="timeout" from="DropTimer" to="." method="_on_drop_timer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

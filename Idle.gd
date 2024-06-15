@@ -9,10 +9,10 @@ func enter()-> void:
 	super()
 	done_idle = false
 	character.velocity.x = 0
+	timer.wait_time = randf_range(0.5,5)
 	timer.start()
 	
-func process_input(event: InputEvent) -> State:
-	return null
+
 
 func process_physics(delta:float)-> State:
 	if character.is_hit:

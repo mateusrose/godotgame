@@ -30,3 +30,11 @@ func add_experience(value: int) -> void:
 	elif level == 9:
 		current_exp = level_dict[str(level)]
 	print(current_exp, " gained exp")
+
+
+func _on_level_up():
+	match level:
+		2:
+			print("You can now press shift to dash, try doing it against a short wall")
+		4: 
+			print("You can now press G to activate demon mode while still, slowing time down for preciser movement")

@@ -7,6 +7,4 @@ func _ready():
 func update():
 	value = %Player.get_node("Stamina").current_stamina * 100 / %Player.get_node("Stamina").max_stamina
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+

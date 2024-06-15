@@ -11,7 +11,7 @@ func enter():
 	if anim_can_play:
 		super()
 
-func process_input(event: InputEvent) -> State:
+func process_input(_event: InputEvent) -> State:
 	if Input.is_action_just_pressed("jump") and character.is_on_floor():
 		return jump_state
 	if Input.is_action_pressed("crouch"):
@@ -35,11 +35,11 @@ func process_physics(delta:float)-> State:
 	return null
 
 func exit():
-	anim_can_play = true
+	if %Attack.anim_ended:
+		anim_can_play = true
 	%Crouch.crouch_multiplier = 1.5
-
-
 
 func _on_attack_cant_fall():
 	anim_can_play = false
-	animation.play("run")
+	%Idle.anim_can_play = false
+	#animation.play("run")

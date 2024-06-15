@@ -24,7 +24,7 @@ func enter() -> void:
 	if character.JUMP_SPEED > -300:
 		character.JUMP_SPEED = -175
 
-func process_input(event: InputEvent) -> State:
+func process_input(_event: InputEvent) -> State:
 	if Input.is_action_just_pressed("jump"):
 		return jump_state
 	return null

@@ -8,7 +8,7 @@ func enter():
 	character.is_hit = false
 	hit_ended = false
 
-func process_physics(delta: float) -> State:
+func process_physics(_delta: float) -> State:
 	if hit_ended:
 		if character.is_dead:
 			return kill_state

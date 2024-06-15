@@ -24,10 +24,10 @@ func enter()-> void:
 			direction = 1
 	else:
 		set_direction()
+	timer.wait_time = randf_range(1,2)
 	timer.start()
 	
-func process_input(event: InputEvent) -> State:
-	return null
+
 
 func process_physics(delta:float)-> State:
 	if character.is_hit:

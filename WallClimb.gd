@@ -9,11 +9,9 @@ var climb_ended = false
 func enter():
 	climb_ended = false
 
-func process_input(event: InputEvent) -> State:
-	return null
 
 func process_physics(delta:float)-> State:
-	if %CeilingRay.is_colliding() and !character.is_on_floor():
+	if %CeilingRay.is_colliding():
 			return return_state
 	if climb_ended:
 		return wander_state
@@ -21,7 +19,7 @@ func process_physics(delta:float)-> State:
 		character.velocity.y = -130
 	else:
 		climb_ended = true
-		if character.following_player:
+		if character.following_player and not %CeilingRay.is_colliding():
 			return stalk_state
 		character.velocity.y += character.PLAYER_GRAVITY * delta
 		if %FloorRay.target_position.x > 0:

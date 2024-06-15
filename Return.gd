@@ -11,8 +11,7 @@ func enter() -> void:
 	var distance: Vector2 = character.initial_position - character.global_position
 	direction = distance.normalized()
 	super()
-func process_input(event: InputEvent) -> State:
-	return null
+
 
 func process_physics(delta: float) -> State:
 	if character.is_hit:
@@ -20,7 +19,7 @@ func process_physics(delta: float) -> State:
 	var threshold: float = 1.0
 	if abs(character.global_position.x - character.initial_position.x) < threshold:
 		return idle_state
-	if character.following_player:
+	if character.following_player and !%CeilingRay.is_colliding():
 		return stalk_state
 	if %WallRayCast.is_colliding() and !%CeilingRay.is_colliding():
 		return wall_climb_state

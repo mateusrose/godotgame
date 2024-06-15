@@ -14,7 +14,7 @@ func enter():
 	%SoundArea.set_deferred("disabled", true)
 	
 
-func process_input(event: InputEvent) -> State:
+func process_input(_event: InputEvent) -> State:
 	if Input.is_action_just_pressed("jump"):
 		return jump_state
 	return null
@@ -41,4 +41,4 @@ func exit():
 
 func _on_attack_cant_fall():
 	anim_can_play = false
-	animation.play("fall")
+	#animation.play("fall")

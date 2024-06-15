@@ -10,6 +10,7 @@ var anim_ended = false
 signal cant_fall
 
 func enter()-> void:
+	print(" I AM EMITING SIGNAL")
 	cant_fall.emit()
 	%Stamina.change("decrease", 5)
 	animation.play("attack"+character.suffix)
@@ -27,7 +28,7 @@ func enter()-> void:
 	attack_timer.start()
 	character.SPEED /= 3
 
-func process_physics(delta:float):
+func process_physics(_delta:float):
 	if anim_ended:
 		if character.is_on_floor():
 			if character.velocity.x == 0 :

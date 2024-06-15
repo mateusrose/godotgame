@@ -9,11 +9,12 @@ extends State
 var crouch_multiplier = 1.5
 @export var sound_area : Area2D
 var is_next_state_crouch = false
+var anim_can_play = true
 
 
 func enter()-> void:
-
-	super()
+	if anim_can_play:
+		super()
 	$CrouchMultiplier.start()
 	character.is_crouched = true
 	sound_area.monitoring = false
@@ -21,13 +22,13 @@ func enter()-> void:
 	character.velocity.x = 0
 	
 	
-func process_input(event: InputEvent) -> State:
+func process_input(_event: InputEvent) -> State:
 	
 	if Input.is_action_pressed("crouch"):
 		if Input.is_action_just_pressed("jump") and character.is_on_floor():
 			character.JUMP_SPEED *= crouch_multiplier
 			return jump_state
-		if Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right") or Input.is_action_just_pressed("move_right") or Input.is_action_just_pressed("move_left"):
+		if Input.is_action_pressed("move_left") and !Input.is_action_pressed("move_right") or Input.is_action_pressed("move_right") and !Input.is_action_pressed("move_left"):
 			is_next_state_crouch = true
 			return crouch_walk_state
 		return null
@@ -45,7 +46,8 @@ func process_physics(delta:float)-> State:
 	return null
 
 func exit():
-	
+	if %Attack.anim_ended:
+		anim_can_play = true
 	sound_area.monitoring = true
 	sound_area.get_node("SoundArea").set_deferred("disabled", false)
 	is_next_state_crouch = false
@@ -56,3 +58,6 @@ func exit():
 func _on_crouch_multiplier_timeout():
 	crouch_multiplier = 1
 
+func _on_attack_cant_fall():
+	anim_can_play = false
+	#animation.play("crouch")

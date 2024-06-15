@@ -9,11 +9,8 @@ var attack_ended = false
 func enter() -> void:
 	super()
 	attack_ended = false
-	
-func process_input(event: InputEvent) -> State:
-	return null
 
-func process_physics(delta: float) -> State:
+func process_physics(_delta: float) -> State:
 	if character.is_hit:
 		return hit_state
 	if attack_ended:
@@ -22,8 +19,10 @@ func process_physics(delta: float) -> State:
 
 
 func _on_animation_animation_finished(anim_name):
-	character.following_player = true
-	attack_ended = true
+	match anim_name:
+		"attack":
+			character.following_player = true
+			attack_ended = true
 
 
 func _on_enemy_attack_area_area_entered(area):

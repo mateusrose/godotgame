@@ -9,7 +9,7 @@ const NIGHT_COLOR_STUFF = Color("#ffffff")
 const DAY_COLOR_STUFF = Color("#000000")
 var is_day = true
 var time = 0
-const TIME_SCALE = 0.01
+const TIME_SCALE = 0.005
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass 

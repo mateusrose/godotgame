@@ -1,12 +1,12 @@
 extends ParallaxBackground
 class_name Background
 
-@export var can_process: bool
+#@export var can_process: bool
 @export var layer_speed: Array[int]
 @onready var canvas_color =  $CanvasModulate
 
 func _ready():
-	if can_process == false:
+	#if can_process == false:
 		set_physics_process(false)
 		
 func _physics_process(delta):

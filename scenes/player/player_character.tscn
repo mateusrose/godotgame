@@ -815,7 +815,6 @@ drag_right_margin = 0.1
 drag_bottom_margin = 0.1
 
 [node name="SoundArea" type="Area2D" parent="." groups=["player_sound_area"]]
-visible = false
 collision_layer = 4
 collision_mask = 0
 monitoring = false
@@ -827,7 +826,6 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_hptis")
 
 [node name="AttackArea" type="Area2D" parent="." groups=["player_attack"]]
-visible = false
 collision_layer = 0
 collision_mask = 8
 
@@ -856,7 +854,6 @@ shape = SubResource("RectangleShape2D_4gpg3")
 
 [node name="CollisionArea" type="Area2D" parent="." groups=["player_hitbox"]]
 unique_name_in_owner = true
-visible = false
 light_mask = 12
 visibility_layer = 12
 collision_layer = 4
@@ -880,7 +877,7 @@ base_health = 15
 [node name="Stamina" parent="." instance=ExtResource("7_vkpv6")]
 unique_name_in_owner = true
 actor_path = NodePath("..")
-base_stamina = 60
+base_stamina = 120
 
 [node name="Level" parent="." instance=ExtResource("8_big0u")]
 unique_name_in_owner = true
@@ -982,6 +979,7 @@ wait_time = 0.4
 one_shot = true
 
 [node name="CrouchWalk" type="Node" parent="MovementState" node_paths=PackedStringArray("fall_state", "jump_state", "run_state", "idle_state", "crouch_state", "crouch_walk_state", "sound_area", "hit_state", "character", "animation", "sprite")]
+unique_name_in_owner = true
 script = ExtResource("15_o8cvg")
 fall_state = NodePath("../Fall")
 jump_state = NodePath("../Jump")
@@ -1143,6 +1141,7 @@ target_position = Vector2(-20, 0)
 [connection signal="animation_finished" from="Animation" to="MovementState/Hit" method="_on_animation_animation_finished"]
 [connection signal="area_entered" from="AttackArea" to="ActionState/Attack" method="_on_attack_area_area_entered"]
 [connection signal="health_hit" from="Health" to="MovementState/Hit" method="_on_health_health_hit"]
+[connection signal="level_up" from="Level" to="Level" method="_on_level_up"]
 [connection signal="reset_anim" from="MovementState/Land" to="MovementState" method="_on_land_reset_anim"]
 [connection signal="timeout" from="MovementState/Land/LandTimer" to="MovementState/Land" method="_on_land_timer_timeout"]
 [connection signal="timeout" from="MovementState/Crouch/CrouchMultiplier" to="MovementState/Crouch" method="_on_crouch_multiplier_timeout"]
@@ -1153,6 +1152,8 @@ target_position = Vector2(-20, 0)
 [connection signal="cant_fall" from="ActionState/Attack" to="MovementState/Idle" method="_on_attack_cant_fall"]
 [connection signal="cant_fall" from="ActionState/Attack" to="MovementState/Run" method="_on_attack_cant_fall"]
 [connection signal="cant_fall" from="ActionState/Attack" to="MovementState/Fall" method="_on_attack_cant_fall"]
+[connection signal="cant_fall" from="ActionState/Attack" to="MovementState/Crouch" method="_on_attack_cant_fall"]
+[connection signal="cant_fall" from="ActionState/Attack" to="MovementState/CrouchWalk" method="_on_attack_cant_fall"]
 [connection signal="timeout" from="ActionState/Attack/AttackTimer" to="ActionState/Attack" method="_on_timer_timeout"]
 [connection signal="timeout" from="ActionState/DemonMode/DemonTimer" to="ActionState/DemonMode" method="_on_demon_timer_timeout"]
 [connection signal="timeout" from="ActionState/DemonMode/AnimTime" to="ActionState/DemonMode" method="_on_anim_time_timeout"]

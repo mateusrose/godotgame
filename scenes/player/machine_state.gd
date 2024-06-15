@@ -1,9 +1,10 @@
-extends Node
-@export var character : CharacterBody2D
-@export var animation : AnimationPlayer
-@export var starting_state: State
-var current_state : State
-var is_hit = false
+extends Node;
+@export var character : CharacterBody2D;
+@export var animation : AnimationPlayer;
+@export var starting_state: State;
+var current_state : State;
+var is_hit = false;
+var anim_can_play= true;
 
 func init():
 	change_state(starting_state)
@@ -35,3 +36,5 @@ func _on_land_reset_anim():
 	%Idle.anim_can_play = true
 	%Run.anim_can_play = true
 	%Fall.anim_can_play = true
+	%Crouch.anim_can_play = true
+	%CrouchWalk.anim_can_play = true

@@ -19,7 +19,7 @@ func enter():
 	land_timer.start()
 
 	
-func process_physics(delta:float) -> State:
+func process_physics(_delta:float) -> State:
 	if get_parent().is_hit:
 		return hit_state
 	character.velocity.x = 0

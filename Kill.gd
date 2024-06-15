@@ -9,11 +9,11 @@ func enter():
 
 	
 func drop_item():
-	var item = ItemDrop.new_item(item(), character.global_position)
+	var item_drop_new = ItemDrop.new_item(item(), character.global_position)
 	#character.stage.get_node("Pickups").add_child(item)
-	get_parent().get_parent().get_parent().get_node("Pickups").add_child(item)
-	item.add_to_group("pickable")
-	item.position = character.position
+	get_parent().get_parent().get_parent().get_node("Pickups").add_child(item_drop_new)
+	item_drop_new.add_to_group("pickable")
+	item_drop_new.position = character.position
 
 func _on_animation_animation_finished(anim_name):
 	match anim_name:

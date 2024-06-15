@@ -8,16 +8,16 @@ extends State
 @export var crouch_walk_state: State
 @export var sound_area : Area2D
 @export var hit_state: State
-
-
+var anim_can_play = true
 
 func enter():
-	super()
+	if anim_can_play:
+		super()
 	character.is_crouched = true
 	sound_area.monitoring = false
 	sound_area.get_node("SoundArea").set_deferred("disabled", true)
 	
-func process_input(event: InputEvent) -> State:
+func process_input(_event: InputEvent) -> State:
 	if Input.is_action_pressed("crouch"):
 		if Input.is_action_just_pressed("jump") and character.is_on_floor():
 			character.JUMP_SPEED *= crouch_state.crouch_multiplier
@@ -43,6 +43,12 @@ func process_physics(delta:float)-> State:
 	return null
 	
 func exit():
+	if %Attack.anim_ended:
+		anim_can_play = true
 	character.is_crouched = false
 	sound_area.monitoring = true
 	sound_area.get_node("SoundArea").set_deferred("disabled", false)
+
+
+func _on_attack_cant_fall():
+	anim_can_play = false

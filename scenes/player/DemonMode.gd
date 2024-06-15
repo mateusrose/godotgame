@@ -16,7 +16,7 @@ func enter()-> void:
 	Engine.time_scale = 0.3
 	
 
-func process_frame(delta:float):
+func process_frame(_delta:float):
 	character.velocity = Vector2.ZERO
 	if anim_ended:
 		return no_action_state

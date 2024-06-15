@@ -21,7 +21,7 @@ func enter()-> void:
 				character.global_position.x = %WallTeleporterCheck.global_position.x
 		
 
-func process_physics(delta:float)-> State:
+func process_physics(_delta:float)-> State:
 	var movement = Input.get_axis("move_left","move_right") * character.SPEED * character.MULTIPLIER * character.DASH_SPEED
 	character.velocity.x = movement
 	character.move_and_slide()
