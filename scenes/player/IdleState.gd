@@ -8,7 +8,6 @@ extends State
 var anim_can_play = true
 
 func enter()-> void:
-	print("i am entering idle with anim ", _get_anim())
 	%SoundArea.set_deferred("disabled", true)
 	if _get_anim():
 		super()
@@ -41,9 +40,7 @@ func exit():
 	%Crouch.crouch_multiplier = 1.5
 
 func _on_attack_cant_fall():
-	print(" I AM WORKING", anim_can_play)
 	anim_can_play = false
-	print(anim_can_play)
 	#animation.play("idle")
 	
 func _get_anim()->bool:

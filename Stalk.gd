@@ -10,6 +10,7 @@ var direction_new = 1
 var following_player_middleware : bool = false
 
 func enter()-> void:
+	print(character.following_player)
 	following_player_middleware = false
 	super()
 

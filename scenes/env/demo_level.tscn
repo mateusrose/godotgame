@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://q7uji5ys1g05"]
+[gd_scene load_steps=20 format=3 uid="uid://q7uji5ys1g05"]
 
 [ext_resource type="PackedScene" uid="uid://bhk4ek2du4d80" path="res://scenes/env/backgroundcyber.tscn" id="1_s0sos"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_yiwd4"]
@@ -17,6 +17,8 @@
 [ext_resource type="PackedScene" uid="uid://dlxdtfes4r0w1" path="res://scripts/chest/chest.tscn" id="15_b065d"]
 [ext_resource type="Script" path="res://scenes/env/ligh_control_env.gd" id="16_4pc14"]
 [ext_resource type="Texture2D" uid="uid://t2i4wvablxo1" path="res://assets/effect/light.png" id="16_u8xq2"]
+[ext_resource type="FontFile" uid="uid://b62g8278gi6q6" path="res://assets/font/thaleah_fat.ttf" id="18_838k0"]
+[ext_resource type="Script" path="res://scenes/env/Level2.gd" id="19_syrdp"]
 
 [node name="DemoLevel" type="Node2D"]
 script = ExtResource("1_yiwd4")
@@ -214,4 +216,51 @@ script = ExtResource("11_6a4e0")
 wait_time = 3.0
 one_shot = true
 
+[node name="Level2" type="Label" parent="CanvasLayer" node_paths=PackedStringArray("player")]
+offset_left = 336.0
+offset_top = 14.0
+offset_right = 467.0
+offset_bottom = 141.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("18_838k0")
+text = "Level 1
+Press Left-Click
+or Q
+to attack"
+horizontal_alignment = 2
+script = ExtResource("19_syrdp")
+player = NodePath("../../Player")
+
+[node name="Timer" type="Timer" parent="CanvasLayer/Level2"]
+wait_time = 8.0
+one_shot = true
+
+[node name="Crouch" type="Label" parent="."]
+offset_left = 49.0
+offset_top = 755.0
+offset_right = 192.0
+offset_bottom = 882.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("18_838k0")
+text = "You can press 
+C or Ctrl
+to crouch, you won´t
+make any sound, try 
+stabbing an enemy
+from the back"
+horizontal_alignment = 2
+
+[node name="DashAttack" type="Label" parent="."]
+offset_left = 1123.0
+offset_top = 859.0
+offset_right = 1266.0
+offset_bottom = 986.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("18_838k0")
+text = "Attacking
+after dash
+is faster"
+horizontal_alignment = 2
+
 [connection signal="timeout" from="CanvasLayer/HealthBar/Timer" to="CanvasLayer/HealthBar" method="_on_timer_timeout"]
+[connection signal="timeout" from="CanvasLayer/Level2/Timer" to="CanvasLayer/Level2" method="_on_timer_timeout"]

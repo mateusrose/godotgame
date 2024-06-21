@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name EnemyNightborn
 
 var PLAYER_GRAVITY = 350
 @export var SPEED : int
@@ -40,6 +41,10 @@ func _physics_process(delta:float):
 		
 	movement_state_machine.process_physics(delta)
 	verify_position(velocity)
+	if following_player:
+		$FollowingPlayer.visible = true
+		return
+	$FollowingPlayer.visible = false
 
 func _process(delta:float):
 	movement_state_machine.process_frame(delta)

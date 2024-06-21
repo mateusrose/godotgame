@@ -9,6 +9,8 @@ func enter():
 	hit_ended = false
 
 func process_physics(_delta: float) -> State:
+	if !character.following_player:
+		character.following_player = true
 	if hit_ended:
 		if character.is_dead:
 			return kill_state

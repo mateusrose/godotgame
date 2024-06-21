@@ -4,7 +4,7 @@ extends Node
 func _ready():
 	pass # Replace with function body.
 
-func _process(delta):
+func _process(_delta):
 	for child in get_children():
 		if get_parent().is_day:
 			child.enabled = false
