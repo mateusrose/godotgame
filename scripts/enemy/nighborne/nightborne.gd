@@ -29,6 +29,10 @@ func _unhandled_input(event:InputEvent):
 	movement_state_machine.process_input(event)
 	
 func _physics_process(delta:float):
+	if Engine.time_scale != 1:
+		%SoundFx.pitch_scale = 0.5
+	else:
+		%SoundFx.pitch_scale = 1
 	if stage.is_day:
 		SPEED = SPEED_DAY
 		demon_mode = false

@@ -15,6 +15,9 @@ func _ready():
 	player.get_node("Health").health_depleted.connect(_on_game_over);
 
 func _process(delta:float):
+	if Input.is_action_just_pressed("esc"):
+		get_tree().paused = true
+		$CanvasLayer/Esc.visible = true
 	self.time += delta * TIME_SCALE;
 	background.set_color(DAY_COLOR.lerp(NIGHT_COLOR, abs(sin(time))));
 	%Light.color = DAY_COLOR_STUFF.lerp(NIGHT_COLOR_STUFF, abs(sin(time)));
@@ -31,4 +34,41 @@ func _process(delta:float):
 
 func _on_game_over() -> void:
 	#add timeout if needed
+	%PopUpDeath.visible = true
+	#get_tree().reload_current_scene();
+
+func music_change(demon_mode:bool):
+	if demon_mode:
+		%AudioFx.stream = load("res://assets/sound/demon-theme.mp3")
+		%AudioFx.playing = true
+		return
+	%AudioFx.stream = load("res://assets/sound/retro-games.mp3")
+	%AudioFx.playing = true
+
+
+func _on_restart_pressed():
 	get_tree().reload_current_scene();
+
+
+func _on_quit_pressed():
+	get_tree().quit();
+
+
+func _on_esc_quit_pressed():
+	get_tree().quit();
+
+func _on_esc_options_pressed():
+	$CanvasLayer/Esc.visible = false
+	$CanvasLayer/Options.visible = true
+
+
+func _on_resume_pressed():
+	get_tree().paused = false
+	$CanvasLayer/Esc.visible = false
+
+
+
+func _on_back_pressed():
+	$CanvasLayer/Options.visible = false
+	$CanvasLayer/Esc.visible = true
+	

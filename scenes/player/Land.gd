@@ -8,13 +8,15 @@ extends State
 @export var hit_state: State
 var landing = false
 signal reset_anim
+var anim_can_play = true
 
 @onready var land_timer: Timer = $LandTimer
 
 func enter():
 	%SoundArea.set_deferred("disabled", true)
 	landing = true
-	super()
+	if anim_can_play:
+		super()
 	jump_state.reset_jumps()
 	land_timer.start()
 
@@ -34,6 +36,8 @@ func process_physics(_delta:float) -> State:
 	return null
 	
 func exit():
+	if %Attack.anim_ended:
+		anim_can_play = true
 	reset_anim.emit()
 	%SoundArea.set_deferred("disabled", false)
 	landing = false
@@ -47,3 +51,7 @@ func _on_animation_animation_finished(anim_name):
 #the timer ensures we leave landing state
 func _on_land_timer_timeout():
 	landing = false
+
+
+func _on_attack_cant_fall():
+	anim_can_play = false

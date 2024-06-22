@@ -7,6 +7,8 @@ var demon_mode = false
 @onready var anim_timer = $AnimTime
 @export var demon_animation: AnimationPlayer
 @export var crouch_state: State
+signal demon_mode_signal
+signal demon_mode_off
 
 func enter()-> void:
 	super()
@@ -30,12 +32,14 @@ func change_stats(status:bool):
 		character.DASH_SPEED = 2
 		demon_mode = true
 		demon_animation.play("demon_power")
+		character.get_parent().music_change(true)
 		return
 	character.MULTIPLIER = 1
 	character.PLAYER_GRAVITY = 350
 	character.JUMP_SPEED = -175
 	character.DASH_SPEED = 5
 	demon_mode = false
+	character.get_parent().music_change(false)
 	demon_animation.play("RESET")
 
 func _on_demon_timer_timeout():

@@ -1,17 +1,23 @@
-[gd_scene load_steps=52 format=3 uid="uid://b6iusifmurmjl"]
+[gd_scene load_steps=58 format=3 uid="uid://b6iusifmurmjl"]
 
 [ext_resource type="Script" path="res://scenes/player/player_character.gd" id="1_m2148"]
 [ext_resource type="Texture2D" uid="uid://cxstjymf6tbxm" path="res://assets/player/char_blue (copy).png" id="1_vl5uh"]
 [ext_resource type="Texture2D" uid="uid://dnwehye7g0y41" path="res://assets/player/test_demon.png" id="2_c2ge5"]
 [ext_resource type="Texture2D" uid="uid://depc0fipi48i5" path="res://assets/player/test_attack_special.png" id="3_hphrb"]
 [ext_resource type="Texture2D" uid="uid://t2i4wvablxo1" path="res://assets/effect/light.png" id="4_uklng"]
+[ext_resource type="AudioStream" uid="uid://da3r3b5vapd3v" path="res://assets/sound/sword_slash_player.mp3" id="5_4u5bp"]
 [ext_resource type="PackedScene" uid="uid://cews67sgg4lr1" path="res://scripts/components/damage/damage_component.tscn" id="6_0dbum"]
 [ext_resource type="PackedScene" uid="uid://cps2odid6cxyt" path="res://scripts/components/health_component.tscn" id="6_3oswi"]
 [ext_resource type="Script" path="res://scenes/player/PointLight2D.gd" id="6_ahp5o"]
+[ext_resource type="AudioStream" uid="uid://csu6vgkxwx0ka" path="res://assets/sound/player_die.mp3" id="6_mhljt"]
+[ext_resource type="AudioStream" uid="uid://ctbeyak5im64m" path="res://assets/sound/hurt_player_short.mp3" id="6_p6itr"]
+[ext_resource type="AudioStream" uid="uid://dki6pdy2ergwr" path="res://assets/sound/swing-whoosh-110410.mp3" id="6_yt2th"]
 [ext_resource type="PackedScene" uid="uid://dsrsb2rni6vrc" path="res://scripts/components/stamina/stamina_component.tscn" id="7_vkpv6"]
 [ext_resource type="PackedScene" uid="uid://cr7bpuaedhykm" path="res://scripts/components/experience/experience_component.tscn" id="8_big0u"]
 [ext_resource type="Script" path="res://scenes/player/IdleState.gd" id="8_cl04f"]
 [ext_resource type="Script" path="res://scenes/player/machine_state.gd" id="8_x3ivr"]
+[ext_resource type="AudioStream" path="res://assets/sound/jump_short.mp3" id="9_ny4hh"]
+[ext_resource type="AudioStream" uid="uid://b5lpflhvm31tp" path="res://assets/sound/landing_short.mp3" id="10_5imp2"]
 [ext_resource type="Script" path="res://scenes/player/Jump.gd" id="10_j14sn"]
 [ext_resource type="Script" path="res://scenes/player/Run.gd" id="11_yxnfh"]
 [ext_resource type="Script" path="res://scenes/player/Fall.gd" id="12_o5lwt"]
@@ -255,6 +261,30 @@ tracks/6/keys = {
 "update": 0,
 "values": [1.0]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("SoundFx:stream")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("SoundFx:playing")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_xi6rh"]
 resource_name = "attack_left"
@@ -319,6 +349,30 @@ tracks/4/keys = {
 "update": 0,
 "values": [Vector2(28, 15), Vector2(28, 15)]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("SoundFx:stream")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_4u5bp")]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("SoundFx:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.1, 0.4, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, true, false]
+}
 
 [sub_resource type="Animation" id="Animation_5hfia"]
 resource_name = "attack_left"
@@ -382,6 +436,30 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(28, 15), Vector2(28, 15)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("SoundFx:stream")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_4u5bp")]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("SoundFx:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.1, 0.4, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, true, false]
 }
 
 [sub_resource type="Animation" id="Animation_lasqh"]
@@ -488,6 +566,30 @@ tracks/1/keys = {
 "update": 0,
 "values": [1.0, 1.0]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SoundFx:stream")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("6_yt2th")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SoundFx:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_6f3s2"]
 resource_name = "dead"
@@ -527,6 +629,30 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [1.0, 1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SoundFx:stream")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("6_mhljt")]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SoundFx:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_4itry"]
@@ -613,6 +739,30 @@ tracks/1/keys = {
 "update": 0,
 "values": [1.0]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SoundFx:stream")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("6_p6itr")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SoundFx:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_ki05w"]
 resource_name = "Idle"
@@ -657,6 +807,30 @@ tracks/1/keys = {
 "update": 0,
 "values": [1.0]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SoundFx:stream")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("9_ny4hh")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SoundFx:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_tx6hu"]
 resource_name = "landing"
@@ -684,6 +858,30 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SoundFx:stream")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("10_5imp2")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SoundFx:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_m6fpq"]
@@ -765,12 +963,12 @@ _data = {
 "wall_slide": SubResource("Animation_d16oe")
 }
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hptis"]
-radius = 30.0
-height = 180.0
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4gpg3"]
 size = Vector2(12, 30)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hptis"]
+radius = 30.0
+height = 110.0
 
 [node name="PlayerCharacter" type="CharacterBody2D" groups=["player"]]
 collision_layer = 4
@@ -814,17 +1012,6 @@ drag_top_margin = 0.1
 drag_right_margin = 0.1
 drag_bottom_margin = 0.1
 
-[node name="SoundArea" type="Area2D" parent="." groups=["player_sound_area"]]
-collision_layer = 4
-collision_mask = 0
-monitoring = false
-
-[node name="SoundArea" type="CollisionShape2D" parent="SoundArea"]
-unique_name_in_owner = true
-position = Vector2(0, 10)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_hptis")
-
 [node name="AttackArea" type="Area2D" parent="." groups=["player_attack"]]
 collision_layer = 0
 collision_mask = 8
@@ -849,11 +1036,25 @@ texture = ExtResource("4_uklng")
 script = ExtResource("6_ahp5o")
 
 [node name="Hitbox" type="CollisionShape2D" parent="." groups=["player_hitbox"]]
+visible = false
 position = Vector2(0, 12)
 shape = SubResource("RectangleShape2D_4gpg3")
 
+[node name="SoundArea" type="Area2D" parent="." groups=["player_sound_area"]]
+visible = false
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+
+[node name="SoundArea" type="CollisionShape2D" parent="SoundArea"]
+unique_name_in_owner = true
+position = Vector2(0, 10)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_hptis")
+
 [node name="CollisionArea" type="Area2D" parent="." groups=["player_hitbox"]]
 unique_name_in_owner = true
+visible = false
 light_mask = 12
 visibility_layer = 12
 collision_layer = 4
@@ -943,6 +1144,7 @@ animation_name = "fall"
 sprite = NodePath("../../Sprite")
 
 [node name="Land" type="Node" parent="MovementState" node_paths=PackedStringArray("jump_state", "idle_state", "run_state", "crouch_state", "crouch_walk_state", "hit_state", "character", "animation", "sprite")]
+unique_name_in_owner = true
 script = ExtResource("13_qxj25")
 jump_state = NodePath("../Jump")
 idle_state = NodePath("../Idle")
@@ -1137,6 +1339,11 @@ unique_name_in_owner = true
 position = Vector2(112, 15)
 target_position = Vector2(-20, 0)
 
+[node name="SoundFx" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+max_polyphony = 2
+bus = &"soundfx"
+
 [connection signal="animation_finished" from="Animation" to="MovementState/Land" method="_on_animation_animation_finished"]
 [connection signal="animation_finished" from="Animation" to="MovementState/Hit" method="_on_animation_animation_finished"]
 [connection signal="area_entered" from="AttackArea" to="ActionState/Attack" method="_on_attack_area_area_entered"]
@@ -1152,6 +1359,7 @@ target_position = Vector2(-20, 0)
 [connection signal="cant_fall" from="ActionState/Attack" to="MovementState/Idle" method="_on_attack_cant_fall"]
 [connection signal="cant_fall" from="ActionState/Attack" to="MovementState/Run" method="_on_attack_cant_fall"]
 [connection signal="cant_fall" from="ActionState/Attack" to="MovementState/Fall" method="_on_attack_cant_fall"]
+[connection signal="cant_fall" from="ActionState/Attack" to="MovementState/Land" method="_on_attack_cant_fall"]
 [connection signal="cant_fall" from="ActionState/Attack" to="MovementState/Crouch" method="_on_attack_cant_fall"]
 [connection signal="cant_fall" from="ActionState/Attack" to="MovementState/CrouchWalk" method="_on_attack_cant_fall"]
 [connection signal="timeout" from="ActionState/Attack/AttackTimer" to="ActionState/Attack" method="_on_timer_timeout"]

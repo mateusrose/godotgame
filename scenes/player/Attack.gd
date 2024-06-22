@@ -10,7 +10,7 @@ var anim_ended = false
 signal cant_fall
 
 func enter()-> void:
-	print(" I AM EMITING SIGNAL")
+
 	cant_fall.emit()
 	%Stamina.change("decrease", 5)
 	animation.play("attack"+character.suffix)
@@ -20,6 +20,7 @@ func enter()-> void:
 		attack_timer.wait_time = 0.133
 	elif dash_state.just_dashed:
 		attack_special_animation.play("attack_dash")
+		%SoundFx.pitch_scale = 1.8
 		animation.speed_scale = 3
 		attack_timer.wait_time = 0.277
 	else:
@@ -52,6 +53,7 @@ func exit():
 	anim_ended = false
 	attack_special_animation.play("RESET")
 	%MovementState._on_land_reset_anim()
+	%SoundFx.pitch_scale = 1
 	
 
 func _on_timer_timeout():

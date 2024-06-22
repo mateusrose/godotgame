@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://q7uji5ys1g05"]
+[gd_scene load_steps=22 format=3 uid="uid://q7uji5ys1g05"]
 
 [ext_resource type="PackedScene" uid="uid://bhk4ek2du4d80" path="res://scenes/env/backgroundcyber.tscn" id="1_s0sos"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_yiwd4"]
@@ -19,6 +19,8 @@
 [ext_resource type="Texture2D" uid="uid://t2i4wvablxo1" path="res://assets/effect/light.png" id="16_u8xq2"]
 [ext_resource type="FontFile" uid="uid://b62g8278gi6q6" path="res://assets/font/thaleah_fat.ttf" id="18_838k0"]
 [ext_resource type="Script" path="res://scenes/env/Level2.gd" id="19_syrdp"]
+[ext_resource type="AudioStream" uid="uid://boatvc8jq4uit" path="res://assets/sound/retro-games.mp3" id="20_auxaa"]
+[ext_resource type="PackedScene" uid="uid://cl7tv3ofk4jdw" path="res://scripts/ui/volume_slider.tscn" id="20_gsnim"]
 
 [node name="DemoLevel" type="Node2D"]
 script = ExtResource("1_yiwd4")
@@ -235,6 +237,94 @@ player = NodePath("../../Player")
 wait_time = 8.0
 one_shot = true
 
+[node name="PopUpDeath" type="VBoxContainer" parent="CanvasLayer"]
+unique_name_in_owner = true
+process_mode = 3
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.5
+offset_top = -33.0
+offset_right = 32.5
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Restart" type="Button" parent="CanvasLayer/PopUpDeath"]
+layout_mode = 2
+text = "Restart"
+
+[node name="Quit" type="Button" parent="CanvasLayer/PopUpDeath"]
+layout_mode = 2
+text = "Quit"
+
+[node name="Esc" type="VBoxContainer" parent="CanvasLayer"]
+process_mode = 3
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -20.0
+offset_right = 35.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Resume" type="Button" parent="CanvasLayer/Esc"]
+layout_mode = 2
+text = "Resume"
+
+[node name="Options" type="Button" parent="CanvasLayer/Esc"]
+layout_mode = 2
+text = "Options"
+
+[node name="Quit" type="Button" parent="CanvasLayer/Esc"]
+layout_mode = 2
+text = "Quit"
+
+[node name="Options" type="VBoxContainer" parent="CanvasLayer"]
+process_mode = 3
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.5
+offset_top = -45.5
+offset_right = 22.5
+offset_bottom = 45.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Music2" type="Label" parent="CanvasLayer/Options"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Music"
+
+[node name="Music" parent="CanvasLayer/Options" instance=ExtResource("20_gsnim")]
+layout_mode = 2
+bus_name = "music"
+
+[node name="SoundFx2" type="Label" parent="CanvasLayer/Options"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Sound effects"
+
+[node name="SoundFx" parent="CanvasLayer/Options" instance=ExtResource("20_gsnim")]
+layout_mode = 2
+bus_name = "soundfx"
+
+[node name="Back" type="Button" parent="CanvasLayer/Options"]
+layout_mode = 2
+text = "Back"
+
 [node name="Crouch" type="Label" parent="."]
 offset_left = 49.0
 offset_top = 755.0
@@ -262,5 +352,18 @@ after dash
 is faster"
 horizontal_alignment = 2
 
+[node name="AudioFx" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("20_auxaa")
+volume_db = -30.0
+autoplay = true
+bus = &"music"
+
 [connection signal="timeout" from="CanvasLayer/HealthBar/Timer" to="CanvasLayer/HealthBar" method="_on_timer_timeout"]
 [connection signal="timeout" from="CanvasLayer/Level2/Timer" to="CanvasLayer/Level2" method="_on_timer_timeout"]
+[connection signal="pressed" from="CanvasLayer/PopUpDeath/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="CanvasLayer/PopUpDeath/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="CanvasLayer/Esc/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="CanvasLayer/Esc/Options" to="." method="_on_esc_options_pressed"]
+[connection signal="pressed" from="CanvasLayer/Esc/Quit" to="." method="_on_esc_quit_pressed"]
+[connection signal="pressed" from="CanvasLayer/Options/Back" to="." method="_on_back_pressed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://cemf2cahafpnx"]
+[gd_scene load_steps=37 format=3 uid="uid://cemf2cahafpnx"]
 
 [ext_resource type="Script" path="res://scripts/enemy/nighborne/nightborne.gd" id="1_klouj"]
 [ext_resource type="PackedScene" uid="uid://dsrsb2rni6vrc" path="res://scripts/components/stamina/stamina_component.tscn" id="1_mmtwa"]
@@ -6,6 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://cews67sgg4lr1" path="res://scripts/components/damage/damage_component.tscn" id="2_6lql0"]
 [ext_resource type="Script" path="res://scripts/components/fsm.gd" id="3_o8vn8"]
 [ext_resource type="Texture2D" uid="uid://ddex80f67tyxr" path="res://assets/enemy/nightborne/NightBorne.png" id="4_tp77y"]
+[ext_resource type="AudioStream" uid="uid://eedfu4sk8ofn" path="res://assets/sound/audio-editor-output.mp3" id="6_gp5es"]
+[ext_resource type="AudioStream" uid="uid://bwwgpmlejqlf" path="res://assets/sound/enemy_hurt.mp3" id="7_s6j55"]
+[ext_resource type="AudioStream" uid="uid://yu36h5wal0dm" path="res://assets/sound/enemy_exploe.mp3" id="7_v1bld"]
 [ext_resource type="Script" path="res://scripts/enemy/nighborne/wander.gd" id="8_hp5yy"]
 [ext_resource type="Script" path="res://Return.gd" id="9_67j1w"]
 [ext_resource type="Script" path="res://Idle.gd" id="9_evn28"]
@@ -65,6 +68,30 @@ tracks/1/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SoundFx:stream")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SoundFx:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_m2kla"]
 resource_name = "attack"
@@ -93,6 +120,30 @@ tracks/1/keys = {
 "update": 1,
 "values": [true, false, true]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SoundFx:stream")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("6_gp5es")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SoundFx:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_nahxm"]
 resource_name = "death"
@@ -109,6 +160,30 @@ tracks/0/keys = {
 "update": 1,
 "values": [92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SoundFx:stream")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_v1bld")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SoundFx:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_gmwr5"]
 resource_name = "hit"
@@ -124,6 +199,30 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [69, 70, 71, 72, 73]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SoundFx:stream")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_s6j55")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SoundFx:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
 }
 
 [sub_resource type="Animation" id="Animation_t144r"]
@@ -404,9 +503,15 @@ unique_name_in_owner = true
 target_position = Vector2(55, 75)
 
 [node name="FollowingPlayer" type="Sprite2D" parent="."]
-position = Vector2(6, -23)
+position = Vector2(4, -23)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("19_l8dl2")
+
+[node name="SoundFx" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+volume_db = -21.211
+max_polyphony = 4
+bus = &"soundfx"
 
 [connection signal="health_depleted" from="Health" to="FSM/Hit" method="_on_health_health_depleted"]
 [connection signal="health_hit" from="Health" to="FSM/Hit" method="_on_health_health_hit"]

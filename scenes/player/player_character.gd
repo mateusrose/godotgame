@@ -18,6 +18,7 @@ var is_crouched = false
 @onready var sprite_demon = $DemonSprite
 @export var stage : Node
 
+
 func _ready():
 	movement_state_machine.init()
 	action_state_machine.init()

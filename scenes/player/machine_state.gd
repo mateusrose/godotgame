@@ -38,3 +38,4 @@ func _on_land_reset_anim():
 	%Fall.anim_can_play = true
 	%Crouch.anim_can_play = true
 	%CrouchWalk.anim_can_play = true
+	%Land.anim_can_play = true
