@@ -30,6 +30,8 @@ func enter()-> void:
 	character.SPEED /= 3
 
 func process_physics(_delta:float):
+	if %Health.current_health < 0:
+		animation.play("dead")
 	if anim_ended:
 		if character.is_on_floor():
 			if character.velocity.x == 0 :

@@ -18,6 +18,7 @@ func _process(delta:float):
 	if Input.is_action_just_pressed("esc"):
 		get_tree().paused = true
 		$CanvasLayer/Esc.visible = true
+		$CanvasLayer/Fussy.visible = true
 	self.time += delta * TIME_SCALE;
 	background.set_color(DAY_COLOR.lerp(NIGHT_COLOR, abs(sin(time))));
 	%Light.color = DAY_COLOR_STUFF.lerp(NIGHT_COLOR_STUFF, abs(sin(time)));
@@ -65,6 +66,7 @@ func _on_esc_options_pressed():
 func _on_resume_pressed():
 	get_tree().paused = false
 	$CanvasLayer/Esc.visible = false
+	$CanvasLayer/Fussy.visible = false
 
 
 
@@ -72,3 +74,16 @@ func _on_back_pressed():
 	$CanvasLayer/Options.visible = false
 	$CanvasLayer/Esc.visible = true
 	
+
+
+func _on_controls_back_pressed():
+	$CanvasLayer/Controls.visible = false
+	$CanvasLayer/ControlsPic.visible = false
+	$CanvasLayer/Options.visible = true
+	
+
+
+func _on_options_control_pressed():
+	$CanvasLayer/Options.visible = false
+	$CanvasLayer/Controls.visible = true
+	$CanvasLayer/ControlsPic.visible = true

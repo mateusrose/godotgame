@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://q7uji5ys1g05"]
+[gd_scene load_steps=24 format=3 uid="uid://q7uji5ys1g05"]
 
 [ext_resource type="PackedScene" uid="uid://bhk4ek2du4d80" path="res://scenes/env/backgroundcyber.tscn" id="1_s0sos"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_yiwd4"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://cp626c7i07hj" path="res://spritestest/health_bar_full.png" id="10_nob1q"]
 [ext_resource type="Script" path="res://scripts/ui/statusbar/StaminaBar.gd" id="10_vtai4"]
 [ext_resource type="Script" path="res://scripts/ui/statusbar/TextureProgressBar.gd" id="11_6a4e0"]
+[ext_resource type="Texture2D" uid="uid://h754h1a5uv2o" path="res://assets/blackbackground.png" id="11_331wj"]
 [ext_resource type="Texture2D" uid="uid://dmof6m7sjg4sa" path="res://spritestest/player_life_bar_full_white.png" id="14_1vpbm"]
 [ext_resource type="PackedScene" uid="uid://dlxdtfes4r0w1" path="res://scripts/chest/chest.tscn" id="15_b065d"]
 [ext_resource type="Script" path="res://scenes/env/ligh_control_env.gd" id="16_4pc14"]
@@ -21,6 +22,7 @@
 [ext_resource type="Script" path="res://scenes/env/Level2.gd" id="19_syrdp"]
 [ext_resource type="AudioStream" uid="uid://boatvc8jq4uit" path="res://assets/sound/retro-games.mp3" id="20_auxaa"]
 [ext_resource type="PackedScene" uid="uid://cl7tv3ofk4jdw" path="res://scripts/ui/volume_slider.tscn" id="20_gsnim"]
+[ext_resource type="Texture2D" uid="uid://cy44hafu2ulbg" path="res://assets/CONTROLS.png" id="22_f7jsa"]
 
 [node name="DemoLevel" type="Node2D"]
 script = ExtResource("1_yiwd4")
@@ -184,6 +186,11 @@ stage = NodePath("..")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="Fussy" type="Sprite2D" parent="CanvasLayer"]
+visible = false
+position = Vector2(227, 130)
+texture = ExtResource("11_331wj")
+
 [node name="StaminaBar" type="TextureProgressBar" parent="CanvasLayer"]
 offset_left = 54.0
 offset_top = 31.0
@@ -321,9 +328,38 @@ text = "Sound effects"
 layout_mode = 2
 bus_name = "soundfx"
 
+[node name="Control" type="Button" parent="CanvasLayer/Options"]
+layout_mode = 2
+text = "Controls"
+
 [node name="Back" type="Button" parent="CanvasLayer/Options"]
 layout_mode = 2
 text = "Back"
+
+[node name="Controls" type="VBoxContainer" parent="CanvasLayer"]
+process_mode = 3
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -22.5
+offset_top = -31.0
+offset_right = 22.5
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+
+[node name="Back" type="Button" parent="CanvasLayer/Controls"]
+layout_mode = 2
+text = "Back"
+
+[node name="ControlsPic" type="Sprite2D" parent="CanvasLayer"]
+visible = false
+position = Vector2(246, 116)
+scale = Vector2(0.695564, 0.695564)
+texture = ExtResource("22_f7jsa")
 
 [node name="Crouch" type="Label" parent="."]
 offset_left = 49.0
@@ -366,4 +402,6 @@ bus = &"music"
 [connection signal="pressed" from="CanvasLayer/Esc/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="CanvasLayer/Esc/Options" to="." method="_on_esc_options_pressed"]
 [connection signal="pressed" from="CanvasLayer/Esc/Quit" to="." method="_on_esc_quit_pressed"]
+[connection signal="pressed" from="CanvasLayer/Options/Control" to="." method="_on_options_control_pressed"]
 [connection signal="pressed" from="CanvasLayer/Options/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="CanvasLayer/Controls/Back" to="." method="_on_controls_back_pressed"]
